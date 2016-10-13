@@ -1,144 +1,40 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048) -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-    <title>EMQ Electronic Retail Store</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<html lang="en">
+  <head>
+    <title>test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/catalog.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
 
-    <!-- Le styles -->
-    <link href="./index_files/bootstrap.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
+    footer {
+    background-color: #f2f2f2;
+    padding: 25px;
+    }
     </style>
-	<style>
-	 /* CUSTOMIZE THE CAROUSEL
-    -------------------------------------------------- */
-
-    /* Carousel base class */
-    .carousel {
-      margin-bottom: 60px;
-    }
-
-    .carousel .container {
-      position: relative;
-      z-index: 9;
-    }
-
-    .carousel-control {
-      height: 80px;
-      margin-top: 0;
-      font-size: 120px;
-      text-shadow: 0 1px 1px rgba(0,0,0,.4);
-      background-color: transparent;
-      border: 0;
-      z-index: 10;
-    }
-
-    .carousel .item {
-      height: 500px;
-    }
-    .carousel img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      min-width: 100%;
-      height: 500px;
-    }
-
-    .carousel-caption {
-      background-color: transparent;
-      position: static;
-      max-width: 550px;
-      padding: 0 20px;
-      margin-top: 200px;
-    }
-    .carousel-caption h1,
-    .carousel-caption .lead {
-      margin: 0;
-      line-height: 1.25;
-      color: #fff;
-      text-shadow: 0 1px 1px rgba(0,0,0,.4);
-    }
-    .carousel-caption .btn {
-      margin-top: 10px;
-    }
 	
-    @media (max-width: 979px) {
-	      .carousel .item {
-        height: 500px;
-      }
-      .carousel img {
-        width: auto;
-        height: 500px;
-      }
-	
-	}
-	
-    @media (max-width: 767px) {
-		.carousel {
-			margin-left: -20px;
-			margin-right: -20px;
-		}
-		.carousel .container {
-
-		}
-		.carousel .item {
-			height: 300px;
-		}
-		.carousel img {
-			height: 300px;
-		}
-		.carousel-caption {
-			width: 65%;
-			padding: 0 70px;
-			margin-top: 100px;
-		}
-		.carousel-caption h1 {
-			font-size: 30px;
-		}
-		.carousel-caption .lead,
-		.carousel-caption .btn {
-        font-size: 18px;
-		}
-	}
-
-	</style>
-    <link href="./index_files/bootstrap-responsive.css" rel="stylesheet">
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="../assets/js/html5shiv.js"></script>
-    <![endif]-->
-
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/img/144x144.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/img/114x114.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/img/72x72.png">
-                    <link rel="apple-touch-icon-precomposed" href="/assets/img/57x57.png">
-                                   <link rel="shortcut icon" href="/assets/img/32x32.png">
   </head>
-
   <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">EMQ</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-			  <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
+          <a class="navbar-brand" href="#">EMQ</a>
+          
+        </div>
+        <!-- IN PROGRESS -->
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            	<li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="#">Category 1</a></li>
                   <li><a href="#">Category 2</a></li>
@@ -149,37 +45,26 @@
                   <li><a href="#">Category 5</a></li>
                 </ul>
               </li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-              
-            </ul>
-            <form class="navbar-form pull-right">
-              <input class="span2" type="text" placeholder="Email">
-              <input class="span2" type="password" placeholder="Password">
-              <button type="submit" class="btn">Sign in</button>
-            </form>
-          </div><!--/.nav-collapse -->
-		  
+
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+  
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+          </ul>
         </div>
       </div>
-    </div>
-
-    <div class="container">
-
-      <!-- Main hero unit for a primary marketing message or call to action -->
-      <!-- <div class="hero-unit">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a href="#" class="btn btn-primary btn-large">Learn more »</a></p>
-      </div>
-	  -->
-
-   <!-- Carousel
+    </nav>
+	
+	
+	 <!-- Carousel
     ================================================== -->
     <div id="myCarousel" class="carousel slide">
       <div class="carousel-inner">
         <div class="item active">
-          <img src="/assets/img/logo.png" alt="">
+          <img src="./assets/img/blank800x600.png" alt="">
           <div class="container">
             <div class="carousel-caption">
               <h1>Example headline.</h1>
@@ -189,7 +74,7 @@
           </div>
         </div>
         <div class="item">
-          <img src="/assets/img/logo.png" alt="">
+          <img src="./assets/img/blank800x600.png" alt="">
           <div class="container">
             <div class="carousel-caption">
               <h1>Another example headline.</h1>
@@ -199,7 +84,7 @@
           </div>
         </div>
         <div class="item">
-          <img src="/assets/img/logo.png" alt="">
+          <img src="./assets/img/blank800x600.png" alt="">
           <div class="container">
             <div class="carousel-caption">
               <h1>One more for good measure.</h1>
@@ -213,31 +98,312 @@
       <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
     </div><!-- /.carousel -->
 
-      <hr>
-
-      <footer>
-        <p>© AMQ Company 2016</p>
-      </footer>
-
-    </div> <!-- /container -->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./index_files/jquery.js.download"></script>
-    <script src="./index_files/bootstrap-transition.js.download"></script>
-    <script src="./index_files/bootstrap-alert.js.download"></script>
-    <script src="./index_files/bootstrap-modal.js.download"></script>
-    <script src="./index_files/bootstrap-dropdown.js.download"></script>
-    <script src="./index_files/bootstrap-scrollspy.js.download"></script>
-    <script src="./index_files/bootstrap-tab.js.download"></script>
-    <script src="./index_files/bootstrap-tooltip.js.download"></script>
-    <script src="./index_files/bootstrap-popover.js.download"></script>
-    <script src="./index_files/bootstrap-button.js.download"></script>
-    <script src="./index_files/bootstrap-collapse.js.download"></script>
-    <script src="./index_files/bootstrap-carousel.js.download"></script>
-    <script src="./index_files/bootstrap-typeahead.js.download"></script>
-
-  
-
-</body></html>
+    <!--- PRODUCT CATALOG 
+    ======================================= -->
+    <div class="container">
+      <div class="row">
+        <div class="row">
+          <div class="col-md-9">
+            <h3>Best Sellers</h3>
+          </div>
+          <div class="col-md-3">
+            <!-- Controls -->
+            <div class="controls pull-right ">
+              <a class="glyphicon glyphicon-chevron-left btn btn-primary" href="#carousel-example"
+              data-slide="prev"></a><a class="glyphicon glyphicon-chevron-right btn btn-primary" href="#carousel-example"
+            data-slide="next"></a>
+          </div>
+        </div>
+      </div>
+      <div id="carousel-example" class="carousel slide " data-ride="carousel">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          <div class="item active">
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="col-item">
+                  <a href=:"#">
+                    <div class="photo">
+                      <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
+                    </div>
+                  </a>
+                  <div class="info">
+                    <div class="row">
+                      <div class="price col-md-6">
+                        <h5>Product #1</h5>
+                        <h5 class="price-text-color">
+                        $199.99</h5>
+                      </div>
+                      <div class="rating  col-md-6">
+                        <i class="price-text-color "></i><i class="price-text-color ">
+                        </i><i class="price-text-color "></i><i class="price-text-color ">
+                        </i><i class=""></i>
+                      </div>
+                    </div>
+                    <div class="separator clear-left">
+                      <p class="btn-add">
+                        <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
+                        <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
+                        <p class="btn-more">
+                          <span class="glyphicon glyphicon-th-list more-list"></span>
+                          <a href="#" class="">View More</a>
+                        </p>
+                      </div>
+                      <div class="clearfix">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="col-item">
+                    <a href=:"#">
+                      <div class="photo">
+                        <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
+                      </div>
+                    </a>
+                    <div class="info">
+                      <div class="row">
+                        <div class="price col-md-6">
+                          <h5>
+                          Product #2</h5>
+                          <h5 class="price-text-color">
+                          $499.99</h5>
+                        </div>
+                        <div class="rating  col-md-6">
+                        </div>
+                      </div>
+                      <div class="separator clear-left">
+                        <p class="btn-add">
+                          <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
+                          <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
+                          <p class="btn-more">
+                            <span class="glyphicon glyphicon-th-list more-list"></span>
+                            <a href="#" class="">View More</a>
+                          </p>
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="col-item">
+                      <a href="">
+                        <div class="photo">
+                          <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
+                        </div>
+                      </a>
+                      <div class="info">
+                        <div class="row">
+                          <div class="price col-md-6">
+                            <h5>Product #3</h5>
+                            <h5 class="price-text-color">$149.99</h5>
+                          </div>
+                          <div class="rating  col-md-6">
+                            <i class="price-text-color "></i><i class="price-text-color ">
+                            </i><i class="price-text-color "></i><i class="price-text-color ">
+                            </i><i class=""></i>
+                          </div>
+                        </div>
+                        <div class="separator clear-left">
+                          <p class="btn-add">
+                            <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
+                            <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
+                            <p class="btn-more">
+                              <span class="glyphicon glyphicon-th-list more-list"></span>
+                              <a href="#" class="">View More</a>
+                            </p>
+                          </div>
+                          <div class="clearfix">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="col-item">
+                        <a href="">
+                          <div class="photo">
+                            <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
+                          </div>
+                        </a>
+                        <div class="info">
+                          <div class="row">
+                            <div class="price col-md-6">
+                              <h5>
+                              Product #4</h5>
+                              <h5 class="price-text-color">
+                              $1999.99</h5>
+                            </div>
+                            <div class="rating  col-md-6">
+                              <i class="price-text-color "></i><i class="price-text-color ">
+                              </i><i class="price-text-color "></i><i class="price-text-color ">
+                              </i><i class=""></i>
+                            </div>
+                          </div>
+                          <div class="separator clear-left">
+                            <p class="btn-add">
+                              <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
+                              <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
+                              <p class="btn-more">
+                                <span class="glyphicon glyphicon-th-list more-list"></span>
+                                <a href="#" class="">View More</a>
+                              </p>
+                              
+                            </div>
+                            <div class="clearfix">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <div class="col-item">
+                          <div class="photo">
+                            <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
+                          </div>
+                          <div class="info">
+                            <div class="row">
+                              <div class="price col-md-6">
+                                <h5>
+                                Product #5</h5>
+                                <h5 class="price-text-color">
+                                $199.99</h5>
+                              </div>
+                              <div class="rating  col-md-6">
+                                <i class="price-text-color "></i><i class="price-text-color ">
+                                </i><i class="price-text-color "></i><i class="price-text-color ">
+                                </i><i class=""></i>
+                              </div>
+                            </div>
+                            <div class="separator clear-left">
+                              <p class="btn-add">
+                                <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
+                                <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
+                                <p class="btn-more">
+                                  <span class="glyphicon glyphicon-th-list more-list"></span>
+                                  <a href="#" class="">View More</a>
+                                </p>
+                              </div>
+                              <div class="clearfix">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="col-item">
+                            <div class="photo">
+                              <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
+                            </div>
+                            <div class="info">
+                              <div class="row">
+                                <div class="price col-md-6">
+                                  <h5>
+                                  Product #6</h5>
+                                  <h5 class="price-text-color">
+                                  $375.99</h5>
+                                </div>
+                                <div class="rating  col-md-6">
+                                </div>
+                              </div>
+                              <div class="separator clear-left">
+                                <p class="btn-add">
+                                  <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
+                                  <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
+                                  <p class="btn-more">
+                                    <span class="glyphicon glyphicon-th-list more-list"></span>
+                                    <a href="#" class="">View More</a>
+                                  </p>
+                                  
+                                </div>
+                                <div class="clearfix">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3">
+                            <div class="col-item">
+                              <div class="photo">
+                                <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
+                              </div>
+                              <div class="info">
+                                <div class="row">
+                                  <div class="price col-md-6">
+                                    <h5>
+                                    Product #7</h5>
+                                    <h5 class="price-text-color">
+                                    $149.99</h5>
+                                  </div>
+                                  <div class="rating  col-md-6">
+                                    <i class="price-text-color "></i><i class="price-text-color ">
+                                    </i><i class="price-text-color "></i><i class="price-text-color ">
+                                    </i>
+                                  </div>
+                                </div>
+                                <div class="separator clear-left">
+                                  <p class="btn-add">
+                                    <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
+                                    <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
+                                    <p class="btn-more">
+                                      <span class="glyphicon glyphicon-th-list more-list"></span>
+                                      <a href="#" class="">View More</a>
+                                    </p>
+                                    
+                                  </div>
+                                  <div class="clearfix">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-3">
+                              <div class="col-item">
+                                <div class="photo">
+                                  <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
+                                </div>
+                                <div class="info">
+                                  <div class="row">
+                                    <div class="price col-md-6">
+                                      <h5>
+                                      Product #8</h5>
+                                      <h5 class="price-text-color">
+                                      $199.99</h5>
+                                    </div>
+                                    <!-- can add rating through here-->
+                                    <div class="rating  col-md-6">
+                                      <i class="price-text-color "></i><i class="price-text-color ">
+                                      </i><i class="price-text-color "></i><i class="price-text-color ">
+                                      </i><i class=""></i>
+                                    </div>
+                                  </div>
+                                  <div class="separator clear-right">
+                                    <p class="btn-add">
+                                      <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
+                                      <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
+                                      <p class="btn-more">
+                                        <span class="glyphicon glyphicon-th-list more-list"></span>
+                                        <a href="#" class="">View More</a>
+                                      </p>
+                                      
+                                    </div>
+                                    <div class="clearfix">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  
+                  <!--- END PRODUCT CATALOG  -->
+                  <br><br><br>
+                  <footer class="">
+                    EMQ CORPORATION
+                  </footer>
+                </body>
+              </html>
