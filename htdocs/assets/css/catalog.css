@@ -1,3 +1,21 @@
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+}
+
+
+#logo {
+  float: left;
+  width: 40px;
+  height: 40px;
+  top: -9px;
+  position: relative;
+}
+
 .cart-add-logo{
     color: #219FD1;
 }
@@ -5,9 +23,46 @@
 .more-list{
     color: #219FD1;
 }
+
 .clear-left
 {
     clear: left;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+.input-group {
+    width: 100%;
+    text-align:center;
+}
+
+.input-group-btn {
+    text-align: left;
+}
+
+#myCarousel {
+    height: 500px;
+    margin-top: 0px;
+    margin-bottom: 30px;
+}
+
+#myCarousel .item {
+    height: 500px;
+    background-color: #fff;
+}
+
+#carousel-inner-1 > .item > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 500px;
+}
+
+#left_carousel, #right_carousel {
+    background-image: none;
 }
 
 .col-item
@@ -92,8 +147,8 @@
 }
 .controls
 {
-    margin-top: 20px;
-    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 12px;
 }
 [data-slide="prev"]
 {
