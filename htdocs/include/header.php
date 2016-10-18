@@ -14,7 +14,7 @@
                 $('.modal-toggle').click(function (e) {
                     var tab = e.target.hash;
                     $('li > a[href="' + tab + '"]').tab("show");
-                    $('li').removeClass('active');
+                    $(e.target).parent().removeClass('active');
                 });
             });
         </script>
