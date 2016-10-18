@@ -1,0 +1,21 @@
+/bin
+/cgi-bin
+/conf
+/db
+/de
+/en
+/fcgi-bin
+/htdocs archive
+/libs
+/licences
+/logs
+/REDIST
+/x64
+/x86
+*.dll
+*.exe
+MAMP.exe.config
+*.xml
+unins000.msg
+*.dat
+/htdocs/nbproject
