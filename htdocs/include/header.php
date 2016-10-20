@@ -9,6 +9,7 @@
         <link rel="stylesheet" type="text/css" href="css/login-form.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
         <script>
             $(document).ready(function () {
                 $('.modal-toggle').click(function (e) {
@@ -55,7 +56,7 @@
                             </ul>
                         </li>
 
-                        <li><a href="about.php">About Us</a></li>
+                        <li><a href="contact.php">Contact Us</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <?php if (isset($_SESSION['loggedin_user'])) : ?>

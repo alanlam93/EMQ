@@ -1,0 +1,27 @@
+#map-container {
+    height: 500px;
+    width: 800px;
+    margin: 0 auto;
+}
+    
+.store-list{
+        float: right;
+        width: 300px;
+        margin: 0 auto;
+}
+
+.store-list ol{
+        overflow: auto;
+        max-height: 500px;
+}
+
+.map-list-container{
+        margin: 0 auto;
+        text-align: left;
+        width: 1100px;
+}
+
+.list-group a{
+        text-decoration: none;
+
+}
