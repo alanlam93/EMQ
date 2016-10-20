@@ -112,7 +112,7 @@
                                 <li><a href="#">Category 5</a></li>
                             </ul>
                         </li>
-                        <li><a href="about.php">About Us</a></li>
+                        <li><a href="contact.php">Contact Us</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <?php if (isset($_SESSION['userid'])) : ?>
