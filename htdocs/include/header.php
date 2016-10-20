@@ -85,6 +85,13 @@
     </head>
     <body>
         <?php include 'login-form.php' ?>
+		<!-- NAVBAR VARIABLES -->
+		<?php 
+		$home="index.php";
+		$logo="./img/logo_noBG2.png";
+		$contact = "contact.php";
+		$account = "account.php";
+		?>
         <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -93,13 +100,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.php"><img src="../img/logo_noBG2.png" id="logo"/></a>
+                    <a class="navbar-brand" href="<? $home ?>"><img src="<? $logo ?>" id="logo"/></a>
 
                 </div>
                 <!-- IN PROGRESS -->
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.php">Home</a></li>
+                        <li class="active"><a href="<? $home ?>">Home</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a>
                             <ul class="dropdown-menu">
@@ -112,18 +119,18 @@
                                 <li><a href="#">Category 5</a></li>
                             </ul>
                         </li>
-                        <li><a href="contact.php">Contact Us</a></li>
+                        <li><a href="<? $contact ?>">Contact Us</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <?php if (isset($_SESSION['userid'])) : ?>
                             <li><a>Hello, <?php echo $_SESSION['name'] ?></a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+                            <li><a href="<? $account ?>"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
                             <li><a href="logout.php">Logout</a></li>
                             <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                         <?php else : ?>
                             <li><a href="#login" class="modal-toggle" data-toggle="modal" data-target="#login-register-modal">Login</a></li>
                             <li><a href="#register" class="modal-toggle" data-toggle="modal" data-target="#login-register-modal">Register</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li><!--Should not be accessible if not logged in?-->
                         <?php endif; ?>
                     </ul>
                     <!-- Search Bar -->
