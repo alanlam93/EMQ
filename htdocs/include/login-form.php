@@ -2,14 +2,12 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    ×</button>
-                <h4 class="modal-title" id="myModalLabel">
-                    EMQ</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">EMQ</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
@@ -18,81 +16,95 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div class="tab-pane active" id="login">
-                                <form role="form" class="form-horizontal">
+                                <form id="login-form" role="form" class="form-horizontal" data-toggle="validator">
                                     <div class="form-group">
-                                        <label for="email" class="col-sm-2 control-label">
-                                            Email</label>
+                                        <label for="email" class="col-sm-2 control-label">Email</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="email1" placeholder="Email" />
+                                            <input type="email" name="email" class="form-control" id="email1" placeholder="Email" data-error="Please enter your email address." data-required-error="Please enter your email address." required />
+                                            <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1" class="col-sm-2 control-label">
-                                            Password</label>
+                                        <label for="login-password" class="col-sm-2 control-label">Password</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+                                            <input type="password" name="password" class="form-control" id="login-password" placeholder="Password" data-error="Please enter your password." data-required-error="Please enter your password." required />
+                                            <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-5">
                                         </div>
-                                        <div class="col-sm-10">
-                                            <button type="submit" class="btn btn-primary btn-sm">
-                                                Login</button>
-                                            <a href="javascript:;">Forgot your password?</a>
+                                        <div class="col-sm-5">
+                                            <button type="submit" class="btn btn-primary btn-sm">Login</button>
+                                            <button type="button" class="btn btn-default btn-sm modal-close">Cancel</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="tab-pane" id="register">
-                                <form role="form" class="form-horizontal">
+                                <form id="register-form" method="post" role="form" class="form-horizontal" data-toggle="validator">
                                     <div class="form-group">
-                                        <label for="email" class="col-sm-2 control-label">
-                                            Name</label>
+                                        <label for="name" class="col-sm-2 control-label">Name</label>
                                         <div class="col-sm-10">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" placeholder="First Name" />
+                                                    <input type="text" id="name" name="first_name" class="form-control" placeholder="First Name" data-error="Please enter your name." data-required-error="Please enter your name." required />
+                                                    <div class="help-block with-errors"></div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" placeholder="Last Name" />
+                                                    <input type="text" name="last_name" class="form-control" placeholder="Last Name" data-error="Please enter your name." data-required-error="Please enter your name." required />
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="email" class="col-sm-2 control-label">
-                                            Email</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="email" placeholder="Email" />
+                                        <label for="email" class="col-sm-2 control-label">Email</label>
+                                        <div class="col-sm-6">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" data-delay="1000" data-remote="include/register.php" data-error="This email address is invalid or already being used." data-required-error="Please enter your email address." required />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="password" class="col-sm-2 control-label">
-                                            Password</label>
-                                        <div class="col-sm-10">
-                                            <input type="password" class="form-control" id="password" placeholder="Password" />
+                                        <label for="password" class="col-sm-2 control-label">Password</label>
+                                        <div class="col-sm-5">
+                                            <input type="password" name="password" class="form-control" id="password" placeholder="Password" data-error="Please enter your password." data-required-error="Please enter your password." required />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="mobile" class="col-sm-2 control-label">
-                                            Address</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="mobile" placeholder="Address" />
+                                        <label for="password-reenter" class="col-sm-2 control-label">Re-enter Password</label>
+                                        <div class="col-sm-5">
+                                            <input type="password" class="form-control" id="password-reenter" placeholder="Re-enter Password" data-match="#password" data-match-error="Your passwords do not match." data-error="Please re-enter your password." data-required-error="Please re-enter your password." required />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="mobile" class="col-sm-2 control-label">
-                                            City</label>
+                                        <label for="address" class="col-sm-2 control-label">Address</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="mobile" placeholder="City" />
+                                            <input type="text" name="address" class="form-control" id="address" placeholder="Address" data-error="Please enter your address." data-required-error="Please enter your address." required />
+                                            <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="mobile" class="col-sm-2 control-label">
-                                            State</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" id="state" name="state">
+                                        <label for="city" class="col-sm-2 control-label">City</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="city" class="form-control" id="city" placeholder="City" data-error="Please enter your city." data-required-error="Please enter your city." required />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="state" class="col-sm-2 control-label">State</label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control" id="state" name="state" data-error="Please select your state." data-required-error="Please select your state." required>
                                                 <option value="">Select State</option>
                                                 <option value="AK">Alaska</option>
                                                 <option value="AL">Alabama</option>
@@ -148,22 +160,32 @@
                                                 <option value="WY">Wyoming</option>
                                             </select>
                                         </div>
+                                        <div class="col-sm-4">
+                                            <div class="help-block with-errors"></div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="mobile" class="col-sm-2 control-label">
-                                            Zip</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="mobile" placeholder="Zip Code" />
+                                        <label for="zip" class="col-sm-2 control-label">Zip</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" name="zip" class="form-control" id="zip" pattern="^\d{5}(?:-\d{4})?$" placeholder="Zip Code" data-error="Please enter a valid zip code." data-required-error="Please enter your zip code." required />
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div id="register-error" class="help-block with-errors"></div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-5">
                                         </div>
-                                        <div class="col-sm-10">
-                                            <button type="button" class="btn btn-primary btn-sm">
-                                                Register</button>
-                                            <button type="button" class="btn btn-default btn-sm" onclick="$('#login-register-modal').modal('hide');">
-                                                Cancel</button>
+                                        <div class="col-sm-5">
+                                            <button type="submit" id="register-submit" class="btn btn-primary btn-sm">Register</button>
+                                            <button type="button" class="btn btn-default btn-sm modal-close">Cancel</button>
                                         </div>
                                     </div>
                                 </form>

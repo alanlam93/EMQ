@@ -1,20 +1,78 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>EMQ Electronics Store</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/catalog.css">
         <link rel="stylesheet" type="text/css" href="css/login-form.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script>
             $(document).ready(function () {
                 $('.modal-toggle').click(function (e) {
                     var tab = e.target.hash;
                     $('li > a[href="' + tab + '"]').tab("show");
                     $(e.target).parent().removeClass('active');
+                });
+
+                $('.modal-close').click(function () {
+                    $('#login-register-modal').modal('hide');
+                });
+
+                $('.modal').on('hidden.bs.modal', function () {
+                    $(this).find('form')[0].reset();
+                    $(this).find('form')[1].reset();
+                });
+
+                $('#register-form').validator().on('submit', function (e) {
+                    if (!e.isDefaultPrevented()) {
+                        e.preventDefault();
+                        $.ajax({
+                            type: "POST",
+                            url: "include/register.php",
+                            data: $('#register-form').serialize(),
+                            success: function (msg) {
+                                if (msg) {
+                                    $("#register-error").html(msg);
+                                } else {
+                                    $('#login-register-modal').modal('hide');
+                                    $('#register-form')[0].reset();
+                                    location.reload(); 
+                                }
+                            },
+                            error: function () {
+                                $("#register-error").html("An error occured while registering your account.");
+                            }
+                        });
+                    }
+                });
+                $('#login-form').validator().on('submit', function (e) {
+                    if (!e.isDefaultPrevented()) {
+                        e.preventDefault();
+                        $.ajax({
+                            type: "POST",
+                            url: "include/login.php",
+                            data: $('#register-form').serialize(),
+                            success: function (msg) {
+                                if (msg) {
+                                    $("#register-error").html(msg);
+                                } else {
+                                    $('#login-register-modal').modal('hide');
+                                    $('#register-form')[0].reset();
+                                    location.reload(); 
+                                }
+                            },
+                            error: function () {
+                                $("#register-error").html("An error occured while registering your account.");
+                            }
+                        });
+                    }
                 });
             });
         </script>
@@ -35,7 +93,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="../img/logo_noBG2.png" id="logo"/></a>
+                    <a class="navbar-brand" href="index.php"><img src="../img/logo_noBG2.png" id="logo"/></a>
 
                 </div>
                 <!-- IN PROGRESS -->
@@ -54,18 +112,19 @@
                                 <li><a href="#">Category 5</a></li>
                             </ul>
                         </li>
-
                         <li><a href="about.php">About Us</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <?php if (isset($_SESSION['loggedin_user'])) : ?>
+                        <?php if (isset($_SESSION['userid'])) : ?>
+                            <li><a>Hello, <?php echo $_SESSION['name'] ?></a></li>
                             <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+                            <li><a href="logout.php">Logout</a></li>
                             <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                         <?php else : ?>
                             <li><a href="#login" class="modal-toggle" data-toggle="modal" data-target="#login-register-modal">Login</a></li>
                             <li><a href="#register" class="modal-toggle" data-toggle="modal" data-target="#login-register-modal">Register</a></li>
                             <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-                        <?php endif; ?> 
+                        <?php endif; ?>
                     </ul>
                     <!-- Search Bar -->
                     <div class="nav-col nac-col-elastic">
