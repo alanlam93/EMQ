@@ -1,5 +1,5 @@
 <?php
-    session_start();
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +13,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/catalog.css">
         <link rel="stylesheet" type="text/css" href="css/login-form.css">
+        <link rel="stylesheet" href="css/contact.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]-->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
+        <!--[endif]-->
         <script>
             $(document).ready(function () {
                 $('.modal-toggle').click(function (e) {
@@ -43,7 +49,7 @@
                                 } else {
                                     $('#login-register-modal').modal('hide');
                                     $('#register-form')[0].reset();
-                                    location.reload(); 
+                                    location.reload();
                                 }
                             },
                             error: function () {
@@ -65,7 +71,7 @@
                                 } else {
                                     $('#login-register-modal').modal('hide');
                                     $('#login-form')[0].reset();
-                                    location.reload(); 
+                                    location.reload();
                                 }
                             },
                             error: function () {
@@ -80,18 +86,19 @@
             footer {
                 background-color: #f2f2f2;
                 padding: 25px;
+                height: 70px;
             }
         </style>
     </head>
     <body>
-        <?php include 'login-form.php' ?>
-		<!-- NAVBAR VARIABLES -->
-		<?php 
-		$home="index.php";
-		$logo="./img/logo_noBG2.png";
-		$contact = "contact.php";
-		$account = "account.php";
-		?>
+        <?php
+        include('login-form.php');
+        # NAVBAR VARIABLES
+        $home = "index.php";
+        $logo = "./img/logo_noBG2.png";
+        $contact = "contact.php";
+        $account = "account.php";
+        ?>
         <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container-fluid">
                 <div class="navbar-header">
