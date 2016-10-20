@@ -58,18 +58,18 @@
                         $.ajax({
                             type: "POST",
                             url: "include/login.php",
-                            data: $('#register-form').serialize(),
+                            data: $('#login-form').serialize(),
                             success: function (msg) {
                                 if (msg) {
-                                    $("#register-error").html(msg);
+                                    $("#login-error").html(msg);
                                 } else {
                                     $('#login-register-modal').modal('hide');
-                                    $('#register-form')[0].reset();
+                                    $('#login-form')[0].reset();
                                     location.reload(); 
                                 }
                             },
                             error: function () {
-                                $("#register-error").html("An error occured while registering your account.");
+                                $("#login-error").html("An error occured while logging in.");
                             }
                         });
                     }

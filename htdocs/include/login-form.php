@@ -31,6 +31,13 @@
                                             <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
+                                    <div class="row has-error has-danger">
+                                        <div class="col-sm-3">
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <div id="login-error" class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-sm-5">
                                         </div>
@@ -173,7 +180,7 @@
                                             <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="row has-error has-danger">
                                         <div class="col-sm-4">
                                         </div>
                                         <div class="col-sm-6">
