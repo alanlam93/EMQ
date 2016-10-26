@@ -15,6 +15,8 @@
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">
+                                    <div id="notifications">
+                                    </div>
                                     <div class="tab-pane active" id="login">
                                         <form id="login-form" class="form-horizontal" data-toggle="validator">
                                             <div class="form-group">
@@ -29,13 +31,6 @@
                                                 <div class="col-sm-10">
                                                     <input type="password" name="password" class="form-control" id="login-password" placeholder="Password" data-error="Please enter your password." data-required-error="Please enter your password." required />
                                                     <div class="help-block with-errors"></div>
-                                                </div>
-                                            </div>
-                                            <div class="row has-error has-danger">
-                                                <div class="col-sm-3">
-                                                </div>
-                                                <div class="col-sm-7">
-                                                    <div id="login-error" class="help-block with-errors"></div>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -178,13 +173,6 @@
                                                 </div>
                                                 <div class="col-sm-5">
                                                     <div class="help-block with-errors"></div>
-                                                </div>
-                                            </div>
-                                            <div class="row has-error has-danger">
-                                                <div class="col-sm-4">
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div id="register-error" class="help-block with-errors"></div>
                                                 </div>
                                             </div>
                                             <div class="row">

@@ -20,6 +20,20 @@ session_start();
         <script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
         <!--[endif]-->
         <script>
+
+            function getErrorMessage(x) {
+                return "<div class=\"alert alert-danger fade in\" id=\"notification-box\">" + 
+                "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>" +
+                "<strong>Error!</strong> " + x +
+                "</div>";
+            }
+
+            function getSuccessMessage(x) {
+                return "<div class=\"alert alert-success fade in\" id=\"notification-box\">" + 
+                "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>" +
+                "<strong>Success!</strong> " + x +
+                "</div>";
+            }
             $(document).ready(function () {
                 $('.modal-toggle').click(function (e) {
                     var tab = e.target.hash;
@@ -34,6 +48,7 @@ session_start();
                 $('.modal').on('hidden.bs.modal', function () {
                     $(this).find('form')[0].reset();
                     $(this).find('form')[1].reset();
+                    $(".close").click();
                 });
 
                 $('#register-form').validator().on('submit', function (e) {
@@ -45,7 +60,7 @@ session_start();
                             data: $('#register-form').serialize(),
                             success: function (msg) {
                                 if (msg) {
-                                    $("#register-error").html(msg);
+                                    $("#notifications").html(getErrorMessage(msg));
                                 } else {
                                     $('#login-register-modal').modal('hide');
                                     $('#register-form')[0].reset();
@@ -53,7 +68,7 @@ session_start();
                                 }
                             },
                             error: function () {
-                                $("#register-error").html("An error occured while registering your account.");
+                                $("#notifications").html(getErrorMessage("An error occured while registering your account."));
                             }
                         });
                     }
@@ -67,7 +82,7 @@ session_start();
                             data: $('#login-form').serialize(),
                             success: function (msg) {
                                 if (msg) {
-                                    $("#login-error").html(msg);
+                                    $("#notifications").html(getErrorMessage(msg));
                                 } else {
                                     $('#login-register-modal').modal('hide');
                                     $('#login-form')[0].reset();
@@ -75,7 +90,7 @@ session_start();
                                 }
                             },
                             error: function () {
-                                $("#login-error").html("An error occured while logging in.");
+                                $("#notifications").html(getErrorMessage("An error occured while logging in."));
                             }
                         });
                     }
@@ -107,7 +122,7 @@ session_start();
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?= $home ?>"><img src="<?= $logo ?>" id="logo"/></a>
+                    <a class="navbar-brand" href="<?= $home ?>"><img src="<?= $logo ?>" id="logo" alt="EMQ" /></a>
 
                 </div>
                 <!-- IN PROGRESS -->
@@ -131,7 +146,7 @@ session_start();
                     <ul class="nav navbar-nav navbar-right">
                         <?php if (isset($_SESSION['userid'])) : ?>
                             <li><a>Hello, <?php echo $_SESSION['name'] ?></a></li>
-                            <li><a href="<?= $account ?>"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+                            <li><a href="<?= $account ?>"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
                             <li><a href="logout.php">Logout</a></li>
                             <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                         <?php else : ?>
