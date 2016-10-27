@@ -2,18 +2,20 @@
     height: 500px;
     width: 800px;
     margin: 0 auto;
+    position: absolute;
 }
-    
-.store-list{
+
+#store-results{
         float: right;
         width: 300px;
         margin: 0 auto;
-}
-
-.store-list ol{
         overflow: auto;
         max-height: 500px;
+
+        position: relative;
 }
+
+
 
 .map-list-container{
         margin: 0 auto;
@@ -24,4 +26,9 @@
 .list-group a{
         text-decoration: none;
 
+}
+
+.list-group-item a{
+    display:block;
+    height: 100%;
 }
