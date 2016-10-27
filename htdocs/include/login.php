@@ -17,10 +17,10 @@ if ($result->num_rows > 0) {
         $_SESSION["userid"] = $row['id'];
         $_SESSION["name"] = $row['first_name'];
     } else {
-        echo "No account with this username and password was found.";
+        echo "No account with this email and password was found.";
     }
 } else {
-    echo "No account with this username and password was found.";
+    echo "No account with this email and password was found.";
 }
 $result->close();
 $mysqli->close();
