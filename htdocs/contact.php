@@ -126,8 +126,9 @@
         </a>
     </ol>
     
+    
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNFssYGfC3PBwUPiG6NLWNloRKq5N-5FM"></script>
     <script type="text/javascript">
         var locations = [
             ['5604 Bay St, Emeryville, CA 94608', 37.833451, -122.292839],
