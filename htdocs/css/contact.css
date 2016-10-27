@@ -5,6 +5,8 @@
     position: absolute;
 }
 
+
+
 #store-results{
         float: right;
         width: 300px;
@@ -31,4 +33,18 @@
 .list-group-item a{
     display:block;
     height: 100%;
+}
+
+.list-group-item {
+    display: block;
+}
+
+@media (max-width: 768px){
+    .panel, .panel-body, .panel-footer{ 
+        border: 0;
+    }
+
+    .swiper-slide{
+        border: 0;
+    }
 }

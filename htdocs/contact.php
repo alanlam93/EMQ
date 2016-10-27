@@ -18,7 +18,7 @@
         
         <a href="javascript:triggerClick(1)" id="loc2">
             <li class="list-group-item">
-                <div class="store-marker"><h3>B</h3></div>
+                <div class="store-marker"><h3>B </h3></div>
                 <div class="store-content">
                     <span class="glyphicon glyphicon-map-marker"></span>
                     Union Landing Shopping Center<br>31350 Courthouse Dr<br> Union City, CA 94587
@@ -126,7 +126,7 @@
         </a>
     </ol>
     
-    
+
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNFssYGfC3PBwUPiG6NLWNloRKq5N-5FM"></script>
     <script type="text/javascript">
