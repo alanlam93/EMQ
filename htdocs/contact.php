@@ -2,8 +2,8 @@
 <div class="map-list-container" style="height:550px">
     <h1 style="white-space: pre;"> Store Locations</h1>
     <div id="map-container" class="col-md-6 hidden-sm hidden-xs"></div>
-    
-    <ol class="list-group" id="store-results">
+
+  <ol class="list-group" id="storeResults">
         <a href="javascript:triggerClick(0)" id="loc1">
              <li class="list-group-item">
                 <div class="store-marker"><h3>A</h3></div>
@@ -124,7 +124,7 @@
                 
             </li>
         </a>
-    </ol>
+    </ol> -->
     
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->

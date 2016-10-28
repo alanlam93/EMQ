@@ -7,16 +7,6 @@
 
 
 
-#store-results{
-        float: right;
-        width: 300px;
-        margin: 0 auto;
-        overflow: auto;
-        max-height: 500px;
-
-        position: relative;
-}
-
 
 
 .map-list-container{
@@ -39,12 +29,12 @@
     display: block;
 }
 
-@media (max-width: 768px){
-    .panel, .panel-body, .panel-footer{ 
-        border: 0;
-    }
-
-    .swiper-slide{
-        border: 0;
-    }
+#storeResults{
+        float: right;
+        width: 300px;
+        margin: 0 auto;
+        overflow: auto;
+        max-height: 500px;
+        position: relative;
 }
+
