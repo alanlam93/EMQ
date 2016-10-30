@@ -1,9 +1,25 @@
-<?php require 'include/header.php'; ?>
+<?php
+require('include/header.php');
+require_once("include/mysql-config.php");
+
+$mysqli = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
+if ($mysqli === null) {
+    echo "An error occured while connecting to the database.";
+    return;
+}
+
+$result = $mysqli->query("SELECT name, price, img_src FROM inventory WHERE is_best_seller = 1");
+$bestSellers = array();
+while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+    $bestSellers[] = $row;
+}
+$result->close();
+$mysqli->close();
+?>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.0/css/swiper.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.0/js/swiper.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.0/js/swiper.jquery.min.js"></script>
-        <!-- Carousel
-        ================================================== -->
+        <!-- Carousel ================================================== -->
         <div id="myCarousel" class="carousel slide">
             <div id="carousel-inner-1" class="carousel-inner">
                 <div class="item active">
@@ -48,18 +64,19 @@
         <h1 style="margin-left: 10px;">Best Sellers </h1>
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="panel panel-default">
+                <?php foreach($bestSellers as $item): ?><div class="swiper-slide">
+                    <div class="panel panel-default" style="max-width: 350px;">
                         <div class="panel-body">
-                            <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
+                            <img src="/<?php echo $item['img_src']; ?>" width="260" height="260" class="img-responsive center-block" alt="<?php echo htmlentities($item['name']); ?>" />
                         </div>
-                        <div class=" panel-footer" style="background-color: white;">Product 0</div>
+                        <div class="panel-footer" style="background-color: white;"><?php echo htmlentities($item['name']); ?></div>
+                        <div class="panel-footer" style="background-color: white;">$<?php echo $item['price']; ?></div>
                         <div class="panel-footer hidden-xs hidden-sm" style="background-color: white;">
                             <div class="col-md-6" style="border-right: 1px solid #ccc;">
                                 <p class="btn-add">
-                                    <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
-                                    <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
-
+                                    <span class="glyphicon glyphicon-shopping-cart cart-add-logo"></span>
+                                    <i class="add-cart"></i><a href="#" class="">Add to cart</a>
+                                </p>
                             </div>
                             <div class="col-md-6">
                                 <p class="btn-more">
@@ -70,205 +87,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                        </div>
-                        <div class=" panel-footer" style="background-color: white;">Product 1</div>
-                        <div class="panel-footer hidden-xs hidden-sm" style="background-color: white;">
-                            <div class="col-md-6" style="border-right: 1px solid #ccc;">
-                                <p class="btn-add">
-                                    <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
-                                    <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
-
-                            </div>
-                            <div class="col-md-6">
-                                <p class="btn-more">
-                                    <span class="glyphicon glyphicon-th-list more-list"></span>
-                                    <a href="#" class="">View More</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                        </div>
-                        <div class=" panel-footer" style="background-color: white;">Product 2</div>
-                        <div class="panel-footer hidden-xs hidden-sm" style="background-color: white;">
-                            <div class="col-md-6" style="border-right: 1px solid #ccc;">
-                                <p class="btn-add">
-                                    <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
-                                    <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
-
-                            </div>
-                            <div class="col-md-6">
-                                <p class="btn-more">
-                                    <span class="glyphicon glyphicon-th-list more-list"></span>
-                                    <a href="#" class="">View More</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                        </div>
-                        <div class=" panel-footer" style="background-color: white;">Product 3</div>
-                        <div class="panel-footer hidden-xs hidden-sm" style="background-color: white;">
-                            <div class="col-md-6" style="border-right: 1px solid #ccc;">
-                                <p class="btn-add">
-                                    <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
-                                    <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
-
-                            </div>
-                            <div class="col-md-6">
-                                <p class="btn-more">
-                                    <span class="glyphicon glyphicon-th-list more-list"></span>
-                                    <a href="#" class="">View More</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                        </div>
-                        <div class=" panel-footer" style="background-color: white;">Product 4</div>
-                        <div class="panel-footer hidden-xs hidden-sm" style="background-color: white;">
-                            <div class="col-md-6" style="border-right: 1px solid #ccc;">
-                                <p class="btn-add">
-                                    <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
-                                    <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
-
-                            </div>
-                            <div class="col-md-6">
-                                <p class="btn-more">
-                                    <span class="glyphicon glyphicon-th-list more-list"></span>
-                                    <a href="#" class="">View More</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                        </div>
-                        <div class=" panel-footer" style="background-color: white;">Product 5</div>
-                        <div class="panel-footer hidden-xs hidden-sm" style="background-color: white;">
-                            <div class="col-md-6" style="border-right: 1px solid #ccc;">
-                                <p class="btn-add">
-                                    <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
-                                    <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
-
-                            </div>
-                            <div class="col-md-6">
-                                <p class="btn-more">
-                                    <span class="glyphicon glyphicon-th-list more-list"></span>
-                                    <a href="#" class="">View More</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                        </div>
-                        <div class=" panel-footer" style="background-color: white;">Product 6</div>
-                        <div class="panel-footer hidden-xs hidden-sm" style="background-color: white;">
-                            <div class="col-md-6" style="border-right: 1px solid #ccc;">
-                                <p class="btn-add">
-                                    <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
-                                    <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
-
-                            </div>
-                            <div class="col-md-6">
-                                <p class="btn-more">
-                                    <span class="glyphicon glyphicon-th-list more-list"></span>
-                                    <a href="#" class="">View More</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                        </div>
-                        <div class=" panel-footer" style="background-color: white;">Product 7</div>
-                        <div class="panel-footer hidden-xs hidden-sm" style="background-color: white;">
-                            <div class="col-md-6" style="border-right: 1px solid #ccc;">
-                                <p class="btn-add">
-                                    <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
-                                    <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
-
-                            </div>
-                            <div class="col-md-6">
-                                <p class="btn-more">
-                                    <span class="glyphicon glyphicon-th-list more-list"></span>
-                                    <a href="#" class="">View More</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                        </div>
-                        <div class=" panel-footer" style="background-color: white;">Product 8</div>
-                        <div class="panel-footer hidden-xs hidden-sm" style="background-color: white;">
-                            <div class="col-md-6" style="border-right: 1px solid #ccc;">
-                                <p class="btn-add">
-                                    <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
-                                    <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
-
-                            </div>
-                            <div class="col-md-6">
-                                <p class="btn-more">
-                                    <span class="glyphicon glyphicon-th-list more-list"></span>
-                                    <a href="#" class="">View More</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
-                        </div>
-                        <div class=" panel-footer" style="background-color: white;">Product 9</div>
-                        <div class="panel-footer hidden-xs hidden-sm" style="background-color: white;">
-                            <div class="col-md-6" style="border-right: 1px solid #ccc;">
-                                <p class="btn-add">
-                                    <span class="glyphicon glyphicon-shopping-cart cart-add-logo" ></span>
-                                    <i class="add-cart"></i><a href="#" class="">Add to cart</a></p>
-
-                            </div>
-                            <div class="col-md-6">
-                                <p class="btn-more">
-                                    <span class="glyphicon glyphicon-th-list more-list"></span>
-                                    <a href="#" class="">View More</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- END SWIPER CONTAINER -->
+            <?php endforeach; ?></div> <!-- END SWIPER CONTAINER -->
             <!-- Add Pagination -->
             <div class="swiper-pagination">
                 <span class="swiper-pagination-bullet"></span>
@@ -521,7 +340,24 @@
                 spaceBetween: 10,
                 nextButton: '.swiper-button-next',
                 prevButton: '.swiper-button-prev',
-                followFinger: true
+                followFinger: true,
+                breakpoints: {
+                    // when window width is <= 320px
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetweenSlides: 10
+                    },
+                    // when window width is <= 480px
+                    480: {
+                        slidesPerView: 2,
+                        spaceBetweenSlides: 20
+                    },
+                    // when window width is <= 640px
+                    640: {
+                        slidesPerView: 3,
+                        spaceBetweenSlides: 30
+                    }
+                }
             });
         </script>
         <!--- END PRODUCT CATALOG  -->
