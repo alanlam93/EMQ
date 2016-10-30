@@ -2,7 +2,6 @@
 <div class="map-list-container" style="height:550px">
     <h1 style="white-space: pre;"> Store Locations</h1>
     <div id="map-container" class="col-md-6 hidden-sm hidden-xs"></div>
-
   <ol class="list-group" id="storeResults">
         <a href="javascript:triggerClick(0)" id="loc1">
              <li class="list-group-item">
@@ -124,9 +123,7 @@
                 
             </li>
         </a>
-    </ol> -->
-    
-
+    </ol>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNFssYGfC3PBwUPiG6NLWNloRKq5N-5FM"></script>
     <script type="text/javascript">

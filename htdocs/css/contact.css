@@ -5,22 +5,18 @@
     position: absolute;
 }
 
-
-
-
-
-.map-list-container{
+.map-list-container {
         margin: 0 auto;
         text-align: left;
         width: 1100px;
 }
 
-.list-group a{
+.list-group a {
         text-decoration: none;
 
 }
 
-.list-group-item a{
+.list-group-item a {
     display:block;
     height: 100%;
 }
