@@ -1,12 +1,13 @@
 <?php
 session_start();
+require_once("include/mysql-config.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>EMQ Electronics Store</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -20,7 +21,6 @@ session_start();
         <script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
         <!--[endif]-->
         <script>
-
             function getErrorMessage(x) {
                 return "<div class=\"alert alert-danger fade in\" id=\"notification-box\">" + 
                 "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>" +
@@ -98,6 +98,19 @@ session_start();
             });
         </script>
         <style>
+            @media only screen 
+            and (min-device-width : 320px) 
+            and (max-device-width : 480px) {
+                .panel-image {
+                    min-height: 0;
+                }
+            }
+            @media only screen 
+            and (min-width : 1224px) {
+                .panel-image {
+                    min-height: 300px;
+                }
+            }
             .swiper-container {
                 width: 80%;
                 /*height: 100%;*/
@@ -130,12 +143,25 @@ session_start();
     </head>
     <body>
         <?php
-        include('login-form.php');
-        # NAVBAR VARIABLES
-        $home = "index.php";
-        $logo = "./img/logo_noBG2.png";
-        $contact = "contact.php";
-        $account = "account.php";
+            include('login-form.php');
+            # NAVBAR VARIABLES
+            $home = "index.php";
+            $logo = "./img/logo_noBG2.png";
+            $contact = "contact.php";
+            $account = "account.php";
+
+            $mysqli = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
+            if ($mysqli === null) {
+                echo "An error occured while connecting to the database.";
+                return;
+            }
+            $result = $mysqli->query("SELECT id, name FROM category ORDER BY name");
+            $categories = array();
+            while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                $categories[] = $row;
+            }
+            $result->close();
+            $mysqli->close();
         ?>
         <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container-fluid">
@@ -148,20 +174,14 @@ session_start();
                     <a class="navbar-brand" href="<?= $home ?>"><img src="<?= $logo ?>" id="logo" alt="EMQ" /></a>
 
                 </div>
-                <!-- IN PROGRESS -->
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="<?= $home ?>">Home</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Category 1</a></li>
-                                <li><a href="#">Category 2</a></li>
-                                <li><a href="#">Category 3</a></li>
-                                <li class="divider"></li>
-                                <li class="nav-header">Divider</li>
-                                <li><a href="#">Category 4</a></li>
-                                <li><a href="#">Category 5</a></li>
+                                <?php foreach($categories as $category): ?><li><a href="products.php?cat-id=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></li>
+                                <?php endforeach; ?>
                             </ul>
                         </li>
                         <li><a href="<?= $contact ?>">Contact Us</a></li>

@@ -7,8 +7,8 @@ if ($mysqli === null) {
     echo "An error occured while connecting to the database.";
     return;
 }
-
-$result = $mysqli->query("SELECT name, price, img_src FROM inventory WHERE is_best_seller = 1");
+$mysqli->set_charset("utf8");
+$result = $mysqli->query("SELECT id, name, price, img_src FROM inventory WHERE is_best_seller = 1");
 $bestSellers = array();
 while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
     $bestSellers[] = $row;
@@ -61,15 +61,17 @@ $mysqli->close();
         </div><!-- /.carousel -->
         <!--- PRODUCT CATALOG
         ======================================= -->
-        <h1 style="margin-left: 10px;">Best Sellers </h1>
+        <h1 style="margin-left: 10px;">Best Sellers </h1>     
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <?php foreach($bestSellers as $item): ?><div class="swiper-slide">
                     <div class="panel panel-default" style="max-width: 350px;">
-                        <div class="panel-body">
-                            <img src="/<?php echo $item['img_src']; ?>" width="260" height="260" class="img-responsive center-block" alt="<?php echo htmlentities($item['name']); ?>" />
+                        <div id="panel-image" class="panel-body" style="max-height: 300px;">
+                            <a href="product.php?id="<?php echo $item['id']; ?>>
+                                <img src="/<?php echo $item['img_src']; ?>" class="img-responsive center-block" style="max-height: 280px" alt="<?php echo htmlspecialchars($item['name']); ?>" />
+                            </a>
                         </div>
-                        <div class="panel-footer" style="background-color: white;"><?php echo htmlentities($item['name']); ?></div>
+                        <div class="panel-footer" style="background-color: white; font-size:medium"><a href="product.php?id="<?php echo $item['id']; ?>><?php echo htmlspecialchars($item['name']);?></a></div>
                         <div class="panel-footer" style="background-color: white;">$<?php echo $item['price']; ?></div>
                         <div class="panel-footer hidden-xs hidden-sm" style="background-color: white;">
                             <div class="col-md-6" style="border-right: 1px solid #ccc;">
@@ -345,16 +347,19 @@ $mysqli->close();
                     // when window width is <= 320px
                     320: {
                         slidesPerView: 1,
+                        slidesPerGroup: 1,
                         spaceBetweenSlides: 10
                     },
                     // when window width is <= 480px
                     480: {
                         slidesPerView: 2,
+                        slidesPerGroup: 2,
                         spaceBetweenSlides: 20
                     },
                     // when window width is <= 640px
                     640: {
                         slidesPerView: 3,
+                        slidesPerGroup: 3,
                         spaceBetweenSlides: 30
                     }
                 }
