@@ -22,17 +22,17 @@ require_once("include/mysql-config.php");
         <!--[endif]-->
         <script>
             function getErrorMessage(x) {
-                return "<div class=\"alert alert-danger fade in\" id=\"notification-box\">" + 
-                "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>" +
-                "<strong>Error!</strong> " + x +
-                "</div>";
+                return "<div class=\"alert alert-danger fade in\" id=\"notification-box\">" +
+                        "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>" +
+                        "<strong>Error!</strong> " + x +
+                        "</div>";
             }
 
             function getSuccessMessage(x) {
-                return "<div class=\"alert alert-success fade in\" id=\"notification-box\">" + 
-                "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>" +
-                "<strong>Success!</strong> " + x +
-                "</div>";
+                return "<div class=\"alert alert-success fade in\" id=\"notification-box\">" +
+                        "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>" +
+                        "<strong>Success!</strong> " + x +
+                        "</div>";
             }
             $(document).ready(function () {
                 $('.modal-toggle').click(function (e) {
@@ -143,25 +143,25 @@ require_once("include/mysql-config.php");
     </head>
     <body>
         <?php
-            include('login-form.php');
-            # NAVBAR VARIABLES
-            $home = "index.php";
-            $logo = "./img/logo_noBG2.png";
-            $contact = "contact.php";
-            $account = "account.php";
+        include('login-form.php');
+        # NAVBAR VARIABLES
+        $home = "index.php";
+        $logo = "./img/logo_noBG2.png";
+        $contact = "contact.php";
+        $account = "account.php";
 
-            $mysqli = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
-            if ($mysqli === null) {
-                echo "An error occured while connecting to the database.";
-                return;
-            }
-            $result = $mysqli->query("SELECT id, name FROM category ORDER BY name");
-            $categories = array();
-            while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-                $categories[] = $row;
-            }
-            $result->close();
-            $mysqli->close();
+        $mysqli = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
+        if ($mysqli === null) {
+            echo "An error occured while connecting to the database.";
+            return;
+        }
+        $result = $mysqli->query("SELECT id, name FROM category ORDER BY name");
+        $categories = array();
+        while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+            $categories[] = $row;
+        }
+        $result->close();
+        $mysqli->close();
         ?>
         <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container-fluid">
@@ -180,7 +180,7 @@ require_once("include/mysql-config.php");
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <?php foreach($categories as $category): ?><li><a href="products.php?cat-id=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></li>
+                                <?php foreach ($categories as $category): ?><li><a href="products.php?cat-id=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></li>
                                 <?php endforeach; ?>
                             </ul>
                         </li>
