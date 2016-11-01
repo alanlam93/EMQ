@@ -34,6 +34,26 @@ require_once("include/mysql-config.php");
                         "<strong>Success!</strong> " + x +
                         "</div>";
             }
+
+            function addToCart(itemId, quantity) {
+                $.ajax({
+                    type: "GET",
+                    url: "include/cart-actions.php?action=add&item-id=" + itemId + "&quantity=" + quantity,
+                    success: function (msg) {
+                        if (!isNaN(parseFloat(msg)) && isFinite(msg)) {
+                            //$(".badge").html(msg);
+                            //$("#cart-notifications").html(getSuccessMessage("The item was successfully added to your cart."));
+                            window.location.href = "cart.php";
+                        } else {
+                            $("#cart-notifications").html(getErrorMessage(msg));
+                        }
+                    },
+                    error: function () {
+                        $("#cart-notifications").html(getErrorMessage("An error occured while adding to your cart."));
+                    }
+                });
+            }
+
             $(document).ready(function () {
                 $('.modal-toggle').click(function (e) {
                     var tab = e.target.hash;
@@ -180,23 +200,18 @@ require_once("include/mysql-config.php");
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <?php foreach ($categories as $category): ?><li><a href="products.php?cat-id=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></li>
-                                <?php endforeach; ?>
-                            </ul>
+                            <?php foreach ($categories as $category): ?>    <li><a href="products.php?cat-id=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></li>
+                            <?php endforeach; ?></ul>
                         </li>
                         <li><a href="<?= $contact ?>">Contact Us</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <?php if (isset($_SESSION['userid'])) : ?>
-                            <li><a>Hello, <?php echo $_SESSION['name'] ?></a></li>
-                            <li><a href="<?= $account ?>"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-                            <li><a href="logout.php">Logout</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-                        <?php else : ?>
-                            <li><a href="#login" class="modal-toggle" data-toggle="modal" data-target="#login-register-modal">Login</a></li>
-                            <li><a href="#register" class="modal-toggle" data-toggle="modal" data-target="#login-register-modal">Register</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li><!--Should not be accessible if not logged in?-->
-                        <?php endif; ?>
+                        <?php if (isset($_SESSION['userid'])) : ?><li><a>Hello, <?php echo $_SESSION['name'] ?></a></li>
+                        <li><a href="<?= $account ?>"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+                        <li><a href="logout.php">Logout</a></li>
+                        <?php else : ?><li><a href="#login" class="modal-toggle" data-toggle="modal" data-target="#login-register-modal">Login</a></li>
+                        <li><a href="#register" class="modal-toggle" data-toggle="modal" data-target="#login-register-modal">Register</a></li>
+                    <?php endif; ?><li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart <span class="badge"><?php $c = isset($_SESSION['cart']) ? array_sum(array_values($_SESSION['cart'])) : 0; if ($c > 0) { echo $c; } ?></span></a></li>
                     </ul>
                     <!-- Search Bar -->
                     <div class="nav-col nac-col-elastic">

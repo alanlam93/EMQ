@@ -1,6 +1,5 @@
 <?php
 require('include/header.php');
-require_once("include/mysql-config.php");
 
 $mysqli = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
 if ($mysqli === null) {
@@ -59,35 +58,38 @@ $mysqli->close();
                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             </a>
         </div>
-        <h1 style="margin-left: 10px;">Featured</h1>     
+        <h1 style="margin-left: 10px;">Featured</h1>
+        <div class="row">
+            <div class="text-center col-md-6 col-md-offset-3" id="cart-notifications"></div>
+        </div>
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <?php foreach($bestSellers as $item): ?><div class="swiper-slide">
-                    <div class="panel panel-default" style="max-width: 350px;">
-                        <div id="panel-image" class="panel-body" style="max-height: 300px;">
-                            <a href="product.php?id=<?php echo $item['id']; ?>">
-                                <img src="/<?php echo $item['img_src']; ?>" class="img-responsive center-block" style="max-height: 280px" alt="<?php echo htmlspecialchars($item['name']); ?>" />
-                            </a>
-                        </div>
-                        <div class="panel-footer" style="background-color: white; font-size:medium"><a href="product.php?id=<?php echo $item['id']; ?>"><?php echo htmlspecialchars($item['name']);?></a></div>
-                        <div class="panel-footer" style="background-color: white;">$<?php echo $item['price']; ?></div>
-                        <div class="panel-footer hidden-xs hidden-sm" style="background-color: white;">
-                            <div class="col-md-6" style="border-right: 1px solid #ccc;">
-                                <p class="btn-add">
-                                    <span class="glyphicon glyphicon-shopping-cart cart-add-logo"></span>
-                                    <i class="add-cart"></i><a href="#" class="">Add to cart</a>
-                                </p>
+                <?php foreach ($bestSellers as $item): ?><div class="swiper-slide">
+                        <div class="panel panel-default" style="max-width: 350px;">
+                            <div id="panel-image" class="panel-body" style="max-height: 300px;">
+                                <a href="product.php?id=<?php echo $item['id']; ?>">
+                                    <img src="/<?php echo $item['img_src']; ?>" class="img-responsive center-block" style="max-height: 280px" alt="<?php echo htmlspecialchars($item['name']); ?>" />
+                                </a>
                             </div>
-                            <div class="col-md-6">
-                                <p class="btn-more">
-                                    <span class="glyphicon glyphicon-th-list more-list"></span>
-                                    <a href="#" class="">View More</a>
-                                </p>
+                            <div class="panel-footer" style="background-color: white; font-size:medium"><a href="product.php?id=<?php echo $item['id']; ?>"><?php echo htmlspecialchars($item['name']); ?></a></div>
+                            <div class="panel-footer" style="background-color: white;">$<?php echo $item['price']; ?></div>
+                            <div class="panel-footer hidden-xs hidden-sm" style="background-color: white;">
+                                <div class="col-md-6" style="border-right: 1px solid #ccc;">
+                                    <p class="btn-add">
+                                        <span class="glyphicon glyphicon-shopping-cart cart-add-logo"></span>
+                                        <i class="add-cart"></i><a href="javascript:void(0);" onclick="addToCart(<?php echo $item['id']; ?>, 1);">Add to cart</a>
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="btn-more">
+                                        <span class="glyphicon glyphicon-th-list more-list"></span>
+                                        <a href="#" class="">View More</a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            <?php endforeach; ?></div>
+                <?php endforeach; ?></div>
             <div class="swiper-pagination">
                 <span class="swiper-pagination-bullet"></span>
                 <span class="swiper-pagination-bullet"></span>
