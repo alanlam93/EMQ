@@ -75,7 +75,7 @@
 			</div>
 			<div class="col-md-2 col-md-offset-10">
 				<br>
-				<a class="btn btn-large btn-primary" href="confirmation-4.php">Complete Order</a>
+				<a class="btn btn-large btn-primary" href="checkout-4.php">Complete Order</a>
 			</div>
 		</div>
 

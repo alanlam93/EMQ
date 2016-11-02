@@ -181,7 +181,7 @@
 				</div>
 			</div>
 			<div class="col-md-3 col-md-offset-9">
-				<a class="btn btn-large btn-primary" href="confirmation-3.php">Continue</a>
+				<a class="btn btn-large btn-primary" href="checkout-3.php">Continue</a>
 			</div>
 		</div>
 

@@ -169,7 +169,7 @@
 				</div>
 			</div>
 			<div class="col-md-3 col-md-offset-9">
-				<a class="btn btn-large btn-primary" href="confirmation-2.php">Continue</a>
+				<a class="btn btn-large btn-primary" href="checkout-2.php">Continue</a>
 			</div>
 		</div>
 
