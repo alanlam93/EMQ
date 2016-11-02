@@ -14,7 +14,8 @@ require_once("include/mysql-config.php");
         <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/catalog.css">
         <link rel="stylesheet" type="text/css" href="css/login-form.css">
-        <link rel="stylesheet" href="css/contact.css">
+        <link rel="stylesheet" type="text/css" href="css/contact.css">
+        <link rel="stylesheet" type="text/css" href="css/confirmation.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]-->
         <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
