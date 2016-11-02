@@ -44,7 +44,7 @@ $mysqli->close();
                         </div>
                         <div class="panel-body">
                             <?php foreach ($cart as $item): ?><div class="row cart-item">
-                                    <div class="col-xs-2"><img class="img-responsive" src="/<?php echo $item['img_src']; ?>">
+                                    <div class="col-xs-2"><img class="img-responsive" src="/<?php echo $item['img_src']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>">
                                     </div>
                                     <div class="col-xs-4">
                                         <h4 class="product-name"><strong><?php echo htmlspecialchars($item['name']); ?></strong></h4><h4><small><?php echo htmlspecialchars($item['description']); ?></small></h4>

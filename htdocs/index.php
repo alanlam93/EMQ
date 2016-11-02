@@ -64,7 +64,7 @@ $mysqli->close();
             <div class="swiper-wrapper">
                 <?php foreach ($bestSellers as $item): ?><div class="swiper-slide">
                         <div class="panel panel-default" style="max-width: 350px;">
-                            <div id="panel-image" class="panel-body" style="max-height: 300px;">
+                            <div class="panel-body panel-image" style="max-height: 300px;">
                                 <a href="product.php?id=<?php echo $item['id']; ?>">
                                     <img src="./<?php echo $item['img_src']; ?>" class="img-responsive center-block" style="max-height: 280px" alt="<?php echo htmlspecialchars($item['name']); ?>" />
                                 </a>
