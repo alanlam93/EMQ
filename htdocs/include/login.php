@@ -16,6 +16,11 @@ if ($result->num_rows > 0) {
         session_start();
         $_SESSION["userid"] = $row['id'];
         $_SESSION["name"] = $row['first_name'];
+        include("cart-actions.php");
+        if (isset($_SESSION["cart"])) {
+            updateCartDB($mysqli, $_SESSION["cart"]);
+        }
+        syncCartSessionWithDB($mysqli, $row['id']);
     } else {
         echo "No account with this email and password was found.";
     }

@@ -35,8 +35,16 @@ require_once("include/mysql-config.php");
                         "<strong>Success!</strong> " + x +
                         "</div>";
             }
+            
+            function getInfoMessage(msg) {
+                return "<div class=\"alert alert-info fade in\" id=\"notification-box\">" +
+                        "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>" +
+                        msg +
+                        "</div>";
+            }
 
             function addToCart(itemId, quantity) {
+                $("#cart-notifications").html(getInfoMessage("Adding to cart..."));
                 $.ajax({
                     type: "GET",
                     url: "include/cart-actions.php?action=add&item-id=" + itemId + "&quantity=" + quantity,
@@ -164,7 +172,9 @@ require_once("include/mysql-config.php");
     </head>
     <body>
         <?php
-        include('login-form.php');
+        if (!isset($_SESSION['userid'])) {
+            include('login-form.php');
+        }
         # NAVBAR VARIABLES
         $home = "index.php";
         $logo = "./img/homelogo.png";

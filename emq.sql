@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Oct 30, 2016 at 11:12 AM
+-- Generation Time: Nov 02, 2016 at 11:22 PM
 -- Server version: 5.5.49-log
 -- PHP Version: 7.0.9
 
@@ -38,13 +38,14 @@ CREATE TABLE IF NOT EXISTS `account` (
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `account`
 --
 
 INSERT INTO `account` (`id`, `email`, `password`, `salt`, `first_name`, `last_name`, `create_date`) VALUES
+(1, 'johnny@emq.com', 'c5a79985d9d5b19dae82110e5c86c78e08c67a8a5f5bd2472ca2c41b283e8beacdf4634108a6aa100cfaf03f7505f82fdb6d6e18b57fb2e610814189faddb1cd', '3b79a1299d588d7848f228ac7984be72', 'Johnny', 'Lui', '2016-11-02 21:56:20');
 
 -- --------------------------------------------------------
 
@@ -61,13 +62,14 @@ CREATE TABLE IF NOT EXISTS `address` (
   `city` varchar(20) NOT NULL,
   `state` varchar(20) NOT NULL,
   `zip` mediumint(5) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `address`
 --
 
 INSERT INTO `address` (`id`, `accountId`, `name`, `address`, `city`, `state`, `zip`) VALUES
+(1, 1, 'Johnny Lui', '123 Fake Street', 'San Jose', 'CA', 95112);
 
 -- --------------------------------------------------------
 
@@ -79,9 +81,18 @@ DROP TABLE IF EXISTS `cart`;
 CREATE TABLE IF NOT EXISTS `cart` (
   `accountId` int(11) NOT NULL,
   `itemId` int(11) unsigned NOT NULL,
+  `price` decimal(10,2) NOT NULL,
   `quantity` int(3) unsigned NOT NULL,
   `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`accountId`, `itemId`, `price`, `quantity`, `date_added`) VALUES
+(1, 1, 599.99, 1, '2016-11-02 23:14:12'),
+(1, 3, 99.99, 1, '2016-11-02 23:15:39');
 
 -- --------------------------------------------------------
 
@@ -148,9 +159,9 @@ INSERT INTO `inventory` (`id`, `category_id`, `name`, `model`, `description`, `p
 (5, 5, 'Sennheiser - HD 800 S Over-the-Ear Headphones - Black', 'HD 800 S', 'Experience high-quality sound with these Sennheiser high resolution headphones, featuring handmade fiber earpads for comfortable listening. Two connection leads offer balanced sound, letting you connect to dual outputs for true stereo sound. These Sennheiser high resolution headphones feature absorber technology that filters sound and eliminates unwanted peaks which may inhibit pure sound enjoyment.\r\nExperience high-quality sound with these Sennheiser high resolution headphones, featuring handmade fiber earpads for comfortable listening. Two connection leads offer balanced sound, letting you connect to dual outputs for true stereo sound. These Sennheiser high resolution headphones feature absorber technology that filters sound and eliminates unwanted peaks which may inhibit pure sound enjoyment.', '"Product Features\n\nOver-the-ear design\nFor a secure fit.\n4Hz - 51kHz frequency response\nFor faithful sound reproduction.\n300 ohms impedance\nTo efficiently conduct power.\nDynamic transducer design\nFor reference-grade audio."', '"Key Specs\nHeadphone FitOver-the-Ear\nWirelessNo\nBuilt-In BluetoothNo"', 'img/products/hd-800-s.jpg', 1699.98, 100, 1),
 (6, 6, 'Asus - ROG SWIFT PG248Q 24" 3D LED HD GSync Monitor - Black', 'PG248Q', 'Dive into your games on this ASUS full HD monitor, and experience the lag-free fun offered by a blazing fast 180Hz refresh rate. LED backlighting offers clear views from any angle, and full HD delivers on crisp, true-to-life imaging. This ASUS full HD monitor is made for gaming with a slim bezel that easily incorporates with your multi-monitor setup.', '"Product Features\n\n1920 x 1080 resolution at 180Hz\nDelivers crystal-clear picture quality with stunning detail.\nUltrafast 1 ms response time\nAllows pixels to change colors quickly to avoid streaking, blurring and ghosting in fast-moving scenes and video games.\n24"" antiglare widescreen flat-panel LED monitor\nProvides a large viewing area and clear images.\nG-SYNC technology for smooth gameplay\nNVIDIA G-SYNC synchronizes the refresh rates between the GPU and display, eliminating screen tearing and minimizing display stutter and input lag.\nHDMI and DisplayPort inputs\nAllow you to set up DVD players and other AV sources for a clear, high quality audio and video signal.\n2 USB 3.0 ports\nLet you access data stored on a compatible flash drive or connect a mouse, keyboard or other peripheral.\n170° horizontal and 160° vertical viewing angles\nEnsure a clear view of the monitor from multiple vantage points.\n1000:1 contrast ratio\nProvides a high number of shades between black and white. This range enables accurate color reproduction when displaying images with extreme differences between light and dark for excellent picture quality.\n350 cd/m² brightness\nOffers an enhanced view, even in low lighting."', '"Key Specs\nInput(s)DisplayPort, USB 3.0, HDMI\nRefresh Rate  180Hz\nMaximum Resolution1920 x 1080\nResolution (Native)  1920 x 1080\nResponse Time  1 milliseconds\nScreen Size24 inches"', 'img/products/asus-rog-monitor.jpg', 449.99, 100, 1),
 (7, 7, 'NVIDIA - Founders Edition GeForce GTX 1080 8GB GDDR5X PCI Express 3.0 Graphics Card', '9001G4132500001', 'Play the world and incredible definition with the GeForce GTX 1080 graphics card. Designed to cope with 4K gaming, high frame rates and exquisite detail, the Pascal GPU architecture takes the GDDR5 memory inside this card to a whole new level. Get every last drop of performance from your machine with this GeForce GTX 1080 graphics card.', '"Powered by the NVIDIA GeForce GTX 1080 graphics processing unit (GPU)\nWith a 1607MHz clock speed and 1733MHz boost clock speed to help meet the needs of demanding games.\n8GB GDDR5X (256-bit) on-board memory\nPlus 2560 CUDA processing cores and up to 320GB/sec. of memory bandwidth provide the memory needed to create striking visual realism.\nPCI Express 3.0 interface\nOffers compatibility with a range of systems. Also includes DVI-D, HDMI and 3 x DisplayPort outputs for expanded connectivity.\nNVIDIA Ansel\nRevolutionary new 360-degree image capture.\nNVIDIA SLI-ready\nTransmits synchronization, display and pixel data for reliable connection between GPUs (additional graphics cards not included).\nNVIDIA G-SYNC technology\nScenes appear instantly, objects look sharper, and gameplay is super smooth, giving you a stunning visual experience and a serious competitive edge\nMicrosoft DirectX 12\nSupport for the latest Microsoft DirectX API to enable next-generation gaming.\nOpenGL 4.5 Support\nSupporting the latest standards in the OpenGL API.\nVulkan API\nA next generation graphics and compute API from Khronos Group that provides high-efficiency, cross-platform access to modern GPUs."', '"Key Specs\nInterface(s)  PCI Express 3.0\n4K Ultra HD Resolution SupportYes\nCooling SystemAir\nFeatured TechnologyDirectX 12, NVIDIA CUDA, NVIDIA G-SYNC, NVIDIA GameStream, NVIDIA PhysX, NVIDIA SLI\nGPU Clock Speed1607 megahertz\nGraphics Processing Unit (GPU)  NVIDIA GeForce GTX 1080\nVideo Memory Capacity8 gigabytes\nVideo Memory TypeGDDR5X\nGPU Boost Clock Speed1733 megahertz"', 'img/products/gtx-1080.jpg', 699.99, 100, 1),
-(8, 8, 'Intel&reg; - Core&trade; i7-6700K 4.0GHz Processor - Silver', 'BX80662I76700K', 'Enhance your gaming setup with this Intel® Core™ i7-6700K BX80662I76700K processor, which offers Intel® Turbo Boost and a 6MB L3 cache for efficiency. Enjoy your favorite videos in 4K Ultra HD resolution when paired with a compatible monitor.', '"Intel® Core™ i7-6700K processor\nWith 4.0GHz processor speed for smooth quad-core performance. Intel® Turbo Boost offers a boost of power when you need it and energy efficiency when you don''t.\n6MB Level 3 cache\nSpeeds up access to frequently used data.\nSupports 4096 x 2304 4K Ultra HD resolution\nFor crisp, life-like images.\nIntel® HD Graphics 530\nProvides smooth videos and graphics.\nSupports DDR4 and DDR3L memory\nFor flexibility to suit your computing needs.\nIntel, Pentium, Celeron, Centrino, Intel Inside and the Intel Inside logo are trademarks or registered trademarks of Intel Corporation or its subsidiaries in the United States and other countries."', '"Processor Speed  4.0 gigahertz\nENERGY STAR Certified  No\nBrand CompatibilityIntel\nModel CompatibilityIntel 100-series chipset motherboards\nProcessor SocketSocket LGA 1151\nCache LevelL3\nCache Memory  6 megabytes\nGraphics  Intel HD Graphics 530\nIntegrated GraphicsYes\nCompatible Platform(s)Windows\nProcessor CoresQuad-core\nTurbo Boost Processor Speed4.2 gigahertz\nKey Specs\nProcessor Speed  4.0 gigahertz\nENERGY STAR Certified  No\nBrand CompatibilityIntel\nModel CompatibilityIntel 100-series chipset motherboards\nProcessor SocketSocket LGA 1151\nCache LevelL3\nCache Memory  6 megabytes\nGraphics  Intel HD Graphics 530\nIntegrated GraphicsYes\nCompatible Platform(s)Windows\nProcessor CoresQuad-core\nTurbo Boost Processor Speed4.2 gigahertz"', 'img/products/i7.jpg', 365.99, 100, 1),
+(8, 8, 'Intel® - Core™ i7-6700K 4.0GHz Processor - Silver', 'BX80662I76700K', 'Enhance your gaming setup with this Intel® Core™ i7-6700K BX80662I76700K processor, which offers Intel® Turbo Boost and a 6MB L3 cache for efficiency. Enjoy your favorite videos in 4K Ultra HD resolution when paired with a compatible monitor.', '"Intel® Core™ i7-6700K processor\nWith 4.0GHz processor speed for smooth quad-core performance. Intel® Turbo Boost offers a boost of power when you need it and energy efficiency when you don''t.\n6MB Level 3 cache\nSpeeds up access to frequently used data.\nSupports 4096 x 2304 4K Ultra HD resolution\nFor crisp, life-like images.\nIntel® HD Graphics 530\nProvides smooth videos and graphics.\nSupports DDR4 and DDR3L memory\nFor flexibility to suit your computing needs.\nIntel, Pentium, Celeron, Centrino, Intel Inside and the Intel Inside logo are trademarks or registered trademarks of Intel Corporation or its subsidiaries in the United States and other countries."', '"Processor Speed  4.0 gigahertz\nENERGY STAR Certified  No\nBrand CompatibilityIntel\nModel CompatibilityIntel 100-series chipset motherboards\nProcessor SocketSocket LGA 1151\nCache LevelL3\nCache Memory  6 megabytes\nGraphics  Intel HD Graphics 530\nIntegrated GraphicsYes\nCompatible Platform(s)Windows\nProcessor CoresQuad-core\nTurbo Boost Processor Speed4.2 gigahertz\nKey Specs\nProcessor Speed  4.0 gigahertz\nENERGY STAR Certified  No\nBrand CompatibilityIntel\nModel CompatibilityIntel 100-series chipset motherboards\nProcessor SocketSocket LGA 1151\nCache LevelL3\nCache Memory  6 megabytes\nGraphics  Intel HD Graphics 530\nIntegrated GraphicsYes\nCompatible Platform(s)Windows\nProcessor CoresQuad-core\nTurbo Boost Processor Speed4.2 gigahertz"', 'img/products/i7.jpg', 365.99, 100, 1),
 (9, 9, 'Logitech - G700s Rechargeable Laser Gaming Mouse - Black', '910-003584', 'Enjoy precision control during gameplay with this Logitech G700s 910-003584 rechargeable gaming mouse that features 13 programmable buttons for quick access to commands and a dual-mode scrolling wheel for easy operation.', '"Product Features\n\nLaser technology\nEnsures precise operation.\nDual-mode scrolling wheel\nEnables smooth transitions between click-to-click mode and hyper-fast scrolling.\n13-button design\nOffers programmability for frequently used commands.\nOn-board memory\nLets you store up to 5 ready-to-play profiles.\nWireless USB connectivity\nPermits a flexible range of motion while gaming.\n5.9'' USB recharging/data cable\nSwitches to data-over-cable mode when you connect the mouse to allow for continuous gameplay."', '"Key Specs\nCompatible Platform(s)Windows\nWirelessYes"', 'img/products/g700s.jpg', 99.99, 100, 1),
-(10, 5, 'Bose&reg; - QuietComfort&reg; 35 wireless headphones - Black', 'QC35 WIRELESS HDPH BLACK', 'QuietComfort® 35 wireless headphones are engineered with world-class noise cancellation that makes quiet sound quieter and music sound better. Free yourself from wires and connect easily to your devices with Bluetooth® and NFC pairing. And enjoy up to 20 hours of wireless listening per battery charge.', '"Product Features\n\nWorld-class noise cancellation makes quiet sound quieter and music sound better.\nBluetooth® and NFC pairing so you can connect to your devices wirelessly.\nVolume-optimized EQ gives you balanced audio performance at any volume.\nLithium-ion battery lets you enjoy up to 20 hours of wireless listening per charge.\nNoise-rejecting dual-microphone system provides clear calls, even in windy or noisy environments.\nPremium materials make them lightweight and comfortable for all-day listening.\nThe Bose® Connect app helps you manage your paired devices and gives you a personalized experience."', '"Key Specs\nHeadphone FitOver-the-Ear\nWirelessYes\nBuilt-In BluetoothYes\nBuilt-In MicrophoneYes\nNoise Canceling  Yes"', 'img/products/qc35.jpg', 349.99, 100, 1),
+(10, 5, 'Bose® - QuietComfort® 35 wireless headphones - Black', 'QC35 WIRELESS HDPH BLACK', 'QuietComfort® 35 wireless headphones are engineered with world-class noise cancellation that makes quiet sound quieter and music sound better. Free yourself from wires and connect easily to your devices with Bluetooth® and NFC pairing. And enjoy up to 20 hours of wireless listening per battery charge.', '"Product Features\n\nWorld-class noise cancellation makes quiet sound quieter and music sound better.\nBluetooth® and NFC pairing so you can connect to your devices wirelessly.\nVolume-optimized EQ gives you balanced audio performance at any volume.\nLithium-ion battery lets you enjoy up to 20 hours of wireless listening per charge.\nNoise-rejecting dual-microphone system provides clear calls, even in windy or noisy environments.\nPremium materials make them lightweight and comfortable for all-day listening.\nThe Bose® Connect app helps you manage your paired devices and gives you a personalized experience."', '"Key Specs\nHeadphone FitOver-the-Ear\nWirelessYes\nBuilt-In BluetoothYes\nBuilt-In MicrophoneYes\nNoise Canceling  Yes"', 'img/products/qc35.jpg', 349.99, 100, 1),
 (11, 10, 'Canon - EOS Rebel T5 DSLR Camera with 18-55mm and 75-300mm Lenses - Black', '9126B069', '"Capture vivid photos and videos with this Canon EOS Rebel T5 DSLR camera that features 18.0-megapixel CMOS sensor that captures up to 5184 x 3456 resolution for high-quality images. The wide array of shooting modes let you optimize your shots to suit your needs.\n\nMemory card sold separately. "', '"Product Features\n\n18.0-megapixel APS-C CMOS sensor\nCaptures high-resolution images up to 5184 x 3456 pixels.\nEF-S 18-55mm f/3.5-5.6 IS and EF 75-300mm f/4-5.6 III lenses included\nTo enable shooting in a wide variety of situations.\n3"" TFT-LCD monitor\nProvides a clear view of your shots.\nEOS full high-definition movie mode\nHelps you capture quality videos.\n3 fps (frames per second)\nFor continuous shooting.\nISO 100-6400 (expandable to 12,800)\nFor shooting in most lighting conditions.\n9-point AF system\nIncluding 1 center cross-type AF point and AI Servo AF, helps ensure fast autofocus performance and accuracy.\nViewfinder\nLets you quickly and easily frame your shots.\nBuilt-in flash\nEnables you to take pictures in a variety of conditions.\nCanon DIGIC 4 imaging processor\nProvides fast, high-quality processing.\nWide selection of shooting modes\nIncludes program AE, shutter-priority AE, aperture-priority AE, manual exposure, Scene Intelligent Auto, flash off, creative auto, portrait, landscape, close-up, sports and more.\nScene Intelligent Auto mode\nOptimizes settings and improves results when shooting at night.\nMedia slot\nSupports SD, SDHC and SDXC cards."', '"Key Specs\nTotal Megapixels  18.7 megapixels\nEffective Megapixels  18.0 megapixels\nFrame Rate3 frames per second\nImage Sensor Type  CMOS\nISO Settings  100-6400\nWi-Fi Built-inNo"', 'img/products/dslr.jpg', 449.99, 100, 1),
 (12, 11, 'VIZIO - 2.0-Channel Soundbar with Bluetooth - Black', 'SB2920-D6', 'Enjoy crisp, clear sound at every turn with the help of this Vizio 29-inch sound bar. It boasts a sophisticated design that will accentuate your high-definition television, and it''s built to work with televisions of all sizes. Experience true Dolby Digital and DTS surround sound with this Vizio 29-inch sound bar.', '"Product Features\n\n91 dB sound output\nWith <1% total harmonic distortion for crystal-clear, room-filling audio.\nBuilt-in Bluetooth\nMakes it easy to enjoy tracks stored on a compatible Bluetooth-enabled device.\nSound Bar features DTS TruVolume™ and DTS TruSurround™\nThe Sound Bar features DTS TruVolume™, which minimizes the distractions of fluctuating volume and DTS TruSurround™ for an immersive surround sound experience.\nRemote\nAllows you to adjust the volume and audio and switch inputs from across the room."', '"Key Specs\nInput(s)USB\nBluetooth Enabled  Yes\nNumber Of HDMI Inputs0\nNumber Of HDMI Outputs0"', 'img/products/soundbar.jpg', 89.99, 100, 1),
 (13, 12, 'Fitbit - Alta Activity Tracker (Small) - Black', 'FB406BKS', 'Fitbit Alta Activity Tracker: Maintain a healthy, active lifestyle with help from this wireless activity tracker, which tracks your steps, distance, calories burned, active minutes and sleep patterns for 24/7 monitoring. A wireless sync dongle is included for easy connectivity to your Windows, Apple or Android device.', '"Product Features\n\nKeep track of daily activity levels\nMeasures steps taken, distance traveled and calories burned.\nEasy viewing in low-light conditions\nBacklit OLED display.\nAdjustable strap\nFits comfortably on most wrists from 5.5"" to 6.7"" in circumference.\nSyncs to select Apple, Android and Windows devices\nSuch as iPhone, iPad, iPod touch and cell phones and tablets with Android or Windows for simple wireless communication.\nWater-resistant design\nSo you don''t have to worry if you wear it in the shower or get caught in the rain.\nApple, the Apple logo and iTunes are trademarks of Apple Computer, Inc., registered in the U.S. and other countries. iPod is a trademark of Apple Computer, Inc.\niPad is a trademark of Apple Inc., registered in the U.S. and other countries"', '"Key Specs\nColorBlack\nBody Metrics MeasuredCalories burned, Distance traveled, Other, Steps taken\nGPS EnabledNo\nMobile Operating System CompatibilityAndroid, Apple iOS, Windows\nWater ResistantYes\nDisplay TypeOther"', 'img/products/fitbit.jpg', 129.95, 100, 1),
@@ -200,8 +211,26 @@ CREATE TABLE IF NOT EXISTS `warehouse_address` (
   `address` varchar(255) DEFAULT NULL,
   `city` varchar(20) DEFAULT NULL,
   `state` varchar(20) DEFAULT NULL,
-  `zip` mediumint(5) unsigned DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `zip` mediumint(5) unsigned DEFAULT NULL,
+  `lat` float(10,6) DEFAULT NULL,
+  `long` float(10,6) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `warehouse_address`
+--
+
+INSERT INTO `warehouse_address` (`id`, `address`, `city`, `state`, `zip`, `lat`, `long`) VALUES
+(1, '5604 Bay St', 'Emeryville', 'CA', 94608, 37.833500, -122.292839),
+(2, '31350 Courthouse Dr', 'Union City', 'CA', 94587, 37.601173, -122.064224),
+(3, '1333 N California Blvd', 'Walnut Creek', 'CA', 94596, 37.898266, -122.063782),
+(4, '1817 Somersville Rd', 'Antioch', 'CA', 94509, 38.003323, -121.837791),
+(5, '250 W Maude Ave', 'Sunnyvale', 'CA', 94085, 37.388546, -122.028366),
+(6, '2179 Monterey Highway', 'San Jose', 'CA', 95125, 37.303547, -121.866898),
+(7, '2309 Noriega St', 'San Francisco', 'CA', 94122, 37.753513, -122.488441),
+(8, '896 Valencia St', 'San Francisco', 'CA', 94110, 37.758629, -122.421593),
+(9, '1901 Junipero Serra Blvd', 'Daly City', 'CA', 94014, 37.702538, -122.470375),
+(10, '3520 S El Camino Real', 'San Mateo', 'CA', 94403, 37.535412, -122.296776);
 
 --
 -- Indexes for dumped tables
@@ -275,12 +304,12 @@ ALTER TABLE `warehouse_address`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `category`
 --
@@ -300,7 +329,7 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT for table `warehouse_address`
 --
 ALTER TABLE `warehouse_address`
-  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- Constraints for dumped tables
 --
