@@ -166,7 +166,7 @@ require_once("include/mysql-config.php");
         include('login-form.php');
         # NAVBAR VARIABLES
         $home = "index.php";
-        $logo = "./img/logo_noBG2.png";
+        $logo = "./img/homelogo.png";
         $contact = "contact.php";
         $account = "account.php";
 

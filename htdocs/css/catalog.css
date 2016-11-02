@@ -10,7 +10,7 @@ html,body
 
 #logo {
   float: left;
-  width: 40px;
+  width: 100%;
   height: 40px;
   top: -9px;
   position: relative;
@@ -42,15 +42,8 @@ html,body
     text-align: left;
 }
 
-#myCarousel {
-    height: 500px;
-    margin-top: 0px;
-    margin-bottom: 30px;
-}
-
 #myCarousel .item {
-    height: 500px;
-    background-color: #fff;
+    background-color: #000000;
 }
 
 #carousel-inner-1 > .item > img {
@@ -61,5 +54,5 @@ html,body
 }
 
 #left_carousel, #right_carousel {
-    /*background-image: none;*/
+    background-color: #000000;
 }

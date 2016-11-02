@@ -22,29 +22,27 @@ $mysqli->close();
         <div id="myCarousel" class="carousel slide">
             <div id="carousel-inner-1" class="carousel-inner">
                 <div class="item active">
-                    <img class="img-responsive center-block" src="img/note7_kek.jpg" alt="">
+
+					<img class="img-responsive center-block hidden-lg" src="img/800x600GTX.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:800px; max-width: 1200px"><img class="img-responsive center-block hidden-sm hidden-xs hidden-md" src="img/1920x1080GTX.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:768px; max-width: 1368px">
                     <div class="container">
                         <div class="carousel-caption">
-                            <h2 style="margin-bottom: 45px">Now introducing the NEW<br />Samsung Galaxy Note 7 with <br><font color="red">EXPLOSIVE</font> features!</h2>
                             <a class="btn btn-large btn-primary" href="#">Get It Now</a>
                         </div>
                     </div>
                 </div>
                 <div class="item">
-                    <img src="img/blank800x600.png" alt="">
+                    <img class="img-responsive center-block hidden-lg" src="img/800x600i7.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:800px; max-width: 1200px"><img class="img-responsive center-block hidden-sm hidden-xs hidden-md" src="img/1920x1080i7.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:768px; max-width: 1368px">
                     <div class="container">
                         <div class="carousel-caption">
-                            <h1>Another example headline.</h1>
                             <p class="lead"></p>
-                            <a class="btn btn-large btn-primary" href="#">Learn more</a>
+                            <a class="btn btn-large btn-primary" href="#">More Details</a>
                         </div>
                     </div>
                 </div>
                 <div class="item">
-                    <img src="img/blank800x600.png" alt="">
+                    <img class="img-responsive center-block hidden-lg" src="img/800x600hphones.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:800px; max-width: 1200px"><img class="img-responsive center-block hidden-sm hidden-xs hidden-md" src="img/1920x1080hphones.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:768px; max-width: 1368px">
                     <div class="container">
                         <div class="carousel-caption">
-                            <h1>One more for good measure.</h1>
                             <p class="lead"></p>
                             <a class="btn btn-large btn-primary" href="#">Browse gallery</a>
                         </div>
@@ -68,7 +66,7 @@ $mysqli->close();
                         <div class="panel panel-default" style="max-width: 350px;">
                             <div id="panel-image" class="panel-body" style="max-height: 300px;">
                                 <a href="product.php?id=<?php echo $item['id']; ?>">
-                                    <img src="/<?php echo $item['img_src']; ?>" class="img-responsive center-block" style="max-height: 280px" alt="<?php echo htmlspecialchars($item['name']); ?>" />
+                                    <img src="./<?php echo $item['img_src']; ?>" class="img-responsive center-block" style="max-height: 280px" alt="<?php echo htmlspecialchars($item['name']); ?>" />
                                 </a>
                             </div>
                             <div class="panel-footer" style="background-color: white; font-size:medium"><a href="product.php?id=<?php echo $item['id']; ?>"><?php echo htmlspecialchars($item['name']); ?></a></div>
