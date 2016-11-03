@@ -133,7 +133,7 @@
 		</div>
 		<div class="panel panel-body">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-8">
 					<h4>Item</h4>
 				</div>
 				<div class="col-md-2">
