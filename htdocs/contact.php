@@ -1,194 +1,89 @@
-<?php require 'include/header.php'; ?>
-<h1 style="text-align: center">Store Locations</h1>
-<div class="row">
-    <div class="col-sm-6 col-md-5 col-lg-7 col-sm-offset-1 col-md-offset-2 col-lg-offset-1" style="padding-right: 0px;">
-        <div id="map-container"></div>
-    </div>
-    <ol class="list-group col-sm-4 col-md-3 col-lg-3" id="store-results">
-        <li class="list-group-item">
-            <a href="javascript:triggerClick(0)" id="loc1">
-                <div class="store-marker"><h3>A</h3></div>
-                <div class="store-content">
-                    <span class="glyphicon glyphicon-map-marker"></span>
-                    5604 Bay St <br>       Emeryville, CA 94608
-                    <br />
-                    <p><span class="glyphicon glyphicon-earphone"></span>  (510)428-0129</p>
-                </div>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="javascript:triggerClick(1)" id="loc2">
-                <div class="store-marker"><h3>B </h3></div>
-                <div class="store-content">
-                    <span class="glyphicon glyphicon-map-marker"></span>
-                    Union Landing Shopping Center<br>31350 Courthouse Dr<br> Union City, CA 94587
-                    <br />
-                    <p><span class="glyphicon glyphicon-earphone"></span>  (510)687-4103</p>
-                </div>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="javascript:triggerClick(2)" id="loc3">
-                <div class="store-marker"><h3>C</h3></div>
-                <div class="store-content">
-                    <span class="glyphicon glyphicon-map-marker"></span>
-                    1333 N California Blvd<br> Walnut Creek, CA 94596
-                    <br />
-                    <p><span class="glyphicon glyphicon-earphone"></span>  (925)555-6684</p>
-                </div>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="javascript:triggerClick(3)" id="loc4">
-                <div class="store-marker"><h3>D</h3></div>
-                <div class="store-content">
-                    <span class="glyphicon glyphicon-map-marker"></span>
-                    1817 Somersville Rd<br> Antioch, CA 94509
-                    <br />
-                    <p><span class="glyphicon glyphicon-earphone"></span>  (925)321-4788</p>
-                </div>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="javascript:triggerClick(4)" id="loc5">
-                <div class="store-marker"><h3>E</h3></div>
-                <div class="store-content">
-                    <span class="glyphicon glyphicon-map-marker"></span>
-                    250 W Maude Ave<br> Sunnyvale, CA 94085
-                    <br />
-                    <p><span class="glyphicon glyphicon-earphone"></span>  (866)754-9660</p>
-                </div>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="javascript:triggerClick(5)" id="loc6">
-                <div class="store-marker"><h3>F</h3></div>
-                <div class="store-content">
-                    <span class="glyphicon glyphicon-map-marker"></span>
-                    The Plant<br> 2179 Monterey Highway<br>San Jose, CA 95125
-                    <br />
-                    <p><span class="glyphicon glyphicon-earphone"></span>  (408)988-4862</p>
-                </div>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="javascript:triggerClick(6)" id="loc7">
-                <div class="store-marker"><h3>G</h3></div>
-                <div class="store-content">
-                    <span class="glyphicon glyphicon-map-marker"></span>
-                    2309 Noriega St<br> San Francisco, CA 94122
-                    <br />
-                    <p><span class="glyphicon glyphicon-earphone"></span>  (415)531-4995</p>
-                </div>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="javascript:triggerClick(7)" id="loc8">
-                <div class="store-marker"><h3>H</h3></div>
-                <div class="store-content">
-                    <span class="glyphicon glyphicon-map-marker"></span>
-                    896 Valencia St<br> San Francisco, CA 94110
-                    <br />
-                    <p><span class="glyphicon glyphicon-earphone"></span>  (415)679-0510</p>
-                </div>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="javascript:triggerClick(8)" id="loc9">
-                <div class="store-marker"><h3>I</h3></div>
-                <div class="store-content">
-                    <span class="glyphicon glyphicon-map-marker"></span>
-                    1901 Junipero Serra Blvd<br> Daly City, CA 94014
-                    <br />
-                    <p><span class="glyphicon glyphicon-earphone"></span>  (650)439-8882</p>
-                </div>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="javascript:triggerClick(9)" id="loc10">
-                <div class="store-marker"><h3>J</h3></div>
-                <div class="store-content">
-                    <span class="glyphicon glyphicon-map-marker"></span>
-                    3520 S El Camino Real<br> San Mateo, CA 94403
-                    <br />
-                    <p><span class="glyphicon glyphicon-earphone"></span>  (650)284-7965</p>
-                </div>
-            </a>
-        </li>
-    </ol>
-</div>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNFssYGfC3PBwUPiG6NLWNloRKq5N-5FM"></script>
-<script type="text/javascript">
-    var locations = [
-        ['5604 Bay St, Emeryville, CA 94608', 37.833451, -122.292839],
-        ['Union Landing Shopping Center, 31350 Courthouse Dr, Union City, CA 94587', 37.601174, -122.064223],
-        ['1333 N California Blvd, Walnut Creek, CA 94596', 37.898266, -122.063781],
-        ['1817 Somersville Rd, Antioch, CA 94509 ', 38.003324, -121.837789],
-        ['250 W Maude Ave, Sunnyvale, CA 94085', 37.388547, -122.028365],
-        ['The Plant, 2179 Monterey Highway, San Jose, CA 95125', 37.303547, -121.866899],
-        ['2309 Noriega St, San Francisco, CA 94122', 37.753514, -122.488441],
-        ['896 Valencia St, San Francisco, CA 94110', 37.758629, -122.421591],
-        ['1901 Junipero Serra Blvd, Daly City, CA 94014', 37.702539, -122.470378],
-        ['3520 S El Camino Real, San Mateo', 37.535410, -122.296773]
-    ];
+<?php
+    require('include/header.php');
 
-    var mapoptions = {
-        center: new google.maps.LatLng(37.6011705, -122.0682412),
-        zoom: 9
-    };
+$mysqli = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
+if ($mysqli === null) {
+    echo "An error occured while connecting to the database.";
+    return;
+}
+$mysqli->set_charset("utf8");
+$result = $mysqli->query("SELECT * FROM warehouse_address");
+$locations = array();
+$locations_js = array();
+while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+    $locations[] = $row;
+    if (empty($row['name'])) {
+        $locations_js[] = "['<a href=\"http://maps.apple.com/?q=EMQ&ll={$row['lat']},{$row['long']}\" target=\"_blank\">{$row['address']}, {$row['city']}, {$row['state']} {$row['zip']}</a>', {$row['lat']}, {$row['long']}]";
+    } else {
+        $locations_js[] = "['<a href=\"http://maps.apple.com/?q=EMQ&ll={$row['lat']},{$row['long']}\" target=\"_blank\">{$row['name']} {$row['address']}, {$row['city']}, {$row['state']} {$row['zip']}</a>', {$row['lat']}, {$row['long']}]";
+    }
+}
+$result->close();
+$mysqli->close();
+$label = 'A';
+$loc_index = 0;
+?>
+        <h1 style="text-align: center">Store Locations</h1>
+        <div class="row">
+            <div class="col-sm-6 col-md-5 col-lg-7 col-sm-offset-1 col-md-offset-2 col-lg-offset-1" style="padding-right: 0px;">
+                <div id="map-container"></div>
+            </div>
+            <ol class="list-group col-sm-4 col-md-3 col-lg-3" id="store-results">
+            <?php foreach ($locations as $location): ?>    <li class="list-group-item">
+                    <a href="javascript:triggerClick(<?php echo $loc_index++; ?>)" id="loc<?php echo $loc_index; ?>">
+                        <div class="store-marker"><h3><?php echo $label++; ?></h3></div>
+                        <div class="store-content">
+                            <span class="glyphicon glyphicon-map-marker"></span><br />
+                            <?php if (!empty($location['name'])) : ?><?php echo $location['name']; ?><br />
+                            <?php endif; ?><?php echo $location['address']; ?><br />
+                            <?php echo $location['city']; ?>, <?php echo $location['state']; ?> <?php echo $location['zip']; ?><br />
+                            <p><span class="glyphicon glyphicon-earphone"></span> <?php echo $location['phone']; ?></p>
+                        </div>
+                    </a>
+                </li>
+            <?php endforeach; ?></ol>
+        </div>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNFssYGfC3PBwUPiG6NLWNloRKq5N-5FM"></script>
+        <script type="text/javascript">
+            var locations = [
+                <?php echo implode(",\n                ", $locations_js) . "\n"; ?>
+            ];
 
-    var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var labelIndex = 0;
-    markers = [];
-    function init_map() {
-        var marker, i;
-        var infoWindow = new google.maps.InfoWindow();
-        var map = new google.maps.Map(document.getElementById("map-container"),
-                mapoptions);
-        for (i = 0; i < locations.length; i++) {
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                label: labels[labelIndex++ % labels.length],
-                map: map
-            });
-            markers.push(marker);
-            google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                return function () {
-                    infoWindow.setContent(locations[i][0]);
-                    infoWindow.open(map, marker);
-                    map.setZoom(15);
-                    map.setCenter(marker.getPosition());
+            var mapoptions = {
+                center: new google.maps.LatLng(37.6011705, -122.0682412),
+                zoom: 9
+            };
+
+            var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            var labelIndex = 0;
+            markers = [];
+            function init_map() {
+                var marker, i;
+                var infoWindow = new google.maps.InfoWindow();
+                var map = new google.maps.Map(document.getElementById("map-container"), mapoptions);
+                for (i = 0; i < locations.length; i++) {
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        content: labels[labelIndex++ % labels.length],
+                        map: map
+                    });
+                    markers.push(marker);
+                    google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                        return function () {
+                            infoWindow.setContent(locations[i][0]);
+                            infoWindow.open(map, marker);
+                            map.setZoom(15);
+                            map.setCenter(marker.getPosition());
+                        };
+                    })(marker, i));
                 }
-            })(marker, i));
-        }
-    }
-    google.maps.event.addDomListener(window, 'load', init_map);
-
-
-    function triggerClick(i) {
-        google.maps.event.trigger(markers[i], 'click');
-
-        var geoStr = "geo:";
-        var locStr = "loc";
-
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            for (i = 0; i < locations.length; i++) {
-                geoStr = "geo:";
-                locStr = "loc";
-                locStr += (i + 1);
-                geoStr += locations[i][1];
-                geoStr += ",";
-                geoStr += locations[i][2];
-                geoStr += "?q=";
-                geoStr += locations[i][1];
-                geoStr += ",";
-                geoStr += locations[i][2];
-                //document.getElementById(locStr).href = geoStr;
-
             }
-        }
-    }
-    ;
-</script>
+            google.maps.event.addDomListener(window, 'load', init_map);
+
+
+            function triggerClick(i) {
+                google.maps.event.trigger(markers[i], 'click');
+            }
+        </script>
 <?php require 'include/footer.php'; ?>

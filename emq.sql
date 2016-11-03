@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Nov 02, 2016 at 11:22 PM
+-- Generation Time: Nov 03, 2016 at 07:26 AM
 -- Server version: 5.5.49-log
 -- PHP Version: 7.0.9
 
@@ -91,8 +91,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
 --
 
 INSERT INTO `cart` (`accountId`, `itemId`, `price`, `quantity`, `date_added`) VALUES
-(1, 1, 599.99, 1, '2016-11-02 23:14:12'),
-(1, 3, 99.99, 1, '2016-11-02 23:15:39');
+(1, 1, 599.99, 2, '2016-11-03 02:49:41');
 
 -- --------------------------------------------------------
 
@@ -208,29 +207,31 @@ CREATE TABLE IF NOT EXISTS `order_items` (
 DROP TABLE IF EXISTS `warehouse_address`;
 CREATE TABLE IF NOT EXISTS `warehouse_address` (
   `id` int(11) unsigned NOT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `city` varchar(20) DEFAULT NULL,
-  `state` varchar(20) DEFAULT NULL,
-  `zip` mediumint(5) unsigned DEFAULT NULL,
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `address` varchar(255) NOT NULL,
+  `city` varchar(20) NOT NULL,
+  `state` varchar(20) NOT NULL,
+  `zip` mediumint(5) unsigned NOT NULL,
   `lat` float(10,6) DEFAULT NULL,
-  `long` float(10,6) DEFAULT NULL
+  `long` float(10,6) DEFAULT NULL,
+  `phone` char(14) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `warehouse_address`
 --
 
-INSERT INTO `warehouse_address` (`id`, `address`, `city`, `state`, `zip`, `lat`, `long`) VALUES
-(1, '5604 Bay St', 'Emeryville', 'CA', 94608, 37.833500, -122.292839),
-(2, '31350 Courthouse Dr', 'Union City', 'CA', 94587, 37.601173, -122.064224),
-(3, '1333 N California Blvd', 'Walnut Creek', 'CA', 94596, 37.898266, -122.063782),
-(4, '1817 Somersville Rd', 'Antioch', 'CA', 94509, 38.003323, -121.837791),
-(5, '250 W Maude Ave', 'Sunnyvale', 'CA', 94085, 37.388546, -122.028366),
-(6, '2179 Monterey Highway', 'San Jose', 'CA', 95125, 37.303547, -121.866898),
-(7, '2309 Noriega St', 'San Francisco', 'CA', 94122, 37.753513, -122.488441),
-(8, '896 Valencia St', 'San Francisco', 'CA', 94110, 37.758629, -122.421593),
-(9, '1901 Junipero Serra Blvd', 'Daly City', 'CA', 94014, 37.702538, -122.470375),
-(10, '3520 S El Camino Real', 'San Mateo', 'CA', 94403, 37.535412, -122.296776);
+INSERT INTO `warehouse_address` (`id`, `name`, `address`, `city`, `state`, `zip`, `lat`, `long`, `phone`) VALUES
+(1, '', '5604 Bay St', 'Emeryville', 'CA', 94608, 37.833500, -122.292839, '(510) 428-0129'),
+(2, 'Union Landing Shopping Center', '31350 Courthouse Dr', 'Union City', 'CA', 94587, 37.601173, -122.064224, '(510) 687-4103'),
+(3, '', '1333 N California Blvd', 'Walnut Creek', 'CA', 94596, 37.898266, -122.063782, '(925) 555-6684'),
+(4, '', '1817 Somersville Rd', 'Antioch', 'CA', 94509, 38.003323, -121.837791, '(925) 321-4788'),
+(5, '', '250 W Maude Ave', 'Sunnyvale', 'CA', 94085, 37.388546, -122.028366, '(866) 754-9660'),
+(6, 'The Plant', '2179 Monterey Highway', 'San Jose', 'CA', 95125, 37.303547, -121.866898, '(408) 988-4862'),
+(7, '', '2309 Noriega St', 'San Francisco', 'CA', 94122, 37.753513, -122.488441, '(415) 531-4995'),
+(8, '', '896 Valencia St', 'San Francisco', 'CA', 94110, 37.758629, -122.421593, '(415) 679-0510'),
+(9, '', '1901 Junipero Serra Blvd', 'Daly City', 'CA', 94014, 37.702538, -122.470375, '(650) 439-8882'),
+(10, '', '3520 S El Camino Real', 'San Mateo', 'CA', 94403, 37.535412, -122.296776, '(650) 284-7965');
 
 --
 -- Indexes for dumped tables

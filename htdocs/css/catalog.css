@@ -1,12 +1,10 @@
-html,body
-{
+html, body {
     width: 100%;
     height: 100%;
     margin: 0px;
     padding: 0px;
     overflow-x: hidden; 
 }
-
 
 #logo {
   float: left;
@@ -16,16 +14,15 @@ html,body
   position: relative;
 }
 
-.cart-add-logo{
+.cart-add-logo {
     color: #219FD1;
 }
 
-.more-list{
+.more-list {
     color: #219FD1;
 }
 
-.clear-left
-{
+.clear-left {
     clear: left;
 }
 

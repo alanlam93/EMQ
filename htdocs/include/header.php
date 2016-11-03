@@ -196,7 +196,7 @@ require_once("include/mysql-config.php");
         $result->close();
         $mysqli->close();
         ?>
-        <nav class="navbar navbar-inverse navbar-static-top">
+<nav class="navbar navbar-inverse navbar-static-top">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
