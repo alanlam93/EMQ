@@ -15,7 +15,7 @@
 		</div>
 	</div>
 </div>
-</div>
+
 <div class="info col-sm-6 col-md-5 col-lg-5 col-sm-offset-1 col-md-offset-2 col-lg-offset-2" style="padding-right: 0px;">
 <div class="info-container panel panel-default">
 	<div class="row">
@@ -110,6 +110,7 @@
 	
 </div>
 </div>
+
 <div class="order-summary col-sm-4 col-md-4 col-lg-4">
 	<div class="panel panel-primary">
 		<div class="panel panel-heading">
