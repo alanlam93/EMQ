@@ -9,20 +9,24 @@
   <p>Track the status of your package. Green indicates current package status.</p>
   <div class="progress">
     <div class="progress-bar progress-bar-1" role="progressbar" style="width:25%;background:silver" id="step-1">
-      <h4>Order Processed</h4>
+      <h4 class="hidden-xs">Order Processed</h4>
+      <h5 class="visible-xs">Processed</h5>
     </div>
     <div class="progress-bar progress-bar-2" role="progressbar" style="width:25%;background:silver" id="step-2">
-      <h4>Preparing for Delivery</h4>
+      <h4 class="hidden-xs">Preparing for Delivery</h4>
+      <h5 class="visible-xs">Preparing</h5>
     </div>
     <div class="progress-bar progress-bar-3" role="progressbar" style="width:25%;background:silver" id="step-3">
-      <h4>Out for Delivery</h4>
+      <h4 class="hidden-xs">Out for Delivery</h4>
+      <h5 class="visible-xs">In Transit</h5>
     </div>
     <div class="progress-bar progress-bar-4" role="progressbar" style="width:25%;background:silver" id="step-4">
-      <h4>Delivered</h4>
+      <h4 class="hidden-xs">Delivered</h4>
+      <h5 class="visible-xs">Delivered</h5>
     </div>
   </div>
 </div>
-</body>
+
 
 <script type="text/javascript">
     
