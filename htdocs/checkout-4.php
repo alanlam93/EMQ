@@ -36,54 +36,54 @@
 				<div class="col-md-10">
 					<h3>Details of Order</h3>
 				</div>
-				<div class="col-md-8">
+				<div class="col-xs-6 col-md-8">
 					<h4>Item</h4>
 				</div>
-				<div class="col-md-2">
+				<div class="col-xs-3 col-md-2">
 					<h4>Quantity</h4>
 				</div>
-				<div class="col-md-2">
+				<div class="col-xs-3 col-md-2">
 					<h4>Price</h4>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-2">
+				<div class="col-xs-3 col-md-2">
 					Image(?) 
 				</div>
-				<div class="col-md-6">
+				<div class="col-xs-3 col-md-6">
 					Item Name
 				</div>
-				<div class="col-md-2">
+				<div class="col-xs-3 col-md-2">
 					Quantity
 				</div>
-				<div class="col-md-2">
+				<div class="col-xs-3 col-md-2">
 					Price
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-2">
+				<div class="col-xs-3 col-md-2">
 					Image(?) 
 				</div>
-				<div class="col-md-6">
+				<div class="col-xs-3 col-md-6">
 					Item Name
 				</div>
-				<div class="col-md-2">
+				<div class="col-xs-3 col-md-2">
 					Quantity
 				</div>
-				<div class="col-md-2">
+				<div class="col-xs-3 col-md-2">
 					Price
 				</div>
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-md-10">
+				<div class="col-xs-8 col-md-10">
 					<h4>Total:</h4>
 				</div>
-				<div class="col-md-2">
+				<div class="col-xs-4 col-md-2">
 					<h4>$1234.12</h4>
 				</div>
 			</div>
-			<div class="col-md-2 col-md-offset-10">
+			<div class="col-md-2 col-xs-offset-7 col-md-offset-10">
 				<br>
 				<a class="btn btn-large btn-primary" href="index.php">Back to Home</a>
 			</div>
