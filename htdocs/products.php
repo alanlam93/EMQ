@@ -117,7 +117,4 @@ text-align: center;
 
 	</div>
 </div>
-</div>
-</div>
-</div>
 <?php require 'include/footer.php'; ?>
