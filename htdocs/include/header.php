@@ -6,6 +6,7 @@ require_once("include/mysql-config.php");
 <html lang="en">
     <head>
         <title>EMQ Electronics Store</title>
+		<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
