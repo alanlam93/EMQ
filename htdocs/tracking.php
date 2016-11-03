@@ -267,7 +267,7 @@ function setRoutes(){
 
     var lastVertex = 1;
     var stepnum=0;
-    var step = 50; // Around 1.5 - 2 for realistic speed
+    var step = 25; // Around 1.5 - 2 for realistic speed
     var tick = 100; // milliseconds
     var eol= [];
               
