@@ -28,7 +28,7 @@
 		<div class="panel panel-body">
 			<div class="tracking-Info">
 				<h4>Thank you, USER. Your order has been successfully completed. </h4>
-				<h4>Your Tracking #12392139321 <br><br><a href="tracking progress bar.php">Click here for tracking information</a></h4>
+				<h4>Your Tracking #12392139321 <br><br><a href="tracking.php">Click here for tracking information</a></h4>
 			</div>
 			<hr>
 			<div class="row">

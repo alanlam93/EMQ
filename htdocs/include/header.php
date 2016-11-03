@@ -16,6 +16,7 @@ require_once("include/mysql-config.php");
         <link rel="stylesheet" type="text/css" href="css/login-form.css">
         <link rel="stylesheet" type="text/css" href="css/contact.css">
         <link rel="stylesheet" type="text/css" href="css/checkout.css">
+        <link rel="stylesheet" type="text/css" href="css/tracking.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]-->
         <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
