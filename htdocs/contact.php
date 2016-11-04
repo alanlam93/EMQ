@@ -15,7 +15,7 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
     if (empty($row['name'])) {
         $locations_js[] = "['<a href=\"http://maps.apple.com/?q=EMQ&ll={$row['lat']},{$row['long']}\" target=\"_blank\">{$row['address']}, {$row['city']}, {$row['state']} {$row['zip']}</a>', {$row['lat']}, {$row['long']}]";
     } else {
-        $locations_js[] = "['<a href=\"http://maps.apple.com/?q=EMQ&ll={$row['lat']},{$row['long']}\" target=\"_blank\">{$row['name']} {$row['address']}, {$row['city']}, {$row['state']} {$row['zip']}</a>', {$row['lat']}, {$row['long']}]";
+        $locations_js[] = "['<a href=\"http://maps.apple.com/?q=EMQ&ll={$row['lat']},{$row['long']}\" target=\"_blank\">{$row['name']}, {$row['address']}, {$row['city']}, {$row['state']} {$row['zip']}</a>', {$row['lat']}, {$row['long']}]";
     }
 }
 $result->close();
@@ -65,7 +65,7 @@ $loc_index = 0;
                 for (i = 0; i < locations.length; i++) {
                     marker = new google.maps.Marker({
                         position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                        content: labels[labelIndex++ % labels.length],
+                        label: labels[labelIndex++ % labels.length],
                         map: map
                     });
                     markers.push(marker);
