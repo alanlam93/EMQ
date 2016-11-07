@@ -1,15 +1,17 @@
 <?php
 require('include/header.php');
 
-$mysqli = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
-if ($mysqli === null) {
-    echo "An error occured while connecting to the database.";
-    return;
-}
-$mysqli->set_charset("utf8");
-$cart = array();
 $total = 0;
+$cart = array();
+
 if (isset($_SESSION['cart']) && count($_SESSION['cart'])) {
+    $mysqli = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
+    if ($mysqli === null) {
+        echo "An error occured while connecting to the database.";
+        return;
+    }
+    $mysqli->set_charset("utf8");
+
     $cartQuery = "SELECT id, name, description, price, img_src FROM inventory WHERE id IN (" . implode(", ", array_keys($_SESSION['cart'])) . ")";
     $result = $mysqli->query($cartQuery);
     while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -95,6 +97,10 @@ $mysqli->close();
             </div>
         </div>
         <script>
+            var buttonsDisabled = $('.panel-body').children('.cart-item').length < 1;
+            $("#update-cart").prop("disabled", buttonsDisabled);
+            $("#checkout-button").prop("disabled", buttonsDisabled);
+
             $(".rem-item").click(function () {
                 var id = $(this).attr('id');
                 var row = $(this).closest('.row');
@@ -110,6 +116,10 @@ $mysqli->close();
                             $("#tot-price").html("$" + retData.total);
                             row.next().remove();
                             row.remove();
+                            if (retData.count === 0) {
+                                $("#update-cart").prop("disabled", true);
+                                $("#checkout-button").prop("disabled", true);
+                            }
                         } else {
                             $("#cart-notifications").html(getErrorMessage(retData.message));
                         }
@@ -121,39 +131,43 @@ $mysqli->close();
             });
             $("#update-cart").click(function () {
                 var cartItems = $(this).closest('.panel-body').children('.cart-item');
-                if (cartItems.length > 0) {
-                    var arr = {};
-                    cartItems.each(function () {
-                        var quantity = $(this).find('input:text').val();
-                        arr[$(this).find('.rem-item').attr('id')] = $(this).find('input:text').val();
-                        if (quantity === "0")
-                            $(this).remove();
-                    });
-                    $.ajax({
-                        type: "POST",
-                        url: "include/cart-actions.php?action=update",
-                        data: "items=" + JSON.stringify(arr),
-                        success: function (msg) {
-                            console.log("MSG: |" + msg);
-                            var retData = JSON.parse(msg);
-                            $("#cart-notifications").html(getErrorMessage(msg));
-                            if (retData.success) {
-                                $("#cart-notifications").html(getSuccessMessage("Your cart was updated."));
-                                $(".badge").html(retData.count > 0 ? retData.count : "");
-                                $("#tot-price").html("$" + retData.total);
-                            } else {
-                                $("#cart-notifications").html(getErrorMessage(retData.message));
+                var arr = {};
+                cartItems.each(function () {
+                    var quantity = $(this).find('input:text').val();
+                    arr[$(this).find('.rem-item').attr('id')] = $(this).find('input:text').val();
+                    if (quantity === "0")
+                        $(this).remove();
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "include/cart-actions.php?action=update",
+                    data: "items=" + JSON.stringify(arr),
+                    success: function (msg) {
+                        console.log("MSG: |" + msg);
+                        var retData = JSON.parse(msg);
+                        $("#cart-notifications").html(getErrorMessage(msg));
+                        if (retData.success) {
+                            $("#cart-notifications").html(getSuccessMessage("Your cart was updated."));
+                            $(".badge").html(retData.count > 0 ? retData.count : "");
+                            $("#tot-price").html("$" + retData.total);
+                            if (retData.count === 0) {
+                                $("#update-cart").prop("disabled", true);
+                                $("#checkout-button").prop("disabled", true);
                             }
-                        },
-                        error: function () {
-                            $("#cart-notifications").html(getErrorMessage("An error occured while updating your cart."));
+                        } else {
+                            $("#cart-notifications").html(getErrorMessage(retData.message));
                         }
-                    });
-                }
+                    },
+                    error: function () {
+                        $("#cart-notifications").html(getErrorMessage("An error occured while updating your cart."));
+                    }
+                });
                 $(this).blur();
             });
             $("#checkout-button").click(function () {
-                window.location.href = 'checkout.php';
-            });
+                <?php if (isset($_SESSION['userid'])) : ?>window.location.href = 'checkout.php';
+                <?php else : ?>$('#login-register-modal').modal('show');
+                $('.nav-tabs a[href="#login"]').tab('show');
+            <?php endif; ?>});
         </script>
 <?php require 'include/footer.php'; ?>

@@ -112,7 +112,7 @@
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
                                                         <option value="AZ">Arizona</option>
-                                                        <option value="CA">California</option>
+                                                        <option value="CA" selected>California</option>
                                                         <option value="CO">Colorado</option>
                                                         <option value="CT">Connecticut</option>
                                                         <option value="DC">District of Columbia</option>

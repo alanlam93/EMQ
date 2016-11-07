@@ -59,6 +59,11 @@ if (isset($_GET['email'])) {
         session_start();
         $_SESSION["userid"] = $acc_id;
         $_SESSION["name"] = $_POST['first_name'];
+        include("cart-actions.php");
+        if (isset($_SESSION["cart"])) {
+            updateCartDB($mysqli, $_SESSION["cart"]);
+        }
+        syncCartSessionWithDB($mysqli, $acc_id);
     }
 }
 $mysqli->close();
