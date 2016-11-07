@@ -8,40 +8,64 @@ if ($mysqli === null) {
     return;
 }
 session_start();
-switch ($_POST['action']) {
-    case "change_pass":
-        if (isset($_POST['old'], $_POST['new'], $_POST['new_verify'])) {
-            if ($_POST['new'] !== $_POST['new_verify']) {
-                echo "New password does not match.";
-            } else {
-                $userId = $_SESSION["userid"];
-                $result = $mysqli->query("SELECT * from account WHERE `id` = $userId");
-                if ($result->num_rows > 0) {
-                    $row = mysqli_fetch_assoc($result);
-                    if ($row['password'] == hash('sha512', $_POST['old'] . $row['salt'])) {
-                        $salt = substr(hash('sha1', uniqid(rand(), true)), 0, 32);
-                        $password_sha512 = hash('sha512', $_POST['new'] . $salt);
-                        $statement = $mysqli->prepare('UPDATE account SET `password` = ?, `salt` = ? WHERE id = ?');
-                        if ($statement) {
-                            $statement->bind_param('ssi', $password_sha512, $salt, $userId);
-                            $result = $statement->execute();
-                            $statement->close();
-                        }
-                        if (!$result) {
-                            echo "An error occured while changing your password.";
+if (isset($_POST['action'])) {
+    switch ($_POST['action']) {
+        case "change_pass":
+            if (isset($_POST['old'], $_POST['new'], $_POST['new_verify'])) {
+                if ($_POST['new'] !== $_POST['new_verify']) {
+                    echo "New password does not match.";
+                } else {
+                    $userId = $_SESSION["userid"];
+                    $result = $mysqli->query("SELECT * from account WHERE `id` = $userId");
+                    if ($result->num_rows > 0) {
+                        $row = mysqli_fetch_assoc($result);
+                        if ($row['password'] == hash('sha512', $_POST['old'] . $row['salt'])) {
+                            $salt = substr(hash('sha1', uniqid(rand(), true)), 0, 32);
+                            $password_sha512 = hash('sha512', $_POST['new'] . $salt);
+                            $statement = $mysqli->prepare('UPDATE account SET `password` = ?, `salt` = ? WHERE id = ?');
+                            if ($statement) {
+                                $statement->bind_param('ssi', $password_sha512, $salt, $userId);
+                                $result = $statement->execute();
+                                $statement->close();
+                            }
+                            if (!$result) {
+                                echo "An error occured while changing your password.";
+                            }
+                        } else {
+                            echo "Your current password is incorrect.";
                         }
                     } else {
-                        echo "Your current password is incorrect.";
+                        echo "An unknown error occured.";
                     }
-                } else {
-                    echo "An unknown error occured.";
                 }
             }
-        }
-        break;
-    default:
-        echo "An unknown error occured.";
-        break;
+            break;
+        case "add_address":
+            if (isset($_POST['name'], $_POST['address'], $_POST['city'], $_POST['state'], $_POST['zip'], $_POST['set-default'])) {
+                $acc_id = $_SESSION["userid"];
+                $address_statement = $mysqli->prepare('INSERT INTO address (`accountId`, `name`, `address`, `city`, `state`, `zip`) VALUES (?, ?, ?, ?, ?, ?)');
+                if ($address_statement) {
+                    $address_statement->bind_param('issssi', $acc_id, $_POST['name'], $_POST['address'], $_POST['city'], $_POST['state'], $_POST['zip']);
+                    $result = $address_statement->execute();
+                    $address_statement->close();
+                }
+                if (!$result) {
+                    echo "An error occured while adding your address.";
+                } else {
+                    if ($_POST['set-default'] === "Yes") {
+                        $addr_id = $mysqli->insert_id;
+                        $result = $mysqli->query("UPDATE account SET default_addr_id = $addr_id WHERE id = $acc_id");
+                        if (!$result) {
+                            echo "An error occured while setting your default address.";
+                        }
+                    }
+                }
+            }
+            break;
+        default:
+            echo "An unknown action was specified.";
+            break;
+    }
 }
 $mysqli->close();
 ?>

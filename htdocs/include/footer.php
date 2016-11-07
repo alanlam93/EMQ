@@ -1,6 +1,7 @@
-        <br /><br /><br />
-        <footer class="">
+            </div>        
+            <footer class="">
             EMQ CORPORATION
-        </footer>
+            </footer>
+        </div>
     </body>
 </html>

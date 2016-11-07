@@ -1,12 +1,32 @@
 <?php
 session_start();
 require_once("include/mysql-config.php");
+
+# NAVBAR VARIABLES
+$home = "index.php";
+$logo = "./img/homelogo.png";
+$contact = "contact.php";
+$account = "account.php";
+$checkout = "checkout.php";
+
+$mysqli = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
+if ($mysqli === null) {
+    echo "An error occured while connecting to the database.";
+    return;
+}
+$result = $mysqli->query("SELECT id, name FROM category ORDER BY name");
+$categories = array();
+while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+    $categories[] = $row;
+}
+$result->close();
+$mysqli->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>EMQ Electronics Store</title>
-		<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -37,7 +57,7 @@ require_once("include/mysql-config.php");
                         "<strong>Success!</strong> " + x +
                         "</div>";
             }
-            
+
             function getInfoMessage(msg) {
                 return "<div class=\"alert alert-info fade in\" id=\"notification-box\">" +
                         "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>" +
@@ -169,78 +189,67 @@ require_once("include/mysql-config.php");
                 background-color: #f2f2f2;
                 padding: 25px;
                 height: 70px;
+                position: absolute;
+                bottom: 0;
+                width: 100%;
             }
         </style>
     </head>
     <body>
-        <?php
-        if (!isset($_SESSION['userid'])) {
-            include('login-form.php');
-        }
-        # NAVBAR VARIABLES
-        $home = "index.php";
-        $logo = "./img/homelogo.png";
-        $contact = "contact.php";
-        $account = "account.php";
-        $checkout = "checkout.php";
-
-        $mysqli = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
-        if ($mysqli === null) {
-            echo "An error occured while connecting to the database.";
-            return;
-        }
-        $result = $mysqli->query("SELECT id, name FROM category ORDER BY name");
-        $categories = array();
-        while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-            $categories[] = $row;
-        }
-        $result->close();
-        $mysqli->close();
-        ?>
-        <nav class="navbar navbar-inverse navbar-static-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="<?= $home ?>"><img src="<?= $logo ?>" id="logo" alt="EMQ" /></a>
-
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?= $home ?>">Home</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                            <?php foreach ($categories as $category): ?>    <li><a href="products.php?cat-id=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></li>
-                            <?php endforeach; ?></ul>
-                        </li>
-                        <li><a href="<?= $contact ?>">Contact Us</a></li>
-                        <li><a href="<?= $checkout ?>">Checkout</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <?php if (isset($_SESSION['userid'])) : ?><li><a>Hello, <?php echo $_SESSION['name'] ?></a></li>
-                        <li><a href="<?= $account ?>"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-                        <li><a href="logout.php">Logout</a></li>
-                        <?php else : ?><li><a href="#login" class="modal-toggle" data-toggle="modal" data-target="#login-register-modal">Login</a></li>
-                        <li><a href="#register" class="modal-toggle" data-toggle="modal" data-target="#login-register-modal">Register</a></li>
-                    <?php endif; ?><li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart <span class="badge"><?php $c = isset($_SESSION['cart']) ? array_sum(array_values($_SESSION['cart'])) : 0; if ($c > 0) { echo $c; } ?></span></a></li>
-                    </ul>
-                    <!-- Search Bar -->
-                    <div class="nav-col nac-col-elastic">
-                        <div style="float: right;">
-                            <form class="navbar-form" role="search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Enter keywords or item #" name="srch-term" id="srch-term">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+        <div id="container">
+            <?php
+            if (!isset($_SESSION['userid'])) {
+                include('login-form.php');
+            }
+            ?><nav class="navbar navbar-inverse navbar-static-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="<?= $home ?>"><img src="<?= $logo ?>" id="logo" alt="EMQ" /></a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="<?= $home ?>">Home</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                <?php foreach ($categories as $category): ?>    <li><a href="products.php?cat-id=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></li>
+                                <?php endforeach; ?></ul>
+                            </li>
+                            <li><a href="<?= $contact ?>">Contact Us</a></li>
+                            <li><a href="<?= $checkout ?>">Checkout</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <?php if (isset($_SESSION['userid'])) : ?><li><a>Hello, <?php echo $_SESSION['name'] ?></a></li>
+                                <li><a href="<?= $account ?>"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+                                <li><a href="logout.php">Logout</a></li>
+                            <?php else : ?><li><a href="#login" class="modal-toggle" data-toggle="modal" data-target="#login-register-modal">Login</a></li>
+                                <li><a href="#register" class="modal-toggle" data-toggle="modal" data-target="#login-register-modal">Register</a></li>
+                            <?php endif; ?><li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart <span class="badge"><?php
+                            $c = isset($_SESSION['cart']) ? array_sum(array_values($_SESSION['cart'])) : 0;
+                            if ($c > 0) {
+                                echo $c;
+                            }
+                            ?></span></a></li>
+                        </ul>
+                        <!-- Search Bar -->
+                        <div class="nav-col nac-col-elastic">
+                            <div style="float: right;">
+                                <form class="navbar-form" role="search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Enter keywords or item #" name="srch-term" id="srch-term">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+            <div id="body">

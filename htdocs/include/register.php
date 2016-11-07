@@ -52,8 +52,11 @@ if (isset($_GET['email'])) {
         $result = $address_statement->execute();
         $address_statement->close();
     }
+    
+    $addr_id = $mysqli->insert_id;
+    $result2 = $mysqli->query("UPDATE account SET default_addr_id = $addr_id WHERE id = $acc_id");
 
-    if (!$address_statement || !$result || !$mysqli->commit()) {
+    if (!$address_statement || !$result || !$result2 || !$mysqli->commit()) {
         echo "An error occured while creating your account.";
     } else {
         session_start();

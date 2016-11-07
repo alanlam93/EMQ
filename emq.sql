@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Nov 03, 2016 at 07:26 AM
+-- Generation Time: Nov 07, 2016 at 11:33 PM
 -- Server version: 5.5.49-log
 -- PHP Version: 7.0.9
 
@@ -37,15 +37,17 @@ CREATE TABLE IF NOT EXISTS `account` (
   `salt` varchar(255) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
-  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `default_addr_id` int(11) unsigned NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`id`, `email`, `password`, `salt`, `first_name`, `last_name`, `create_date`) VALUES
-(1, 'johnny@emq.com', 'c5a79985d9d5b19dae82110e5c86c78e08c67a8a5f5bd2472ca2c41b283e8beacdf4634108a6aa100cfaf03f7505f82fdb6d6e18b57fb2e610814189faddb1cd', '3b79a1299d588d7848f228ac7984be72', 'Johnny', 'Lui', '2016-11-02 21:56:20');
+INSERT INTO `account` (`id`, `email`, `password`, `salt`, `first_name`, `last_name`, `create_date`, `default_addr_id`) VALUES
+(1, 'johnny@emq.com', 'ff539896f6a2eeeed34f674bfc33f06d9ef302d2cb230fe3f94e77bb0f185f3ccfc35eda80b72dd39bb0227aa48f02d17789111bd98e04e9f417c4758216ade6', '0133b29d4c192adc24cdbc3bf84f719f', 'Johnny', 'Lui', '2016-11-02 21:56:20', 2),
+(2, 'johnny1@emq.com', 'ff539896f6a2eeeed34f674bfc33f06d9ef302d2cb230fe3f94e77bb0f185f3ccfc35eda80b72dd39bb0227aa48f02d17789111bd98e04e9f417c4758216ade6', '0133b29d4c192adc24cdbc3bf84f719f', 'Johnny', 'Lui', '2016-11-07 23:25:50', 3);
 
 -- --------------------------------------------------------
 
@@ -62,14 +64,16 @@ CREATE TABLE IF NOT EXISTS `address` (
   `city` varchar(20) NOT NULL,
   `state` varchar(20) NOT NULL,
   `zip` mediumint(5) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `address`
 --
 
 INSERT INTO `address` (`id`, `accountId`, `name`, `address`, `city`, `state`, `zip`) VALUES
-(1, 1, 'Johnny Lui', '123 Fake Street', 'San Jose', 'CA', 95112);
+(1, 1, 'Johnny Lui', '123 Fake Street', 'San Jose', 'CA', 95112),
+(2, 1, 'Xterminator', '123 Fake Street', 'San Jose', 'CA', 95112),
+(3, 2, 'Johnny Lui', '123 Fake Street', 'San Jose', 'CA', 95112);
 
 -- --------------------------------------------------------
 
@@ -91,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
 --
 
 INSERT INTO `cart` (`accountId`, `itemId`, `price`, `quantity`, `date_added`) VALUES
-(1, 1, 599.99, 2, '2016-11-03 02:49:41');
+(1, 1, 599.99, 1, '2016-11-07 07:01:06');
 
 -- --------------------------------------------------------
 
@@ -243,7 +247,8 @@ INSERT INTO `warehouse_address` (`id`, `name`, `address`, `city`, `state`, `zip`
 ALTER TABLE `account`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `acc_idx` (`id`) USING BTREE,
-  ADD UNIQUE KEY `email_idx` (`email`) USING BTREE;
+  ADD UNIQUE KEY `email_idx` (`email`) USING BTREE,
+  ADD KEY `addr_fk` (`default_addr_id`);
 
 --
 -- Indexes for table `address`
@@ -305,12 +310,12 @@ ALTER TABLE `warehouse_address`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `category`
 --
@@ -334,6 +339,12 @@ ALTER TABLE `warehouse_address`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `account`
+--
+ALTER TABLE `account`
+  ADD CONSTRAINT `addr_fk` FOREIGN KEY (`default_addr_id`) REFERENCES `address` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `address`
