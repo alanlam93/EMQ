@@ -344,7 +344,7 @@ ALTER TABLE `warehouse_address`
 -- Constraints for table `account`
 --
 ALTER TABLE `account`
-  ADD CONSTRAINT `addr_fk` FOREIGN KEY (`default_addr_id`) REFERENCES `address` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `addr_fk` FOREIGN KEY (`default_addr_id`) REFERENCES `address` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `address`
