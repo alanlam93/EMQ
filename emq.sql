@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Nov 10, 2016 at 09:45 AM
+-- Generation Time: Nov 10, 2016 at 05:04 PM
 -- Server version: 5.5.49-log
 -- PHP Version: 7.0.9
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `default_addr_id` int(11) unsigned NOT NULL
+  `default_addr_id` int(11) unsigned NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
@@ -336,12 +336,6 @@ ALTER TABLE `warehouse_address`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `account`
---
-ALTER TABLE `account`
-  ADD CONSTRAINT `addr_fk` FOREIGN KEY (`default_addr_id`) REFERENCES `address` (`id`) ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `address`
