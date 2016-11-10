@@ -34,10 +34,24 @@ $mysqli->close();
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/catalog.css">
-        <link rel="stylesheet" type="text/css" href="css/login-form.css">
-        <link rel="stylesheet" type="text/css" href="css/contact.css">
-        <link rel="stylesheet" type="text/css" href="css/checkout.css">
-        <link rel="stylesheet" type="text/css" href="css/tracking.css">
+        <?php
+        $requested_page = $_SERVER['REQUEST_URI'];
+        if (!isset($_SESSION['userid'])) {
+            echo '<link rel="stylesheet" type="text/css" href="css/login-form.css">';
+        }
+        switch ($requested_page) {
+            case "/checkout.php":
+                echo '<link rel="stylesheet" type="text/css" href="css/checkout.css">';
+                break;
+            case "/tracking.php":
+                echo '<link rel="stylesheet" type="text/css" href="css/tracking.css">';
+                break;
+            case "/contact.php":
+                echo '<link rel="stylesheet" type="text/css" href="css/contact.css">';
+                break;
+        }
+        echo "\n";
+        ?>
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]-->
         <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
@@ -98,7 +112,9 @@ $mysqli->close();
 
                 $('.modal').on('hidden.bs.modal', function () {
                     $(this).find('form')[0].reset();
-                    $(this).find('form')[1].reset();
+                    var regForm = $(this).find('form')[1];
+                    if (regForm)
+                        regForm.reset();
                     $(".close").click();
                 });
 
@@ -148,52 +164,6 @@ $mysqli->close();
                 });
             });
         </script>
-        <style>
-            @media only screen 
-            and (min-device-width : 320px) 
-            and (max-device-width : 480px) {
-                .panel-image {
-                    min-height: 0;
-                }
-            }
-            @media only screen 
-            and (min-width : 1224px) {
-                .panel-image {
-                    min-height: 300px;
-                }
-            }
-            .swiper-container {
-                width: 80%;
-                /*height: 100%;*/
-            }
-            .swiper-slide {
-                padding-bottom: 20px;
-                text-align: center;
-                font-size: 18px;
-                background: #fff;
-                /* Center slide text vertically */
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: -webkit-flex;
-                display: flex;
-                -webkit-box-pack: center;
-                -ms-flex-pack: center;
-                -webkit-justify-content: center;
-                justify-content: center;
-                -webkit-box-align: center;
-                -ms-flex-align: center;
-                -webkit-align-items: center;
-                align-items: center;
-            }
-            footer {
-                background-color: #f2f2f2;
-                padding: 25px;
-                height: 70px;
-                position: absolute;
-                bottom: 0;
-                width: 100%;
-            }
-        </style>
     </head>
     <body>
         <div id="container">
@@ -217,8 +187,8 @@ $mysqli->close();
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                <?php foreach ($categories as $category): ?>    <li><a href="products.php?cat-id=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></li>
-                                <?php endforeach; ?></ul>
+                                    <?php foreach ($categories as $category): ?>    <li><a href="products.php?cat-id=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></li>
+                                    <?php endforeach; ?></ul>
                             </li>
                             <li><a href="<?= $contact ?>">Contact Us</a></li>
                             <li><a href="<?= $checkout ?>">Checkout</a></li>

@@ -143,9 +143,7 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart'])) {
                             url: "include/cart-actions.php?action=update",
                             data: "items=" + JSON.stringify(arr),
                             success: function (msg) {
-                                console.log("MSG: |" + msg);
                                 var retData = JSON.parse(msg);
-                                $("#cart-notifications").html(getErrorMessage(msg));
                                 if (retData.success) {
                                     $("#cart-notifications").html(getSuccessMessage("Your cart was updated."));
                                     $(".badge").html(retData.count > 0 ? retData.count : "");

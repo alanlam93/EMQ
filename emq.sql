@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Nov 07, 2016 at 11:33 PM
+-- Generation Time: Nov 10, 2016 at 09:45 AM
 -- Server version: 5.5.49-log
 -- PHP Version: 7.0.9
 
@@ -46,8 +46,8 @@ CREATE TABLE IF NOT EXISTS `account` (
 --
 
 INSERT INTO `account` (`id`, `email`, `password`, `salt`, `first_name`, `last_name`, `create_date`, `default_addr_id`) VALUES
-(1, 'johnny@emq.com', 'ff539896f6a2eeeed34f674bfc33f06d9ef302d2cb230fe3f94e77bb0f185f3ccfc35eda80b72dd39bb0227aa48f02d17789111bd98e04e9f417c4758216ade6', '0133b29d4c192adc24cdbc3bf84f719f', 'Johnny', 'Lui', '2016-11-02 21:56:20', 2),
-(2, 'johnny1@emq.com', 'ff539896f6a2eeeed34f674bfc33f06d9ef302d2cb230fe3f94e77bb0f185f3ccfc35eda80b72dd39bb0227aa48f02d17789111bd98e04e9f417c4758216ade6', '0133b29d4c192adc24cdbc3bf84f719f', 'Johnny', 'Lui', '2016-11-07 23:25:50', 3);
+(1, 'johnny@emq.com', 'ff539896f6a2eeeed34f674bfc33f06d9ef302d2cb230fe3f94e77bb0f185f3ccfc35eda80b72dd39bb0227aa48f02d17789111bd98e04e9f417c4758216ade6', '0133b29d4c192adc24cdbc3bf84f719f', 'Johnny', 'Lui', '2016-11-02 21:56:20', 1),
+(2, 'johnny1@emq.com', 'ff539896f6a2eeeed34f674bfc33f06d9ef302d2cb230fe3f94e77bb0f185f3ccfc35eda80b72dd39bb0227aa48f02d17789111bd98e04e9f417c4758216ade6', '0133b29d4c192adc24cdbc3bf84f719f', 'Johnny', 'Lui', '2016-11-07 23:25:50', 2);
 
 -- --------------------------------------------------------
 
@@ -64,16 +64,17 @@ CREATE TABLE IF NOT EXISTS `address` (
   `city` varchar(20) NOT NULL,
   `state` varchar(20) NOT NULL,
   `zip` mediumint(5) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `address`
 --
 
 INSERT INTO `address` (`id`, `accountId`, `name`, `address`, `city`, `state`, `zip`) VALUES
-(1, 1, 'Johnny Lui', '123 Fake Street', 'San Jose', 'CA', 95112),
-(2, 1, 'Xterminator', '123 Fake Street', 'San Jose', 'CA', 95112),
-(3, 2, 'Johnny Lui', '123 Fake Street', 'San Jose', 'CA', 95112);
+(1, 1, 'Johnny Lui', '100 Fake Street', 'San Jose', 'CA', 95112),
+(2, 1, 'Johnny Lui', '110 Fake Street', 'San Jose', 'CA', 95112),
+(3, 2, 'Johnny Lui', '123 Fake Street', 'San Jose', 'CA', 95112),
+(4, 1, 'Johnny Lui', '130 Fake Street', 'San Jose', 'CA', 95112);
 
 -- --------------------------------------------------------
 
@@ -89,13 +90,6 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `quantity` int(3) unsigned NOT NULL,
   `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`accountId`, `itemId`, `price`, `quantity`, `date_added`) VALUES
-(1, 1, 599.99, 1, '2016-11-07 07:01:06');
 
 -- --------------------------------------------------------
 
@@ -182,8 +176,9 @@ CREATE TABLE IF NOT EXISTS `order` (
   `id` int(11) unsigned NOT NULL,
   `accountId` int(11) NOT NULL,
   `addressId` int(11) unsigned NOT NULL,
-  `warehouseId` int(11) unsigned NOT NULL,
+  `warehouseId` int(11) unsigned NOT NULL DEFAULT '0',
   `total` decimal(10,2) unsigned NOT NULL,
+  `last4` int(4) unsigned NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` enum('PROCESSING','SHIPPING','DELIEVERED','PICKUP') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -197,6 +192,7 @@ CREATE TABLE IF NOT EXISTS `order` (
 DROP TABLE IF EXISTS `order_items`;
 CREATE TABLE IF NOT EXISTS `order_items` (
   `accountId` int(11) NOT NULL,
+  `orderId` int(11) unsigned NOT NULL,
   `itemId` int(11) unsigned NOT NULL,
   `quantity` int(3) unsigned NOT NULL DEFAULT '1',
   `price` decimal(10,2) NOT NULL
@@ -292,8 +288,9 @@ ALTER TABLE `order`
 -- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
-  ADD PRIMARY KEY (`accountId`,`itemId`),
-  ADD KEY `order_items_fk_2` (`itemId`);
+  ADD PRIMARY KEY (`accountId`,`orderId`),
+  ADD KEY `order_items_fk_2` (`itemId`),
+  ADD KEY `order_items_fk_3` (`orderId`);
 
 --
 -- Indexes for table `warehouse_address`
@@ -315,7 +312,7 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `category`
 --
@@ -344,7 +341,7 @@ ALTER TABLE `warehouse_address`
 -- Constraints for table `account`
 --
 ALTER TABLE `account`
-  ADD CONSTRAINT `addr_fk` FOREIGN KEY (`default_addr_id`) REFERENCES `address` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION;
+  ADD CONSTRAINT `addr_fk` FOREIGN KEY (`default_addr_id`) REFERENCES `address` (`id`) ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `address`
@@ -371,8 +368,9 @@ ALTER TABLE `order`
 -- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_items_fk_1` FOREIGN KEY (`accountId`) REFERENCES `account` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `order_items_fk_2` FOREIGN KEY (`itemId`) REFERENCES `inventory` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `order_items_fk_3` FOREIGN KEY (`orderId`) REFERENCES `order` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_items_fk_1` FOREIGN KEY (`accountId`) REFERENCES `account` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_items_fk_2` FOREIGN KEY (`itemId`) REFERENCES `inventory` (`id`) ON DELETE CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

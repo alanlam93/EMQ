@@ -202,16 +202,17 @@ if (!isset($_SESSION['userid'])) {
                                 url: "include/account-actions.php",
                                 data: $('#add-address-form').serialize(),
                                 success: function (msg) {
-                                    if (msg) {
-                                        $("#add-address-notifications").html(getErrorMessage(msg));
-                                    } else {
+                                    var retData = JSON.parse(msg);
+                                    if (retData.success) {
                                         $('#add-address').modal('hide');
                                         $('#add-address-form')[0].reset();
                                         $("#account-notification").html(getSuccessMessage("Your address was successfully added."));
+                                    } else {
+                                        $("#add-address-notifications").html(getErrorMessage(retData.message));
                                     }
                                 },
                                 error: function () {
-                                    $("#add-address-notifications").html(getErrorMessage("An error occured while changing your password."));
+                                    $("#add-address-notifications").html(getErrorMessage("An error occured while adding your address."));
                                 }
                             });
                         }

@@ -53,6 +53,29 @@ function syncCartSessionWithDB($mysqli, $accountId) {
     $result->close();
 }
 
+function placeOrder($mysqli, $addrId, $last4) {
+    $mysqli->autocommit(false);
+    $address_statement = $mysqli->prepare('INSERT INTO `order` (`accountId`, `addressId`, `warehouseId`, `total`, `last4`, `status`) VALUES (?, ?, 1, ?, ?, ?)');
+    if ($address_statement) {
+        $status = 'SHIPPING';
+        $total = getTotal($mysqli);
+        $address_statement->bind_param('iidis', $_SESSION['userid'], $addrId, $total, $last4, $status);
+        $orderResult = $address_statement->execute();
+        $address_statement->close();
+    }
+    if ($orderResult) {
+        $orderId = $mysqli->insert_id;
+        $itemsResult = $mysqli->query("INSERT INTO order_items (accountId, orderId, itemId, quantity, price) SELECT '{$_SESSION['userid']}', '$orderId', itemId, quantity, price FROM `cart` WHERE accountId = '{$_SESSION['userid']}' AND `itemId` IN (" . implode(", ", array_keys($_SESSION['cart'])) . ")");
+        $deleteCartResult = $mysqli->query("DELETE FROM cart WHERE accountId = '{$_SESSION['userid']}' AND itemId IN (" . implode(", ", array_keys($_SESSION['cart'])) . ")");
+    }
+    if (!$address_statement || !$orderResult || !$itemsResult || !$deleteCartResult || !$mysqli->commit()) {
+        return json_encode(array("success" => "false", "message" => "An error occured while placing your order."));
+    } else {
+        unset($_SESSION['cart']);
+        return json_encode(array("success" => "true"));
+    }
+}
+
 if (isset($_GET['action'])) {
     session_start();
     $mysqli = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);

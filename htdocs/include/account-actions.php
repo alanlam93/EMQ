@@ -50,14 +50,19 @@ if (isset($_POST['action'])) {
                     $address_statement->close();
                 }
                 if (!$result) {
-                    echo "An error occured while adding your address.";
+                    echo json_encode(array("success" => "false", "message" => "An error occured while adding your address."));
                 } else {
+                    $addr_id = $mysqli->insert_id;
                     if ($_POST['set-default'] === "Yes") {
-                        $addr_id = $mysqli->insert_id;
                         $result = $mysqli->query("UPDATE account SET default_addr_id = $addr_id WHERE id = $acc_id");
                         if (!$result) {
-                            echo "An error occured while setting your default address.";
+                            echo json_encode(array("success" => "false", "message" => "An error occured while setting your default address."));
                         }
+                    }
+                    if ($result) {
+                        echo json_encode(array("success" => "true", "addr_id" => $addr_id,
+                            "addr_js" => "{\"id\":\"$addr_id\",\"name\":\"{$_POST['name']}\",\"address\":\"{$_POST['address']}\",\"city\":\"{$_POST['city']}\",\"state\":\"{$_POST['state']}\",\"zip\":\"{$_POST['zip']}\"}",
+                            "addr_str" => $_POST['name'] . ', ' . $_POST['address'] . ', ' . $_POST['city'] . ', ' . $_POST['state'] . ' ' . $_POST['zip']));
                     }
                 }
             }

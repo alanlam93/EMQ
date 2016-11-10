@@ -1,2 +1,0 @@
-ALTER TABLE `account` ADD COLUMN `default_addr_id` int(11) UNSIGNED NOT NULL AFTER `default_addr_id`;
-ALTER TABLE `account` ADD CONSTRAINT `addr_fk` FOREIGN KEY (`default_addr_id`) REFERENCES `address` (`id`) ON DELETE RESTRICT ON UPDATE NO ACTION;
