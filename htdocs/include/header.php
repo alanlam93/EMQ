@@ -191,7 +191,6 @@ $mysqli->close();
                                     <?php endforeach; ?></ul>
                             </li>
                             <li><a href="<?= $contact ?>">Contact Us</a></li>
-                            <li><a href="<?= $checkout ?>">Checkout</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <?php if (isset($_SESSION['userid'])) : ?><li><a>Hello, <?php echo $_SESSION['name'] ?></a></li>
@@ -209,11 +208,11 @@ $mysqli->close();
                         <!-- Search Bar -->
                         <div class="nav-col nac-col-elastic">
                             <div style="float: right;">
-                                <form class="navbar-form" role="search">
+                                <form class="navbar-form" action="search.php" role="search" method="GET">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Enter keywords or item #" name="srch-term" id="srch-term">
                                         <div class="input-group-btn">
-                                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                            <button class="btn btn-default" type="submit" value="Search"><i class="glyphicon glyphicon-search"></i></button>
                                         </div>
                                     </div>
                                 </form>

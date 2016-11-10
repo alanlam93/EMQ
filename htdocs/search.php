@@ -1,18 +1,29 @@
-<?php require 'include/header.php';
-$mysqli = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
-if ($mysqli === null) {
-echo "An error occured while connecting to the database.";
-return;
-}
-$mysqli->set_charset("utf8");
-$result = $mysqli->query("SELECT id, name, price, img_src FROM inventory WHERE is_best_seller = 1");
-$allProducts = array();
-while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-$allProducts[] = $row;
-}
-$rowCount = 0;
-$result->close();
-$mysqli->close();
+<?php require 'include/header.php'; 
+	$mysqli = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
+	if ($mysqli === null) {
+	echo "An error occured while connecting to the database.";
+	return;
+	}
+
+	$searchTerms = $_GET['srch-term'];
+
+	$parsedTerms = explode(" ",$searchTerms);
+
+	$searchQuery = "SELECT id, name, price, img_src FROM inventory WHERE name LIKE '%".$searchTerms."%'";
+	foreach($parsedTerms as $pT){
+		$searchQuery .= " OR name LIKE '%$pT%' ";
+	}
+
+	$result = $mysqli->query($searchQuery);
+	$matchedProducts = array();
+
+	while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+		$matchedProducts[] = $row;
+	}
+	
+
+	$result->close();
+	$mysqli->close();
 ?>
 <style>
 	#cat_title{
@@ -22,8 +33,8 @@ $mysqli->close();
 		height: 500px;
 	
 	margin-top: 5%;
-margin-right: 10%;
-text-align: center;
+	margin-right: 10%;
+	text-align: center;
 	}
 	.filter{
 		border-right: 1px solid black;
@@ -43,9 +54,9 @@ text-align: center;
 		text-align: left;
 	}
 </style>
-<h3 id="cat_title"> Category 1 </h3><br>
+<h3 id="cat_title"> <?php  echo "Search Results for ''$searchTerms'' ";   ?> </h3><br>
 <div class="container-fluid">
-	<div class="filter col-md-2 responsive">
+	<div class="filter col-md-2">
 		<ul class="filterList">
 			<li><h4>Brand</h4></li>
 			<li> <input type="checkbox" value="">  Apple</li>
@@ -82,7 +93,7 @@ text-align: center;
 	</div>
 	<div class="product_grid col-md-9">
 		<div class="row">
-			<?php foreach ($allProducts as $item): ?>	
+			<?php foreach ($matchedProducts as $item): ?>	
 			
 			<div class="col-md-3">
 				<div class="panel panel-default" style="max-width: 350px; float: left">
@@ -117,4 +128,7 @@ text-align: center;
 
 	</div>
 </div>
+
+
 <?php require 'include/footer.php'; ?>
+
