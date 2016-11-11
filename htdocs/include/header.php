@@ -37,7 +37,7 @@ $mysqli->close();
         <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/catalog.css">
         <?php
-        $requested_page = $_SERVER['REQUEST_URI'];
+        $requested_page = strtok($_SERVER["REQUEST_URI"], '?');
         if (!isset($_SESSION['userid'])) {
             echo '<link rel="stylesheet" type="text/css" href="css/login-form.css">';
         }

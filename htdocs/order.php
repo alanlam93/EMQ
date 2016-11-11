@@ -55,7 +55,7 @@ require("include/header.php");
                                     <div class="col-md-10">Card ending in <?php echo $orderDetails['last4']; ?></div>
                                 </div>
                                 <hr>
-                                <h4>Your Tracking #12392139321<br><br><a href="tracking.php">Click here for tracking information</a></h4>
+                                <br><a href="tracking.php?order=<?php echo $orderId ?>">Click here for tracking information</a></h4>
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-10"><h3>Details of Order</h3></div>
