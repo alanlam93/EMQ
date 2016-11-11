@@ -69,10 +69,10 @@ function placeOrder($mysqli, $addrId, $last4) {
         $deleteCartResult = $mysqli->query("DELETE FROM cart WHERE accountId = '{$_SESSION['userid']}' AND itemId IN (" . implode(", ", array_keys($_SESSION['cart'])) . ")");
     }
     if (!$address_statement || !$orderResult || !$itemsResult || !$deleteCartResult || !$mysqli->commit()) {
-        return json_encode(array("success" => "false", "message" => "An error occured while placing your order."));
+        return ["success" => "false", "message" => "An error occured while placing your order."];
     } else {
         unset($_SESSION['cart']);
-        return json_encode(array("success" => "true"));
+        return ["success" => "true", "order_id" => $orderId];
     }
 }
 

@@ -1,5 +1,5 @@
             </div>        
-            <footer class="">
+            <footer>
             EMQ CORPORATION
             </footer>
         </div>

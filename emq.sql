@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Nov 10, 2016 at 05:04 PM
+-- Generation Time: Nov 11, 2016 at 04:08 AM
 -- Server version: 5.5.49-log
 -- PHP Version: 7.0.9
 
@@ -181,7 +181,16 @@ CREATE TABLE IF NOT EXISTS `order` (
   `last4` int(4) unsigned NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` enum('PROCESSING','SHIPPING','DELIEVERED','PICKUP') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order`
+--
+
+INSERT INTO `order` (`id`, `accountId`, `addressId`, `warehouseId`, `total`, `last4`, `date`, `status`) VALUES
+(1, 1, 1, 1, 599.99, 1111, '2016-11-11 02:41:37', 'SHIPPING'),
+(2, 1, 1, 1, 1159.99, 1111, '2016-11-11 02:43:39', 'SHIPPING'),
+(3, 1, 1, 1, 99.99, 1111, '2016-11-11 02:45:30', 'SHIPPING');
 
 -- --------------------------------------------------------
 
@@ -197,6 +206,15 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   `quantity` int(3) unsigned NOT NULL DEFAULT '1',
   `price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`accountId`, `orderId`, `itemId`, `quantity`, `price`) VALUES
+(1, 1, 1, 1, 599.99),
+(1, 2, 2, 1, 1159.99),
+(1, 3, 3, 1, 99.99);
 
 -- --------------------------------------------------------
 
@@ -288,7 +306,7 @@ ALTER TABLE `order`
 -- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
-  ADD PRIMARY KEY (`accountId`,`orderId`),
+  ADD PRIMARY KEY (`accountId`,`orderId`,`itemId`),
   ADD KEY `order_items_fk_2` (`itemId`),
   ADD KEY `order_items_fk_3` (`orderId`);
 
@@ -327,7 +345,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `warehouse_address`
 --
@@ -362,9 +380,9 @@ ALTER TABLE `order`
 -- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_items_fk_3` FOREIGN KEY (`orderId`) REFERENCES `order` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `order_items_fk_1` FOREIGN KEY (`accountId`) REFERENCES `account` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `order_items_fk_2` FOREIGN KEY (`itemId`) REFERENCES `inventory` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `order_items_fk_2` FOREIGN KEY (`itemId`) REFERENCES `inventory` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_items_fk_3` FOREIGN KEY (`orderId`) REFERENCES `order` (`id`) ON DELETE CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
