@@ -189,6 +189,7 @@ $mysqli->close();
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+                                    <li><a href="products.php">All Items</a></li>
                                     <?php foreach ($categories as $category): ?>    <li><a href="products.php?cat-id=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></li>
                                     <?php endforeach; ?></ul>
                             </li>
