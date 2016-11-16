@@ -73,7 +73,7 @@ require("include/header.php");
                                         <?php foreach ($order['items'] as $item): ?>    <div class="row" style="margin-bottom: 20px;">
                                             <div class="col-lg-3"><a href="product.php?id=<?php echo $item['itemId']; ?>"><img class="img-responsive" src="<?php echo $item['img_src']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>"></a></div>
                                             <div class="col-lg-9">
-                                                <strong style="font-size:16px;"><a href="product.php?id=<?php echo $item['itemId']; ?>"><?php echo htmlspecialchars($item['name']); ?></a></strong><br/>
+                                                <strong style="font-size:14px;"><a href="product.php?id=<?php echo $item['itemId']; ?>"><?php echo htmlspecialchars($item['name']); ?></a></strong><br/>
                                                 <strong style="font-size:12px;">Price: $<?php echo $item['price']; ?></strong><br/>
                                                 <strong style="font-size:12px;">Quantity: <?php echo $item['quantity']; ?></strong>
                                             </div>

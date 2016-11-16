@@ -37,23 +37,11 @@ $mysqli->close();
         <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/catalog.css">
         <?php
-        $requested_page = strtok($_SERVER["REQUEST_URI"], '?');
-        if (!isset($_SESSION['userid'])) {
-            echo '<link rel="stylesheet" type="text/css" href="css/login-form.css">';
-        }
-        switch ($requested_page) {
-            case "/checkout.php":
-                echo '<link rel="stylesheet" type="text/css" href="css/checkout.css">';
-                break;
-            case "/tracking.php":
-                echo '<link rel="stylesheet" type="text/css" href="css/tracking.css">';
-                break;
-            case "/contact.php":
-                echo '<link rel="stylesheet" type="text/css" href="css/contact.css">';
-                break;
-        }
-        echo "\n";
-        ?>
+        $requested_page = $_SERVER["REQUEST_URI"];
+        if (!isset($_SESSION['userid'])) : ?><link rel="stylesheet" type="text/css" href="css/login-form.css">';<?php endif; ?>
+<?php if (strpos($requested_page, 'checkout.php') !== false) : ?><link rel="stylesheet" type="text/css" href="css/checkout.css">';
+<?php elseif (strpos($requested_page, 'tracking.php') !== false) : ?><link rel="stylesheet" type="text/css" href="css/tracking.css">';
+<?php elseif (strpos($requested_page, 'contact.php') !== false) : ?><link rel="stylesheet" type="text/css" href="css/contact.css">';<?php endif; ?>
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]-->
         <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
