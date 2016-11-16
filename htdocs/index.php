@@ -22,7 +22,7 @@ $mysqli->close();
                 <div id="myCarousel" class="carousel slide">
                     <div id="carousel-inner-1" class="carousel-inner">
                         <div class="item active">
-                            <img class="img-responsive center-block hidden-lg" src="img/800x600GTX.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:800px; max-width: 1200px"><img class="img-responsive center-block hidden-sm hidden-xs hidden-md" src="img/1920x1080GTX.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:768px; max-width: 1368px">
+                            <img class="img-responsive center-block hidden-lg" src="img/800x600GTX.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:800px; max-width: 1200px"><img class="img-responsive center-block hidden-sm hidden-xs hidden-md" src="img/1920x1080GTX.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:576px; max-width: 1024px">
                             <div class="container">
                                 <div class="carousel-caption">
                                     <a class="btn btn-large btn-primary" href="product.php?id=7">Get It Now</a>
@@ -30,7 +30,7 @@ $mysqli->close();
                             </div>
                         </div>
                         <div class="item">
-                            <img class="img-responsive center-block hidden-lg" src="img/800x600i7.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:800px; max-width: 1200px"><img class="img-responsive center-block hidden-sm hidden-xs hidden-md" src="img/1920x1080i7.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:768px; max-width: 1368px">
+                            <img class="img-responsive center-block hidden-lg" src="img/800x600i7.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:800px; max-width: 1200px"><img class="img-responsive center-block hidden-sm hidden-xs hidden-md" src="img/1920x1080i7.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:576px; max-width: 1024">
                             <div class="container">
                                 <div class="carousel-caption">
                                     <p class="lead"></p>
@@ -39,7 +39,7 @@ $mysqli->close();
                             </div>
                         </div>
                         <div class="item">
-                            <img class="img-responsive center-block hidden-lg" src="img/800x600hphones.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:800px; max-width: 1200px"><img class="img-responsive center-block hidden-sm hidden-xs hidden-md" src="img/1920x1080hphones.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:768px; max-width: 1368px">
+                            <img class="img-responsive center-block hidden-lg" src="img/800x600hphones.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:800px; max-width: 1200px"><img class="img-responsive center-block hidden-sm hidden-xs hidden-md" src="img/1920x1080hphones.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:576px; max-width: 1024px">
                             <div class="container">
                                 <div class="carousel-caption">
                                     <p class="lead"></p>
