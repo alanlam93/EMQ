@@ -3,6 +3,7 @@ session_start();
 
 if (!isset($_SESSION['userid']) || !isset($_SESSION['cart']) || count($_SESSION['cart']) < 1) {
     header('Location: index.php');
+    return;
 }
 
 require_once("include/mysql-config.php");

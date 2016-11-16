@@ -13,8 +13,8 @@ if (!isset($_SESSION['userid'])) {
                             <button type="button" class="btn btn-success btn-lg btn-block hidden-md hidden-lg" data-toggle="modal" data-target="#passChange">Change Your Password</button>
                             <button type="button" class="btn btn-success btn-lg hidden-xs hidden-sm" data-toggle="modal" data-target="#passChange">Change Your Password</button>
 
-                            <button type="button" class="btn btn-success btn-lg btn-block hidden-md hidden-lg" data-toggle="modal" data-target="#orderHistory">Order History</button>
-                            <button type="button" class="btn btn-success btn-lg hidden-xs hidden-sm" data-toggle="modal" data-target="#orderHistory">Order History</button>
+                            <a href="history.php" class="btn btn-success btn-lg btn-block hidden-md hidden-lg" role="button">Order History</a>
+                            <a href="history.php" class="btn btn-success btn-lg hidden-xs hidden-sm" role="button">Order History</a>
 
                             <button type="button" class="btn btn-success btn-lg btn-block hidden-md hidden-lg" data-toggle="modal" data-target="#add-address">Add Address</button>
                             <button type="button" class="btn btn-success btn-lg hidden-xs hidden-sm" data-toggle="modal" data-target="#add-address">Add Address</button>
