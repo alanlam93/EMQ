@@ -302,9 +302,9 @@ $mysqli->close();
                         </div>
                     </div>
                     <?php foreach ($cart as $item): ?>
-                        <div class="row">
+                        <div class="row" style="margin-bottom: 10px;">
                             <div class="col-xs-6 col-md-8">
-                                <?php echo htmlspecialchars($item['name']); ?>
+                                <a href="product.php?id=<?php echo $item['id']; ?>"><?php echo htmlspecialchars($item['name']); ?></a>
                             </div>
                             <div class="col-xs-3 col-md-2">
                                 <?php echo $item['quantity']; ?>

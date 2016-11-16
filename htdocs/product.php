@@ -87,7 +87,7 @@ $mysqli->close();
 			
           <div class="btn-group" role="group" aria-label="..." style="margin-bottom:10px;">
 			<i class="add-cart"></i>
-              <a type="button" href="javascript:void(0);" class="btn btn-default btn-success" onclick="addToCart(<?php echo $item['id']; ?>, getAmount());"><span class="fa fa-plus"></span>&nbsp;Add to Cart</a>
+              <a type="button" href="javascript:void(0);" class="btn btn-default btn-success" onclick="addToCart(<?php echo $row['id']; ?>, getAmount());"><span class="fa fa-plus"></span>&nbsp;Add to Cart</a>
 			  <!--TODO:ADD TO CART WITH Quantity-->
 				<a type="button" class="btn btn-default btn-info" href="index.php"><span class="fa fa-close"></span>&nbsp;Keep Shopping</a>
 			</div>
@@ -100,7 +100,7 @@ $mysqli->close();
 <script language="JavaScript">
     function getAmount() {
 		var value = document.getElementById("InputAmount").value;
-		if (value.length == 0) {return 1;}
+		if (value.length === 0) {return 1;}
         return value;
     }
   </script>

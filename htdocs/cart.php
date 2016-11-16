@@ -46,12 +46,12 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart'])) {
                                 </div>
                                 <div class="panel-body">
                                     <?php foreach ($cart as $item): ?><div class="row cart-item">
-                                            <div class="col-xs-2"><img class="img-responsive" src="./<?php echo $item['img_src']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>">
+                                            <div class="col-xs-2 hidden-xs"><a href="product.php?id=<?php echo $item['id']; ?>"><img class="img-responsive" src="./<?php echo $item['img_src']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>"></a>
                                             </div>
-                                            <div class="col-xs-4">
-                                                <h4 class="product-name"><strong><?php echo htmlspecialchars($item['name']); ?></strong></h4><h4><small><?php echo htmlspecialchars($item['description']); ?></small></h4>
+                                            <div class="col-xs-12 col-sm-4">
+                                                <h4 class="product-name"><a href="product.php?id=<?php echo $item['id']; ?>"><strong><?php echo htmlspecialchars($item['name']); ?></strong></a></h4><span class="hidden-xs"><h4><small><?php echo htmlspecialchars($item['description']); ?></small></h4></span>
                                             </div>
-                                            <div class="col-xs-6">
+                                            <div class="col-xs-12 col-sm-4">
                                                 <div class="col-xs-6 text-right">
                                                     <h6><strong>$<?php echo $item['price']; ?> <span class="text-muted">x</span></strong></h6>
                                                 </div>
@@ -69,12 +69,12 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart'])) {
                                     <?php endforeach; ?>
                                     <div class="row">
                                         <div class="text-center">
-                                            <div class="col-xs-9">
+                                            <div class="col-xs-8 col-sm-9">
                                                 <h6 class="text-right">Changed any items?</h6>
                                             </div>
-                                            <div class="col-xs-3">
+                                            <div class="col-xs-4 col-sm-3">
                                                 <button id="update-cart" type="button" class="btn btn-default btn-sm btn-block">
-                                                    Update Cart
+                                                    Update<span class="hidden-xs"> Cart</span>
                                                 </button>
                                             </div>
                                         </div>
@@ -82,10 +82,10 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart'])) {
                                 </div>
                                 <div class="panel-footer">
                                     <div class="row text-center">
-                                        <div class="col-xs-9">
+                                        <div class="col-xs-8 col-sm-9">
                                             <h4 class="text-right">Total <strong id="tot-price">$<?php echo $total; ?></strong></h4>
                                         </div>
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-4 col-sm-3">
                                             <button type="button" id="checkout-button" class="btn btn-success btn-block">
                                                 Checkout
                                             </button>
