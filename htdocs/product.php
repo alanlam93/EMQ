@@ -13,6 +13,10 @@ $result = $mysqli->query("SELECT * FROM inventory WHERE id = $itemid");
 if ($result->num_rows > 0) {
 	$row = mysqli_fetch_assoc($result);
 }
+$result = $mysqli->query("SELECT * FROM category WHERE id = $row[category_id]");
+if ($result->num_rows > 0) {
+	$row2 = mysqli_fetch_assoc($result);
+}
 
 //TODO: Handle product not found
 $result->close();
@@ -23,7 +27,10 @@ $mysqli->close();
 <div class="container" style="margin-top:60px;">
 	<div class="row">
 		<!-- Title -->
-		<ol class="breadcrumb"><li><a href="#">Products/</a></li><li><a href="#"></a></li> </ol>
+		<ol class="breadcrumb">
+			<li><a href="#">Products</a></li>
+			<li><a href="products.php?cat-id=<? echo $row[category_id] ?>"><? echo $row2['name'] ?></a></li> 
+		</ol>
 		<!--TODO: CATEGORIES -->
 	</div>
 	<div class="row">
@@ -79,9 +86,10 @@ $mysqli->close();
 			</div>
 			
           <div class="btn-group" role="group" aria-label="..." style="margin-bottom:10px;">
-              <button type="button" class="btn btn-default btn-success add-cart" onclick="addToCart(<?php echo $item['id']; ?>, getAmount());"><span class="fa fa-plus"></span>&nbsp;Add to Cart</button>
+			<i class="add-cart"></i>
+              <a type="button" href="javascript:void(0);" class="btn btn-default btn-success" onclick="addToCart(<?php echo $item['id']; ?>, getAmount());"><span class="fa fa-plus"></span>&nbsp;Add to Cart</a>
 			  <!--TODO:ADD TO CART WITH Quantity-->
-				<button type="button" class="btn btn-default btn-info"><span class="fa fa-close"></span>&nbsp;Keep Shopping</button>
+				<a type="button" class="btn btn-default btn-info" href="index.php"><span class="fa fa-close"></span>&nbsp;Keep Shopping</a>
 			</div>
 		</div>
 
@@ -91,7 +99,9 @@ $mysqli->close();
 
 <script language="JavaScript">
     function getAmount() {
-        return document.getElementById("InputAmount").value;
+		var value = document.getElementById("InputAmount").value;
+		if (value.length == 0) {return 1;}
+        return value;
     }
   </script>
 

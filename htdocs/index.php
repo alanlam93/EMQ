@@ -25,7 +25,7 @@ $mysqli->close();
                             <img class="img-responsive center-block hidden-lg" src="img/800x600GTX.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:800px; max-width: 1200px"><img class="img-responsive center-block hidden-sm hidden-xs hidden-md" src="img/1920x1080GTX.jpg" alt="" style="width:100%; height:100%; min-height:400px; max-height:768px; max-width: 1368px">
                             <div class="container">
                                 <div class="carousel-caption">
-                                    <a class="btn btn-large btn-primary" href="#">Get It Now</a>
+                                    <a class="btn btn-large btn-primary" href="product.php?id=7">Get It Now</a>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +34,7 @@ $mysqli->close();
                             <div class="container">
                                 <div class="carousel-caption">
                                     <p class="lead"></p>
-                                    <a class="btn btn-large btn-primary" href="#">More Details</a>
+                                    <a class="btn btn-large btn-primary" href="product.php?id=8">More Details</a>
                                 </div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@ $mysqli->close();
                             <div class="container">
                                 <div class="carousel-caption">
                                     <p class="lead"></p>
-                                    <a class="btn btn-large btn-primary" href="#">Browse gallery</a>
+                                    <a class="btn btn-large btn-primary" href="products.php?cat-id=5">Browse gallery</a>
                                 </div>
                             </div>
                         </div>
