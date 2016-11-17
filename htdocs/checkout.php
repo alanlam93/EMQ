@@ -124,9 +124,9 @@ $mysqli->close();
                         </div>
                         <div class="form-group">
                             <label for="set-default" class="control-label">Set as Default Address</label>
-                            <select class="form-control" id="set-default" name="set-default" required>
-                                <option value="Yes">Yes</option>
+                            <select class="form-control" id="set-default" name="set-default">
                                 <option value="No" selected>No</option>
+                                <option value="Yes">Yes</option>
                             </select>
                             <div class="help-block with-errors"></div>
                         </div>
@@ -183,7 +183,7 @@ $mysqli->close();
                     </div>
                     <div class="form-group col-md-10">
                         <label for="bill-state">State</label>
-                        <select class="form-control" id="bill-state" data-error="Please select your state." data-required-error="Please select your state." required>
+                        <select class="form-control" id="bill-state" data-error="Please select your state." data-required-error="Please select your state.">
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
                             <option value="AZ">Arizona</option>

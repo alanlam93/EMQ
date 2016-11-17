@@ -41,28 +41,47 @@ require 'include/header.php';
                             <div id="account-notification"></div>
                         </div>
                         <div class="panel-group">
-                            <div class="panel panel-default">
+                            <div class="panel panel-default" style="margin-bottom: 20px;">
                                 <div class="panel panel-heading" style="margin-bottom: 0px;">
-                                    Your Account
+                                    <strong>Your Account</strong>
                                 </div>
                                 <div class="panel-body">
                                     <!--First one for mobile, second for medium/large -->
                                     <a href="history.php" class="btn btn-info btn-md btn-block hidden-md hidden-lg" role="button">Order History</a>
                                     <a href="history.php" class="btn btn-info btn-md hidden-xs hidden-sm" role="button">Order History</a>
-                                    <button type="button" class="btn btn-default btn-md btn-block hidden-md hidden-lg" data-toggle="modal" data-target="#passChange">Change Your Password</button>
-                                    <button type="button" class="btn btn-default btn-md hidden-xs hidden-sm" data-toggle="modal" data-target="#passChange">Change Your Password</button>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-2"><strong>Name:</strong></div>
+                                        <div class="col-md-5"><?php echo $def_address['first_name'] . ' ' . $def_address['last_name'] ?></div>
+                                        <div class="col-md-5"><a href="javascript:void(0);" class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#name-change" data-record-id="<?php echo $def_address['address_id'] ?>">Edit</a></div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-2"><strong>Password:</strong></div>
+                                        <div class="col-md-10">
+                                            <button type="button" class="btn btn-default btn-md btn-block hidden-md hidden-lg" data-toggle="modal" data-target="#passChange">Change Your Password</button>
+                                            <button type="button" class="btn btn-default btn-md hidden-xs hidden-sm" data-toggle="modal" data-target="#passChange">Change Your Password</button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-2"><strong>Email:</strong></div>
+                                        <div class="col-md-5"><?php echo $def_address['email'] ?></div>
+                                        <div class="col-md-5"><a href="javascript:void(0);" class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#email-change" data-record-id="<?php echo $def_address['address_id'] ?>">Change</a></div>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="panel panel-default">
                                 <div class="panel panel-heading" style="margin-bottom: 0px;">
-                                    Addresses
+                                    <strong>Addresses</strong>
                                 </div>
                                 <div class="panel-body">
                                     <button type="button" class="btn btn-default btn-md btn-block hidden-md hidden-lg" data-toggle="modal" data-target="#add-address">Add Address</button>
                                     <button type="button" class="btn btn-default btn-md hidden-xs hidden-sm" data-toggle="modal" data-target="#add-address">Add Address</button>
                                     <hr>
                                     <div class="row" style="margin-bottom: 10px;">
-                                        <div class="col-md-3">Default Address:</div>
+                                        <div class="col-md-3"><strong>Default Address:</strong></div>
                                         <div class="col-md-9">
                                             <?php echo $def_address['name'] ?>
 
@@ -75,12 +94,14 @@ require 'include/header.php';
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-md-3">Other Addresses:</div>
-                                        <div class="col-md-9">
-                                            <?php if (sizeof($addresses) < 2) : ?>None<?php else : foreach ($addresses as $address) : if ($address['address_id'] != $def_addr_id) : ?><div class="col-md-6" style="margin-bottom: 10px;padding-left: 0px;padding-right: 0px;">
-                                            <?php echo $address['name'] ?><br /><?php echo $address['address'] ?><br /><?php echo $address['city'] . ', ' . $address['state'] . ' ' . $address['zip']; ?>
-                                            <br /><a href="javascript:void(0);" class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#edit-address" data-record-id="<?php echo $address['address_id'] ?>">Edit</a> <a href="#" class="btn btn-default btn-sm" role="button" data-record-id="<?php echo $address['address_id'] ?>" data-toggle="modal" data-target="#confirm-delete">Remove</a>
-                                            <br /><br /><a href="javascript:void(0);" onclick="post('account.php', { 'action' : 'set_def_address', 'addressId': '<?php echo $address['address_id'] ?>'});">Set as Default</a>
+                                        <div class="col-md-3"><strong>Other Addresses:</strong></div>
+                                        <div class="col-md-9"><?php if (sizeof($addresses) < 2) : ?>None<?php else : foreach ($addresses as $address) : if ($address['address_id'] != $def_addr_id) : ?>
+                                            
+                                            <div class="col-md-6" style="margin-bottom: 10px;padding-left: 0px;padding-right: 0px;">
+                                                <?php echo $address['name'] ?><br /><?php echo $address['address'] ?><br /><?php echo $address['city'] . ', ' . $address['state'] . ' ' . $address['zip']; ?>
+
+                                                <br /><a href="javascript:void(0);" class="btn btn-default btn-sm" role="button" data-toggle="modal" data-target="#edit-address" data-record-id="<?php echo $address['address_id'] ?>">Edit</a> <a href="#" class="btn btn-default btn-sm" role="button" data-record-id="<?php echo $address['address_id'] ?>" data-toggle="modal" data-target="#confirm-delete">Remove</a>
+                                                <br /><br /><a href="javascript:void(0);" onclick="post('account.php', { 'action' : 'set_def_address', 'addressId': '<?php echo $address['address_id'] ?>'});">Set as Default</a>
                                             </div><?php endif; ?>
                                             <?php endforeach; ?><?php endif; ?>
                                         </div>
@@ -90,6 +111,33 @@ require 'include/header.php';
                         </div>
                     </div>
                     <!-- Modal -->
+                    <div class="modal fade" id="name-change" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Name Change</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="change-name-form" action="account.php" method="post" data-toggle="validator">
+                                        <input type="hidden" name="action" value="change_name" />
+                                        <div class="form-group">
+                                            <label for="first-name" class="control-label">First Name</label>
+                                                <input type="text" id="first-name" name="first_name" class="form-control" placeholder="First Name" data-error="Please enter your name." data-required-error="Please enter your name." required />
+                                                <div class="help-block with-errors"></div>
+                                                <label for="last-name" class="control-label">Last Name</label>
+                                                <input type="text" id="last-name" name="last_name" class="form-control" placeholder="Last Name" data-error="Please enter your name." data-required-error="Please enter your name." required />
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal fade" id="passChange" role="dialog">
                         <div class="modal-dialog">
                             <!-- Modal content-->
@@ -116,6 +164,31 @@ require 'include/header.php';
                                         <div class="form-group">
                                             <label for="newPassword2" class="control-label">Re-enter New Password:</label>
                                             <input type="password" name="new_verify" class="form-control" id="newPassword2" placeholder="Re-enter new password" data-match="#newPassword" data-match-error="Your passwords do not match." data-error="Please re-enter your new password." data-required-error="Please re-enter your new password." required />
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="email-change" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Email Change</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="change-email-form" action="account.php" method="post" data-toggle="validator">
+                                        <input type="hidden" name="action" value="change_email" />
+                                        <div class="form-group">
+                                            <label for="new_email" class="control-label">Email</label>
+                                            <input type="email" class="form-control" id="new_email" name="email" placeholder="Email" data-remote="include/register.php" data-error="This email address is invalid or already being used." data-required-error="Please enter your email address." required />
                                             <div class="help-block with-errors"></div>
                                         </div>
                                         <div class="modal-footer">
@@ -221,9 +294,9 @@ require 'include/header.php';
                                         </div>
                                         <div class="form-group">
                                             <label for="set-default" class="control-label">Set as Default Address</label>
-                                            <select class="form-control" id="set-default" name="set-default" required>
-                                                <option value="Yes">Yes</option>
+                                            <select class="form-control" id="set-default" name="set-default">
                                                 <option value="No" selected>No</option>
+                                                <option value="Yes">Yes</option>
                                             </select>
                                             <div class="help-block with-errors"></div>
                                         </div>
@@ -384,6 +457,16 @@ require 'include/header.php';
                     }
                     <?php endif; ?>$(".modal").on("hidden.bs.modal", function () {
                         $("#pass-change-notifications .close").click();
+                    });
+                    $('#change-name-form').validator().on('submit', function (e) {
+                        if (!e.isDefaultPrevented()) {
+                            $('#name-change').modal('hide');
+                        }
+                    });
+                    $('#change-email-form').validator().on('submit', function (e) {
+                        if (!e.isDefaultPrevented()) {
+                            $('#email-change').modal('hide');
+                        }
                     });
                     $('#changePassForm').validator().on('submit', function (e) {
                         if (!e.isDefaultPrevented()) {

@@ -49,7 +49,7 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart'])) {
                                             <div class="col-xs-2 hidden-xs"><a href="product.php?id=<?php echo $item['id']; ?>"><img class="img-responsive" src="./<?php echo $item['img_src']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>"></a>
                                             </div>
                                             <div class="col-xs-12 col-sm-4">
-                                                <h4 class="product-name"><a href="product.php?id=<?php echo $item['id']; ?>"><strong><?php echo htmlspecialchars($item['name']); ?></strong></a></h4><span class="hidden-xs"><h4><small><?php echo htmlspecialchars($item['description']); ?></small></h4></span>
+                                                <h4 class="product-name"><a href="product.php?id=<?php echo $item['id']; ?>"><strong><?php echo htmlspecialchars($item['name']); ?></strong></a></h4><h4 class="hidden-xs"><small><?php echo htmlspecialchars($item['description']); ?></small></h4>
                                             </div>
                                             <div class="col-xs-12 col-sm-4">
                                                 <div class="col-xs-6 text-right">

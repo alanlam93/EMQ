@@ -28,8 +28,8 @@ $mysqli->close();
 	<div class="row">
 		<!-- Title -->
 		<ol class="breadcrumb">
-			<li><a href="#">Products</a></li>
-			<li><a href="products.php?cat-id=<? echo $row[category_id] ?>"><? echo $row2['name'] ?></a></li> 
+			<li><a href="products.php">Products</a></li>
+			<li><a href="products.php?cat-id=<?php echo $row[category_id] ?>"><?php echo $row2['name'] ?></a></li> 
 		</ol>
 		<!--TODO: CATEGORIES -->
 	</div>

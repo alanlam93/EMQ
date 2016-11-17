@@ -11,6 +11,21 @@ session_start();
 $acc_id = $_SESSION["userid"];
 if (isset($_POST['action'])) {
     switch ($_POST['action']) {
+        case "change_name":
+            if (isset($_POST['first_name'], $_POST['last_name'])) {
+                $update_name_statement = $mysqli->prepare('UPDATE account SET `first_name` = ?, `last_name` = ? WHERE id = ?');
+                if ($update_name_statement) {
+                    $update_name_statement->bind_param('ssi', $_POST['first_name'], $_POST['last_name'], $acc_id);
+                    $result = $update_name_statement->execute();
+                    $update_name_statement->close();
+                }
+                if (!$update_name_statement || !$result) {
+                    $account_action_res = json_encode(array("success" => "false", "message" => "An error occured while updating your name."));
+                } else {
+                    $account_action_res = json_encode(array("success" => "true", "message" => "Your name has been updated."));
+                }
+            }
+            break;
         case "change_pass":
             if (isset($_POST['old'], $_POST['new'], $_POST['new_verify'])) {
                 if ($_POST['new'] !== $_POST['new_verify']) {
@@ -37,6 +52,21 @@ if (isset($_POST['action'])) {
                     } else {
                         echo "An unknown error occured.";
                     }
+                }
+            }
+            break;
+        case "change_email":
+            if (isset($_POST['email'])) {
+                $email_update_statement = $mysqli->prepare('UPDATE account SET `email` = ? WHERE id = ?');
+                if ($email_update_statement) {
+                    $email_update_statement->bind_param('si', $_POST['email'], $acc_id);
+                    $result = $email_update_statement->execute();
+                    $email_update_statement->close();
+                }
+                if (!$email_update_statement || !$result) {
+                    $account_action_res = json_encode(array("success" => "false", "message" => "An error occured while updating your email."));
+                } else {
+                    $account_action_res = json_encode(array("success" => "true", "message" => "Your email has been updated."));
                 }
             }
             break;
