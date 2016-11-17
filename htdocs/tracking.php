@@ -29,7 +29,7 @@ $queryWarehouses->close();
 $orderId = $mysqli->real_escape_string($_GET['order']);
 $orderResult = $mysqli->query("SELECT address, city, state, zip, date FROM `order` INNER JOIN address ON addressId = address.id WHERE order.id = $orderId");
 $orderDetails = $orderResult->fetch_array(MYSQLI_ASSOC);
-//$customerAddress = $orderDetails['address'] . ', ' . $orderDetails['city'] . ', ' . $orderDetails['state'] . ' ' . $orderDetails['zip'];
+$customerAddress = $orderDetails['address'] . ', ' . $orderDetails['city'] . ', ' . $orderDetails['state'] . ' ' . $orderDetails['zip'];
 
 $mysqli->close();
 
@@ -68,11 +68,13 @@ $mysqli->close();
   document.getElementsByClassName('progress-bar-1')[0].style.backgroundColor="#33B63B";
   document.getElementsByClassName('progress-bar-2')[0].style.backgroundColor="#33B63B";
 
-  /*
   var w = '<?php echo json_encode($customerAddress);?>';
   var customerAddress = w.split('"');
-  console.log(customerAddress);
-  */
+  for(var i=customerAddress.length; i>=0; i--) {
+    if(i%2==0) {
+    customerAddress.splice(i,1);
+    }
+  }
 
   var x = '<?php echo json_encode($address);?>';
   var stores = x.split('"');
@@ -113,9 +115,8 @@ $mysqli->close();
   var startLoc = new Array();
   var endLoc = new Array();
 
-  // Customer address stored in here
-  endLoc[0] = '1 Washington Square, San Jose, CA 95112';
-  endAddress = endLoc[0];
+  endLoc[0] = customerAddress[0];
+  endAddress = customerAddress[0];
 
   geocoder = new google.maps.Geocoder();
   geocoder.geocode( { 'address': endAddress}, function(results, status) {
@@ -328,40 +329,27 @@ function startAnimation(index) {
 }
 
 function calculateDistances() {
-  origin = startLoc[0];
-  destination = endLoc[0];
-  var service = new google.maps.DistanceMatrixService();
-  service.getDistanceMatrix(
-    {
-      origins: [origin],
-      destinations: [destination],
-      travelMode: google.maps.TravelMode.DRIVING,
-      drivingOptions: {
-            departureTime: new Date(Date.now()),
-            trafficModel: 'bestguess'
-      },
-      unitSystem: google.maps.UnitSystem.IMPERIAL,
-      avoidHighways: false,
-      avoidTolls: false
-    }, calcDistance);
+  var start = startLoc[0];
+  var end = endLoc[0];
+
+
+  var request = new XMLHttpRequest();
+  request.open('GET', 'include/traffic.php?startVal=' + start + '&endVal=' + end, false);
+  request.send();
+
+  var data = request.responseText.split("||");
+  var distance = data[0];
+  var trafficDuration = parseFloat(data[1]);
+
+  trafficDuration = trafficDuration/60.0;
+  trafficDuration = Math.round(trafficDuration);
+ 
+
+  document.getElementById("tools").innerHTML=trafficDuration;
+  document.getElementById("tools2").innerHTML=distance;
 }
 
-function calcDistance(response, status) {
-  if (status != google.maps.DistanceMatrixStatus.OK) {
-    alert('Error was: ' + status);
-  } else {
-    var origins = response.originAddresses;
-    var destinations = response.destinationAddresses;
-    for (var i = 0; i < origins.length; i++) {
-      var results = response.rows[i].elements;
-      for (var j = 0; j < results.length; j++) {
-        outputDiv.innerHTML += origins[i] + ' to ' + destinations[j]
-            + ': ' + results[j].distance.text + ' in '
-            + results[j].duration.text + '<br>';
-      }
-    }
-  }
-}
+
 
 function findNearestLoc(a) {
 
@@ -382,15 +370,19 @@ function findNearestLoc(a) {
   startLoc.push(loc[0]);
 }
 
+
 </script>
 </div>
 
 <body onload="initialize()">
 
-<div id="tools">
+<div id="tools" style="margin-left: 10px;">
 
     <button onclick="setRoutes();calculateDistances();">Test</button>
 
+</div>
+
+<div id="tools2" style="margin-left: 10px;">
 </div>
 <div id="outputDiv"></div>
     </div>
