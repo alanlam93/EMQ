@@ -53,7 +53,7 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart'])) {
                                             </div>
                                             <div class="col-xs-12 col-sm-4">
                                                 <div class="col-xs-6 text-right">
-                                                    <h6><strong>$<?php echo $item['price']; ?> <span class="text-muted">x</span></strong></h6>
+                                                    <h4><strong>$<?php echo $item['price']; ?> <span class="text-muted">x</span></strong></h4>
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <input type="text" class="form-control input-sm" value="<?php echo $item['quantity']; ?>">
@@ -132,12 +132,20 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart'])) {
                     $("#update-cart").click(function () {
                         var cartItems = $(this).closest('.panel-body').children('.cart-item');
                         var arr = {};
+                        var err = false;
                         cartItems.each(function () {
                             var quantity = $(this).find('input:text').val();
-                            arr[$(this).find('.rem-item').attr('id')] = $(this).find('input:text').val();
-                            if (quantity === "0")
-                                $(this).remove();
+                            if (isNaN(quantity)) {
+                                err = true;
+                                $("#cart-notifications").html(getErrorMessage("Please enter a valid quantity."));
+                                return;
+                            } else {
+                                arr[$(this).find('.rem-item').attr('id')] = $(this).find('input:text').val();
+                                if (quantity === "0")
+                                    $(this).remove();
+                            }
                         });
+                        if (err) return;
                         $.ajax({
                             type: "POST",
                             url: "include/cart-actions.php?action=update",

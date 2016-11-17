@@ -89,6 +89,29 @@ $mysqli->close();
                 });
             }
 
+            function post(path, parameters) {
+                var form = $('<form></form>');
+                form.attr("method", "post");
+                form.attr("action", path);
+                $.each(parameters, function(key, value) {
+                    if ( typeof value === 'object'){
+                        var field = $('<input />');
+                        field.attr("type", "hidden");
+                        field.attr("name", value.name);
+                        field.attr("value", value.value);
+                        form.append(field);
+                    } else {
+                        var field = $('<input />');
+                        field.attr("type", "hidden");
+                        field.attr("name", key);
+                        field.attr("value", value);
+                        form.append(field);
+                    }
+                });
+                $(document.body).append(form);
+                form.submit();
+            }
+
             $(document).ready(function () {
                 $('.modal-toggle').click(function (e) {
                     var tab = e.target.hash;
@@ -181,7 +204,7 @@ $mysqli->close();
                                     <?php foreach ($categories as $category): ?>    <li><a href="products.php?cat-id=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></li>
                                     <?php endforeach; ?></ul>
                             </li>
-                            <li><a href="<?= $contact ?>">Contact Us</a></li>
+                            <li><a href="<?= $contact ?>">Locations</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <?php if (isset($_SESSION['userid'])) : ?><li><a>Hello, <?php echo $_SESSION['name'] ?></a></li>

@@ -42,6 +42,7 @@ $mysqli->close();
                     </div>
                     <form id="add-address-form" data-toggle="validator">
                         <input type="hidden" name="action" value="add_address" />
+                        <input type="hidden" name="ajax" value="true" />
                         <div class="form-group">
                             <label for="address" class="control-label">Full Name</label>
                             <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" data-error="Please enter the full name." data-required-error="Please enter the full name." required />
@@ -372,6 +373,9 @@ $mysqli->close();
                         }));
                         $("#address-sel").val(retData.addr_id);
                         addresses.push(JSON.parse(retData.addr_js));
+                        if ($("#bill-address-sel option:selected").val() === "same") {
+                            updateBillingFields("#address-sel");
+                        }
                     } else {
                         $("#add-address-notifications").html(getErrorMessage(retData.message));
                     }
