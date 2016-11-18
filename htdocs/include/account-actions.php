@@ -22,6 +22,7 @@ if (isset($_POST['action'])) {
                 if (!$update_name_statement || !$result) {
                     $account_action_res = json_encode(array("success" => "false", "message" => "An error occured while updating your name."));
                 } else {
+                    $_SESSION["name"] = $_POST['first_name'];
                     $account_action_res = json_encode(array("success" => "true", "message" => "Your name has been updated."));
                 }
             }
