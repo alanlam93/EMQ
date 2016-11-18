@@ -29,7 +29,7 @@ CREATE TABLE `account` (
 -- Records of account
 -- ----------------------------
 INSERT INTO `account` VALUES ('1', 'johnny@emq.com', 'ff539896f6a2eeeed34f674bfc33f06d9ef302d2cb230fe3f94e77bb0f185f3ccfc35eda80b72dd39bb0227aa48f02d17789111bd98e04e9f417c4758216ade6', '0133b29d4c192adc24cdbc3bf84f719f', 'Johnny', 'Lui', '2016-11-02 14:56:20', '1');
-INSERT INTO `account` VALUES ('2', 'johnny1@emq.com', 'ff539896f6a2eeeed34f674bfc33f06d9ef302d2cb230fe3f94e77bb0f185f3ccfc35eda80b72dd39bb0227aa48f02d17789111bd98e04e9f417c4758216ade6', '0133b29d4c192adc24cdbc3bf84f719f', 'Johnny', 'Lui', '2016-11-07 15:25:50', '2');
+INSERT INTO `account` VALUES ('2', 'david@emq.com', 'ff539896f6a2eeeed34f674bfc33f06d9ef302d2cb230fe3f94e77bb0f185f3ccfc35eda80b72dd39bb0227aa48f02d17789111bd98e04e9f417c4758216ade6', '0133b29d4c192adc24cdbc3bf84f719f', 'David', 'Ngo', '2016-11-07 15:25:50', '3');
 
 -- ----------------------------
 -- Table structure for address
@@ -47,15 +47,18 @@ CREATE TABLE `address` (
   UNIQUE KEY `address_id` (`id`) USING BTREE,
   KEY `acc_index` (`accountId`) USING BTREE,
   CONSTRAINT `address_fk_1` FOREIGN KEY (`accountId`) REFERENCES `account` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of address
 -- ----------------------------
-INSERT INTO `address` VALUES ('1', '1', 'Johnny Lui', '1 Washington Square', 'San Jose', 'CA', '95112');
-INSERT INTO `address` VALUES ('2', '1', 'Johnny Lui', '1 Washington Square', 'San Jose', 'CA', '95112');
+INSERT INTO `address` VALUES ('1', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy', 'CA', '95020');
 INSERT INTO `address` VALUES ('3', '2', 'Johnny Lui', '1 Washington Square', 'San Jose', 'CA', '95112');
-INSERT INTO `address` VALUES ('4', '1', 'Johnny Lui', '1 Washington Square', 'San Jose', 'CA', '95112');
+INSERT INTO `address` VALUES ('6', '1', 'Johnny Lui', '1233 Fake Street', 'San Jose', 'CA', '95112');
+INSERT INTO `address` VALUES ('7', '1', 'Johnny Lui', '2 Washington Square', 'San Jose', 'CA', '95113');
+INSERT INTO `address` VALUES ('8', '1', 'Xterminator', '31 Washington Square', 'San Jose', 'CA', '95112');
+INSERT INTO `address` VALUES ('9', '1', 'Johnny Lui', '262 Washington Sq.', 'San Jose', 'CA', '95113');
+INSERT INTO `address` VALUES ('10', '1', 'Johnny Lui', '311 Washington Square', 'San Jose', 'CA', '95112');
 
 -- ----------------------------
 -- Table structure for cart
@@ -77,7 +80,6 @@ CREATE TABLE `cart` (
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
-INSERT INTO `cart` VALUES ('1', '2', '1159.99', '1', '2016-11-10 20:12:38');
 
 -- ----------------------------
 -- Table structure for category
@@ -153,7 +155,9 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `accountId` int(11) NOT NULL,
-  `addressId` int(11) unsigned NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `address_pt1` varchar(255) NOT NULL,
+  `address_pt2` varchar(255) NOT NULL,
   `warehouseId` int(11) unsigned NOT NULL DEFAULT '0',
   `total` decimal(10,2) unsigned NOT NULL,
   `last4` int(4) unsigned NOT NULL,
@@ -161,20 +165,26 @@ CREATE TABLE `order` (
   `status` enum('PROCESSING','SHIPPING','DELIEVERED','PICKUP') NOT NULL,
   PRIMARY KEY (`id`),
   KEY `order_idx_1` (`accountId`) USING BTREE,
-  KEY `order_idx_2` (`addressId`) USING BTREE,
-  KEY `order_idx_3` (`warehouseId`) USING BTREE,
+  KEY `order_idx_2` (`warehouseId`) USING BTREE,
   CONSTRAINT `order_fk_1` FOREIGN KEY (`accountId`) REFERENCES `account` (`id`),
-  CONSTRAINT `order_fk_2` FOREIGN KEY (`addressId`) REFERENCES `address` (`id`),
-  CONSTRAINT `order_fk_3` FOREIGN KEY (`warehouseId`) REFERENCES `warehouse_address` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  CONSTRAINT `order_fk_2` FOREIGN KEY (`warehouseId`) REFERENCES `warehouse_address` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES ('1', '1', '1', '1', '599.99', '1111', '2016-11-10 18:41:37', 'SHIPPING');
-INSERT INTO `order` VALUES ('2', '1', '1', '1', '1159.99', '1111', '2016-11-10 18:43:39', 'SHIPPING');
-INSERT INTO `order` VALUES ('3', '1', '1', '1', '99.99', '1111', '2016-11-10 18:45:30', 'SHIPPING');
-INSERT INTO `order` VALUES ('4', '1', '1', '1', '99.99', '1111', '2016-11-10 20:12:02', 'SHIPPING');
+INSERT INTO `order` VALUES ('1', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '599.99', '1111', '2016-11-10 18:41:37', 'SHIPPING');
+INSERT INTO `order` VALUES ('2', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '1159.99', '1111', '2016-11-10 18:43:39', 'SHIPPING');
+INSERT INTO `order` VALUES ('3', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '99.99', '1111', '2016-11-10 18:45:30', 'SHIPPING');
+INSERT INTO `order` VALUES ('4', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '99.99', '1111', '2016-11-10 20:12:02', 'SHIPPING');
+INSERT INTO `order` VALUES ('5', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '599.99', '1111', '2016-11-14 23:30:02', 'SHIPPING');
+INSERT INTO `order` VALUES ('6', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '1759.98', '1111', '2016-11-16 14:47:33', 'SHIPPING');
+INSERT INTO `order` VALUES ('7', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '1699.87', '1111', '2016-11-17 02:16:30', 'SHIPPING');
+INSERT INTO `order` VALUES ('8', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '599.99', '4444', '2016-11-17 17:02:14', 'SHIPPING');
+INSERT INTO `order` VALUES ('9', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '1759.98', '1211', '2016-11-17 17:11:04', 'SHIPPING');
+INSERT INTO `order` VALUES ('10', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '1', '599.99', '1111', '2016-11-17 23:09:47', 'SHIPPING');
+INSERT INTO `order` VALUES ('11', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '1', '1159.99', '1111', '2016-11-17 23:11:32', 'SHIPPING');
+INSERT INTO `order` VALUES ('12', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '1', '749.99', '1111', '2016-11-17 23:13:58', 'SHIPPING');
 
 -- ----------------------------
 -- Table structure for order_items
@@ -201,6 +211,20 @@ INSERT INTO `order_items` VALUES ('1', '1', '1', '1', '599.99');
 INSERT INTO `order_items` VALUES ('1', '2', '2', '1', '1159.99');
 INSERT INTO `order_items` VALUES ('1', '3', '3', '1', '99.99');
 INSERT INTO `order_items` VALUES ('1', '4', '3', '1', '99.99');
+INSERT INTO `order_items` VALUES ('1', '5', '1', '1', '599.99');
+INSERT INTO `order_items` VALUES ('1', '5', '3', '1', '100.00');
+INSERT INTO `order_items` VALUES ('1', '6', '1', '1', '599.99');
+INSERT INTO `order_items` VALUES ('1', '6', '2', '1', '1159.99');
+INSERT INTO `order_items` VALUES ('1', '7', '1', '1', '599.99');
+INSERT INTO `order_items` VALUES ('1', '7', '3', '1', '99.99');
+INSERT INTO `order_items` VALUES ('1', '7', '9', '1', '99.99');
+INSERT INTO `order_items` VALUES ('1', '7', '12', '10', '89.99');
+INSERT INTO `order_items` VALUES ('1', '8', '1', '1', '599.99');
+INSERT INTO `order_items` VALUES ('1', '9', '1', '1', '599.99');
+INSERT INTO `order_items` VALUES ('1', '9', '2', '1', '1159.99');
+INSERT INTO `order_items` VALUES ('1', '10', '1', '1', '599.99');
+INSERT INTO `order_items` VALUES ('1', '11', '2', '1', '1159.99');
+INSERT INTO `order_items` VALUES ('1', '12', '4', '1', '749.99');
 
 -- ----------------------------
 -- Table structure for warehouse_address

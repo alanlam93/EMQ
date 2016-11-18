@@ -30,7 +30,7 @@ if ($order["success"]) {
     }
     $result->close();
 
-    $orderResult = $mysqli->query("SELECT order.id, addressId, total, last4, date, name, address, city, state, zip FROM `order` INNER JOIN address ON addressId = address.id WHERE order.id = $orderId");
+    $orderResult = $mysqli->query("SELECT id, name, address_pt1, address_pt2, total, last4, date FROM `order` WHERE id = $orderId");
     $orderDetails = $orderResult->fetch_array(MYSQLI_ASSOC);
 }
 $mysqli->close();
@@ -48,7 +48,7 @@ require("include/header.php");
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-2">Ship To:</div>
-                                    <div class="col-md-10"><?php echo $orderDetails['name'] ?><br /><?php echo $orderDetails['address'] ?><br /><?php echo $orderDetails['city'] . ', ' . $orderDetails['state'] . ' ' . $orderDetails['zip']; ?></div>
+                                    <div class="col-md-10"><?php echo $orderDetails['name'] ?><br /><?php echo $orderDetails['address_pt1'] ?><br /><?php echo $orderDetails['address_pt2']; ?></div>
                                 </div>
                                 <hr>
                                 <div class="row">

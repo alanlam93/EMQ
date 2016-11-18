@@ -18,16 +18,16 @@ if ($mysqli === null) {
 $accountId = $_SESSION['userid'];
 $orders = array();
 $mysqli->set_charset("utf8");
-$result = $mysqli->query("SELECT orderId, itemId, inventory.name, img_src, quantity, order_items.price, total, date, address.name AS address_name, address, city, state, zip FROM order_items INNER JOIN `order` ON `order`.id = order_items.orderId INNER JOIN address ON order.addressId = address.id INNER JOIN inventory ON order_items.itemId = inventory.id WHERE order.accountId = $accountId ORDER BY orderId, inventory.name");
+$result = $mysqli->query("SELECT orderId, itemId, inventory.name, img_src, quantity, order_items.price, total, date, order.name AS address_name, address_pt1, address_pt2 FROM order_items INNER JOIN `order` ON `order`.id = order_items.orderId INNER JOIN inventory ON order_items.itemId = inventory.id WHERE order.accountId = $accountId ORDER BY date DESC, inventory.name");
 $lastOrder = null;
 while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-    if (empty($orders) || !empty($lastOrder) && $lastOrder['orderId'] != $row['orderId']) {
-        if (!empty($lastOrder)) {
+    if (empty($lastOrder) && empty($lastOrder) || !empty($lastOrder) && $lastOrder['orderId'] != $row['orderId']) {
+        if (!empty($lastOrder) && $lastOrder['orderId'] != $row['orderId']) {
             $orders[] = $lastOrder;
         }
         $phpdate = strtotime($row['date']);
         $formattedDate = date('F j, Y', $phpdate);
-        $lastOrder = ["orderId" => $row['orderId'], "total" => $row['total'], "date" => $formattedDate, "address_name" => $row['address_name'], "address" => $row['address'], "city" => $row['city'], "state" => $row['state'], "zip" => $row['zip']];
+        $lastOrder = ["orderId" => $row['orderId'], "total" => $row['total'], "date" => $formattedDate, "address_name" => $row['address_name'], "address" => $row['address_pt1'], "address_pt2" => $row['address_pt2']];
         $lastOrder['items'][] = ["itemId" => $row['itemId'], "name" => $row['name'], "img_src" => $row['img_src'], "quantity" => $row['quantity'], "price" => $row['price']];
     } else {
         $lastOrder['items'][] = ["itemId" => $row['itemId'], "name" => $row['name'], "img_src" => $row['img_src'], "quantity" => $row['quantity'], "price" => $row['price']];
@@ -62,7 +62,7 @@ require("include/header.php");
                                     <div class="col-lg-3 small"><?php echo $order['date']; ?></div>
                                     <div class="col-lg-2 small">$<?php echo $order['total']; ?></div>
                                     <div class="col-lg-2 small">
-                                        <span data-toggle="tooltip" data-html="true" data-placement="bottom" title="<address><strong><?php echo $order['address_name']; ?></strong><br/><?php echo $order['address']; ?><br/><?php echo $order['city']; ?>, <?php echo $order['state']; ?> <?php echo $order['zip']; ?></address>"><?php echo $order['address_name']; ?><span class="caret"></span></span>
+                                        <span data-toggle="tooltip" data-html="true" data-placement="bottom" title="<address><strong><?php echo $order['address_name']; ?></strong><br/><?php echo $order['address']; ?><br/><?php echo $order['address_pt2']; ?></address>"><?php echo $order['address_name']; ?><span class="caret"></span></span>
                                     </div>
                                     <div class="col-lg-3 col-lg-offset-2 text-right small"><?php echo $order['orderId']; ?></div>
                                 </div>

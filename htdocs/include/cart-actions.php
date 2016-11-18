@@ -53,22 +53,33 @@ function syncCartSessionWithDB($mysqli, $accountId) {
     $result->close();
 }
 
+function getAddressFromId($mysqli, $addrId) {
+    $addr_result = $mysqli->query("SELECT name, address, city, state, zip FROM address WHERE id = $addrId AND accountId = {$_SESSION['userid']}");
+    return $addr_result->fetch_array(MYSQLI_ASSOC);
+}
+
+function insertOrderItems($mysqli, $orderId) {
+    $itemsResult = $mysqli->query("INSERT INTO order_items (accountId, orderId, itemId, quantity, price) SELECT '{$_SESSION['userid']}', '$orderId', itemId, quantity, price FROM `cart` WHERE accountId = '{$_SESSION['userid']}' AND `itemId` IN (" . implode(", ", array_keys($_SESSION['cart'])) . ")");
+    $deleteCartResult = $mysqli->query("DELETE FROM cart WHERE accountId = '{$_SESSION['userid']}' AND itemId IN (" . implode(", ", array_keys($_SESSION['cart'])) . ")");
+    return $itemsResult && $deleteCartResult;
+}
+
 function placeOrder($mysqli, $addrId, $last4) {
     $mysqli->autocommit(false);
-    $address_statement = $mysqli->prepare('INSERT INTO `order` (`accountId`, `addressId`, `warehouseId`, `total`, `last4`, `status`) VALUES (?, ?, 1, ?, ?, ?)');
+    $address = getAddressFromId($mysqli, $addrId);
+    $address_statement = $mysqli->prepare("INSERT INTO `order` (`accountId`, `name`, `address_pt1`, `address_pt2`, `warehouseId`, `total`, `last4`, `status`) VALUES (?, ?, ?, ?, 1, ?, ?, 'SHIPPING')");
     if ($address_statement) {
-        $status = 'SHIPPING';
         $total = getTotal($mysqli);
-        $address_statement->bind_param('iidis', $_SESSION['userid'], $addrId, $total, $last4, $status);
+        $addressPt2 = $address['city'] . ', ' . $address['state'] . ' ' . $address['zip'];
+        $address_statement->bind_param('isssdi', $_SESSION['userid'], $address['name'], $address['address'], $addressPt2, $total, $last4);
         $orderResult = $address_statement->execute();
         $address_statement->close();
     }
     if ($orderResult) {
         $orderId = $mysqli->insert_id;
-        $itemsResult = $mysqli->query("INSERT INTO order_items (accountId, orderId, itemId, quantity, price) SELECT '{$_SESSION['userid']}', '$orderId', itemId, quantity, price FROM `cart` WHERE accountId = '{$_SESSION['userid']}' AND `itemId` IN (" . implode(", ", array_keys($_SESSION['cart'])) . ")");
-        $deleteCartResult = $mysqli->query("DELETE FROM cart WHERE accountId = '{$_SESSION['userid']}' AND itemId IN (" . implode(", ", array_keys($_SESSION['cart'])) . ")");
+        $insertResult = insertOrderItems($mysqli, $orderId);
     }
-    if (!$address_statement || !$orderResult || !$itemsResult || !$deleteCartResult || !$mysqli->commit()) {
+    if (!$address_statement || !$orderResult || !$insertResult || !$mysqli->commit()) {
         return ["success" => "false", "message" => "An error occured while placing your order."];
     } else {
         unset($_SESSION['cart']);
