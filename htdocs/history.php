@@ -27,7 +27,7 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
         }
         $phpdate = strtotime($row['date']);
         $formattedDate = date('F j, Y', $phpdate);
-        $lastOrder = ["orderId" => $row['orderId'], "total" => $row['total'], "date" => $formattedDate, "address_name" => $row['address_name'], "address" => $row['address_pt1'], "address_pt2" => $row['address_pt2']];
+        $lastOrder = ["orderId" => $row['orderId'], "total" => number_format($row['total'], 2, '.', ','), "date" => $formattedDate, "address_name" => $row['address_name'], "address" => $row['address_pt1'], "address_pt2" => $row['address_pt2']];
         $lastOrder['items'][] = ["itemId" => $row['itemId'], "name" => $row['name'], "img_src" => $row['img_src'], "quantity" => $row['quantity'], "price" => $row['price']];
     } else {
         $lastOrder['items'][] = ["itemId" => $row['itemId'], "name" => $row['name'], "img_src" => $row['img_src'], "quantity" => $row['quantity'], "price" => $row['price']];

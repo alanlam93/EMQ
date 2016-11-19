@@ -450,7 +450,7 @@ require 'include/header.php';
                         }
                     });
                     <?php if (isset($account_action_res)) : ?>var retData = <?php echo $account_action_res; ?>;
-                    if (retData.success) {
+                    if (retData.success === "true") {
                         $("#account-notification").html(getSuccessMessage(retData.message));
                     } else {
                         $("#account-notification").html(getErrorMessage(retData.message));

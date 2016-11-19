@@ -1,6 +1,6 @@
             </div>        
             <footer>
-            EMQ CORPORATION
+                EMQ CORPORATION
             </footer>
         </div>
     </body>

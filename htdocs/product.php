@@ -14,6 +14,9 @@ $result = $mysqli->query("SELECT * FROM inventory WHERE id = $itemid");
 if ($result->num_rows > 0) {
     $row = mysqli_fetch_assoc($result);
 }
+$quantity_result = $mysqli->query("SELECT SUM(quantity) as quantity FROM inventory_quantity WHERE item_id = $itemid GROUP BY item_id");
+$quantity = max(mysqli_fetch_assoc($quantity_result)['quantity'], 0);
+
 $result = $mysqli->query("SELECT * FROM category WHERE id = $row[category_id]");
 if ($result->num_rows > 0) {
     $row2 = mysqli_fetch_assoc($result);
@@ -33,6 +36,9 @@ $mysqli->close();
         <!--TODO: CATEGORIES -->
     </div>
     <div class="row">
+        <div class="text-center col-md-6 col-md-offset-3" id="cart-notifications"></div>
+    </div>
+    <div class="row">
         <!-- Product Info-->
         <div class="col-xs-12 col-sm-6">
             <img src="./<? echo $row['img_src'] ?>" class="img-responsive product-image-large">
@@ -45,14 +51,14 @@ $mysqli->close();
                 Model: <? echo $row['model'] ?>
             </h3>
             <h4 id="quantity">
-                Quantity Remaining: <? echo $row['rem_quantity']; ?>
+                Quantity Remaining: <? echo $quantity; ?>
                 &emsp; 
                 <? if($row['is_best_seller'] == 1) {echo '<img src="./img/bestseller.gif" />';}?>
             </h4>
             <div class="well row">
                 <div class="input-group">
                     <div class="input-group-addon">Quantity:</div>
-                    <input type="text" class="form-control" id="InputAmount" placeholder="Amount">
+                    <input type="number" min="1" step="1" max="<?php echo $quantity; ?>" value="1" class="form-control" id="InputAmount" onkeypress="return isNumberKey(event);" onkeyup="this.value = minMax(this.value, 1, <?php echo $quantity; ?>)" placeholder="Amount">
                     <div class="input-group-addon">x $<? echo $row['price'] ?> USD</div>
                 </div>
             </div>
@@ -90,6 +96,21 @@ $mysqli->close();
     </div>
 </div>
 <script>
+    function isNumberKey(evt){
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode !== 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+
+    function minMax(value, min, max) {
+        if (parseInt(value) < min || isNaN(parseInt(value)))
+            return 1;
+        else if(parseInt(value) > max)
+            return max;
+        return value;
+    }
+
     function getAmount() {
         var value = document.getElementById("InputAmount").value;
         if (value.length === 0) {
