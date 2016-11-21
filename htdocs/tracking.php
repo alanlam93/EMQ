@@ -31,7 +31,7 @@ $mysqli->close();
 
 <div class="container" id="ctnr">
 <div class="container">
-  <h2>Package Status for <font color="green">Order #123875231</font></h2>
+  <h2>Package Status for <font color="green">Order #<?php echo $orderId;?></font></h2>
   <p>Track the status of your package. Green indicates current package status.</p>
   <div class="progress">
     <div class="progress-bar progress-bar-1" role="progressbar" style="width:25%;background:silver" id="step-1">
