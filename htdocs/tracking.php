@@ -13,23 +13,16 @@ if ($mysqli === null) {
     return;
 }
 
-$queryWarehouses = $mysqli->query("SELECT address, city, state, zip, lat, `long` FROM `warehouse_address`");
-$address = array();
-$lat = array();
-$lng = array();
-
-while ($row = $queryWarehouses->fetch_array(MYSQLI_ASSOC)) {
-  $address[] = $row['address'] . ', ' . $row['city'] . ', ' . $row['state'] . ' ' . $row['zip'];
-  $lat[] = $row['lat'];
-  $lng[] = $row['long'];
-}
-$queryWarehouses->close();
-
-
 $orderId = $mysqli->real_escape_string($_GET['order']);
-$orderResult = $mysqli->query("SELECT address, city, state, zip, date FROM `order` INNER JOIN address ON addressId = address.id WHERE order.id = $orderId");
+$orderResult = $mysqli->query("SELECT address_pt1, address_pt2 FROM `order` WHERE order.id = $orderId");
 $orderDetails = $orderResult->fetch_array(MYSQLI_ASSOC);
-$customerAddress = $orderDetails['address'] . ', ' . $orderDetails['city'] . ', ' . $orderDetails['state'] . ' ' . $orderDetails['zip'];
+$customerAddress = $orderDetails['address_pt1'] . ' ' . $orderDetails['address_pt2'];
+echo $customerAddress;
+
+$closestWarehouse = $mysqli->query("SELECT address, city, state, zip, lat, 'long' FROM `warehouse_address` INNER JOIN `order` ON order.warehouseId = warehouse_address.id WHERE order.id = $orderId");
+$warehouseResult = $closestWarehouse->fetch_array(MYSQLI_ASSOC);
+$warehouseAddress = $warehouseResult['address'] . ', ' . $warehouseResult['city'] . ', ' . $warehouseResult['state'] . ' ' . $warehouseResult['zip'];
+echo $warehouseAddress;
 
 $mysqli->close();
 
@@ -68,31 +61,19 @@ $mysqli->close();
   document.getElementsByClassName('progress-bar-1')[0].style.backgroundColor="#33B63B";
   document.getElementsByClassName('progress-bar-2')[0].style.backgroundColor="#33B63B";
 
-  var w = '<?php echo json_encode($customerAddress);?>';
-  var customerAddress = w.split('"');
+  var x = '<?php echo json_encode($warehouseAddress);?>';
+  var warehouseAddress = x.split('"');
+
+  var y = '<?php echo json_encode($customerAddress);?>';
+  var customerAddress = y.split('"');
+
   for(var i=customerAddress.length; i>=0; i--) {
     if(i%2==0) {
+    warehouseAddress.splice(i,1);
     customerAddress.splice(i,1);
     }
   }
 
-  var x = '<?php echo json_encode($address);?>';
-  var stores = x.split('"');
-  
-  var y = '<?php echo json_encode($lat); ?>';
-  var lats = y.split('"');
-
-  var z = '<?php echo json_encode($lng); ?>';
-  var lngs = z.split('"');
-  
-  for(var i=stores.length; i>=0; i--) {
-    if(i%2==0) {
-      stores.splice(i, 1);
-      lats.splice(i, 1);
-      lngs.splice(i, 1);
-    }
-  }
-  
   var map;
   var directionDisplay;
   var directionsService;
@@ -116,14 +97,7 @@ $mysqli->close();
   var endLoc = new Array();
 
   endLoc[0] = customerAddress[0];
-  endAddress = customerAddress[0];
-
-  geocoder = new google.maps.Geocoder();
-  geocoder.geocode( { 'address': endAddress}, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-      findNearestLoc(results[0].geometry.location);
-    }
-  });
+  startLoc[0] = warehouseAddress[0];
 
 function initialize() {  
 
@@ -348,28 +322,6 @@ function calculateDistances() {
   document.getElementById("tools").innerHTML=trafficDuration;
   document.getElementById("tools2").innerHTML=distance;
 }
-
-
-
-function findNearestLoc(a) {
-
-  var loc = new Array();
-  var locLatLng = new google.maps.LatLng(parseFloat(lats[0]), parseFloat(lngs[0]));
-  var distance1 = google.maps.geometry.spherical.computeDistanceBetween(locLatLng, a);
-
-  loc[0] = stores[0];
-
-  for (i = 1; i < stores.length; i++) {
-    locLatLng = new google.maps.LatLng(parseFloat(lats[i]), parseFloat(lngs[i]));
-    var distance2 = google.maps.geometry.spherical.computeDistanceBetween(locLatLng, a);
-    if (distance1 > distance2) {
-      distance1 = distance2;
-      loc[0] = stores[i];
-    }
-  }
-  startLoc.push(loc[0]);
-}
-
 
 </script>
 </div>
