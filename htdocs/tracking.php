@@ -17,12 +17,10 @@ $orderId = $mysqli->real_escape_string($_GET['order']);
 $orderResult = $mysqli->query("SELECT address_pt1, address_pt2 FROM `order` WHERE order.id = $orderId");
 $orderDetails = $orderResult->fetch_array(MYSQLI_ASSOC);
 $customerAddress = $orderDetails['address_pt1'] . ' ' . $orderDetails['address_pt2'];
-echo $customerAddress;
 
 $closestWarehouse = $mysqli->query("SELECT address, city, state, zip, lat, 'long' FROM `warehouse_address` INNER JOIN `order` ON order.warehouseId = warehouse_address.id WHERE order.id = $orderId");
 $warehouseResult = $closestWarehouse->fetch_array(MYSQLI_ASSOC);
 $warehouseAddress = $warehouseResult['address'] . ', ' . $warehouseResult['city'] . ', ' . $warehouseResult['state'] . ' ' . $warehouseResult['zip'];
-echo $warehouseAddress;
 
 $mysqli->close();
 
