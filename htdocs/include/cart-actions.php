@@ -81,7 +81,7 @@ function insertMainOrder($mysqli, $address, $closest_wh_id, $last4) {
     $orderId = -1;
     $address_statement = $mysqli->prepare("INSERT INTO `order` (`accountId`, `name`, `address_pt1`, `address_pt2`, `warehouseId`, `total`, `last4`, `status`) VALUES (?, ?, ?, ?, ?, ?, ?, 'SHIPPING')");
     if ($address_statement) {
-        $total = getTotal($mysqli, false);
+        $total = getTotal($mysqli, true);
         $addressPt2 = $address['city'] . ', ' . $address['state'] . ' ' . $address['zip'];
         $address_statement->bind_param('isssidi', $_SESSION['userid'], $address['name'], $address['address'], $addressPt2, $closest_wh_id, $total, $last4);
         $address_statement->execute();
