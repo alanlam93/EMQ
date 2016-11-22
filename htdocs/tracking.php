@@ -66,6 +66,7 @@ if (!isset($_SESSION['userid']) || !isset($orderDetails) || isset($_SESSION['use
 
                     <div class="clock"></div>
                     <div class="description">
+                        <h3>Estimated Delivery Time <h6>*Disclaimer: Only an estimation. May not be accurate.</h6> <h4><i><?php echo $warehouseAddress; ?></i> <span style="color: #33B63B;"><b>to</b></span> <i><?php echo $customerAddress; ?></i></h4></h3>
                     </div>
 
                     <script type="text/javascript">
