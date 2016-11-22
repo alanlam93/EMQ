@@ -5,31 +5,57 @@ if ($mysqli === null) {
 echo "An error occured while connecting to the database.";
 return;
 }
-$mysqli->set_charset("utf8");
-$filter = "";
-if (isset($_GET['cat-id']) && is_numeric($_GET['cat-id'])) {
-$filter = " WHERE category_id = {$_GET['cat-id']}";
-}
-$result = $mysqli->query("SELECT inventory.id, inventory.name, inventory.brand, category.name as category, price, brand, img_src FROM inventory INNER JOIN category on category.id = inventory.category_id" . $filter);
-$allProducts = array();
-while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-$allProducts[] = $row;
-}
-$result->close();
-$categoryName = "All Items";
-if (empty($allProducts)) {
-$categoryName = "No Results";
-} else if (isset($_GET['cat-id']) && is_numeric($_GET['cat-id'])) {
-$categoryName = $allProducts[0]['category'];
-}
-$rowCount = 0;
-$mysqli->close();
+    $mysqli->set_charset("utf8");
+    $filter = "";
+    if (isset($_GET['cat-id']) && is_numeric($_GET['cat-id'])) {
+        $filter = " WHERE category_id = {$_GET['cat-id']}";
+        }
+    $result = $mysqli->query("SELECT inventory.id, inventory.name, inventory.brand, category.name as category, price, brand, img_src FROM inventory INNER JOIN category on category.id = inventory.category_id" . $filter);
+    $allProducts = array();
+    while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+        $allProducts[] = $row;
+        }
+    $result->close();
+    $categoryName = "All Items";
+        if (empty($allProducts)) {
+            $categoryName = "No Results";
+        } 
+        else if (isset($_GET['cat-id']) && is_numeric($_GET['cat-id'])) {
+         $categoryName = $allProducts[0]['category'];
+        }
+
+    $result = $mysqli->query("SELECT distinct inventory.brand as name from inventory ORDER by inventory.brand asc");
+    $allBrands = array();
+    while($row = $result->fetch_array(MYSQLI_ASSOC)){
+        $allBrands[] = $row;
+    }
+
+    $result->close();
+    $brandCount = 1;
+    $rowCount = 0;
+    $mysqli->close();
 require 'include/header.php';
 ?>
 <style>
+
+#brandNav, #priceNav{
+    display: inline;
+}
+
+#brandNav{
+    float: left;
+    margin-left: 5%;
+}
+
+#priceNav{
+    float: right;
+}
+
 #catTitle{
 text-align: center;
 }
+
+
 .product_container{
 height: 500px;
 margin-top: 5%;
@@ -37,9 +63,13 @@ margin-right: 10%;
 text-align: center;
 }
 .filter{
-margin-right: 20px;
+
 border-right: 1px  solid #bfbfbf;
 text-align: left;
+}
+
+#filterNav{
+    background-color: white;
 }
 .filterList{
 list-style-type: none;
@@ -58,34 +88,59 @@ text-align: left;
 .panel-footer{
 overflow: hidden;
 }
+
 </style>
+    <nav class="navbar navbar-default navbar-static visible-xs" id="filterNav">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#filterBar">
+                            <span class="glyphicon glyphicon-plus"></span>
+                   
+                        </button>      
+                         <h3 style="display: block; margin-left: 5%;">Filter</h3>                 
+                    </div>
+                    <div class="collapse navbar-collapse" id="filterBar">
+                        <ul class="nav navbar-nav col-xs-6" id="brandNav">
+                            <li><h4>Brand</h4></li>
+                            <?php foreach ($allBrands as $brand): ?>
+                                <li><input data-id="<?php echo $brand['name']; ?>" class="brands" type="checkbox" /> <?php echo $brand['name']; ?></li>
+                            <?php  endforeach ?>
+                        </ul>
+                        <ul class="nav navbar-nav col-xs-6" id="priceNav">
+                             <li><h4>Price</h4></li>
+                            <li><input type="checkbox" price-id="0" class="prices"> Under $100</li>
+                            <li><input type="checkbox" price-id="100" class="prices"> $100-$200</li>
+                            <li><input type="checkbox" price-id="200" class="prices"> $200-$300</li>
+                            <li><input type="checkbox" price-id="300" class="prices"> $300-$400</li>
+                            <li><input type="checkbox" price-id="400" class="prices"> $400-$500</li>
+                            <li><input type="checkbox" price-id="500" class="prices"> More than $500</li>
+                             <li>
+                                <br>
+                                <button type="button" onclick='uncheckAll()' class="btn btn-primary btn-sm">Clear</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+    </nav>
+
 <h3 id="catTitle"><?php echo $categoryName; ?></h3><br>
 <div class="container-fluid">
     <div class="filter col-md-2 responsive hidden-xs hidden-sm">
         <ul class="filterList">
             <li><h4>Brand</h4></li>
-            <li><input name="brand1" id="brand1" data-id="Apple" class="brands" type="checkbox" /> Apple</li>
-            <li><input name="brand2" id="brand2" data-id="ASUS" class="brands" type="checkbox" /> ASUS</li>
-            <li><input name="brand3" id="brand3" data-id="Bose" class="brands" type="checkbox" /> Bose</li>
-            <li><input name="brand4" id="brand4" data-id="Canon" class="brands" type="checkbox" /> Canon</li>
-            <li><input name="brand5" id="brand5" data-id="DJI" class="brands" type="checkbox" /> DJI</li>
-            <li><input name="brand6" id="brand6" data-id="Epson" class="brands" type="checkbox" /> Epson</li>
-            <li><input name="brand7" id="brand7" data-id="Fitbit" class="brands" type="checkbox" /> Fitbit</li>
-            <li><input name="brand8" id="brand8" data-id="HP" class="brands" type="checkbox" /> HP</li>
-            <li><input name="brand9" id="brand9" data-id="Intel" class="brands" type="checkbox" /> Intel</li>
-            <li><input name="brand10" id="brand10" data-id="Logitech" class="brands" type="checkbox" /> Logitech</li>
-            <li><input name="brand11" id="brand11" data-id="Nvidia" class="brands" type="checkbox" /> Nvidia</li>
-            <li><input name="brand12" id="brand12" data-id="Samsung" class="brands" type="checkbox" /> Samsung</li>
-            <li><input name="brand13" id="brand13" data-id="Sennheiser" class="brands" type="checkbox" /> Sennheiser</li>
-            <li><input name="brand14" id="brand14" data-id="Vizio" class="brands" type="checkbox" /> Vizio</li>
-           
+                <?php foreach ($allBrands as $brand): ?>
+                    <li><input data-id="<?php echo $brand['name']; ?>" class="brands" type="checkbox" /> <?php echo $brand['name']; ?></li>
+                <?php  endforeach ?>
+                
+
+
             <li><h4>Price</h4></li>
-            <li><input type="checkbox" price-id="0" name="pricecheckbox" class="prices"> Under $100</li>
-            <li><input type="checkbox" price-id="100" name="pricecheckbox" class="prices"> $100-$200</li>
-            <li><input type="checkbox" price-id="200" name="pricecheckbox" class="prices"> $200-$300</li>
-            <li><input type="checkbox" price-id="300" name="pricecheckbox" class="prices"> $300-$400</li>
-            <li><input type="checkbox" price-id="400" name="pricecheckbox" class="prices"> $400-$500</li>
-            <li><input type="checkbox" price-id="500" name="pricecheckbox" class="prices"> More than $500</li>
+            <li><input type="checkbox" price-id="0" class="prices"> Under $100</li>
+            <li><input type="checkbox" price-id="100" class="prices"> $100-$200</li>
+            <li><input type="checkbox" price-id="200" class="prices"> $200-$300</li>
+            <li><input type="checkbox" price-id="300" class="prices"> $300-$400</li>
+            <li><input type="checkbox" price-id="400" class="prices"> $400-$500</li>
+            <li><input type="checkbox" price-id="500" class="prices"> More than $500</li>
              <li>
                 <br>
                 <button type="button" onclick='uncheckAll()' class="btn btn-primary btn-sm">Clear</button>
@@ -103,7 +158,7 @@ overflow: hidden;
                 <div class="panel panel-default"  style="max-width: 300px; float: left">
                     <div class="panel-body panel-image" style="max-height: 250px;">
                         <a href="product.php?id=<?php echo $item['id']; ?>">
-                            <img src="./<?php echo $item['img_src']; ?>" class="img-responsive center-block" style="max-height: 200px;" alt="<?php echo htmlspecialchars($item['name']); ?>" />
+                            <img src="./<?php echo $item['img_src']; ?>" class="img-responsive center-block" style="max-height: 230px;" alt="<?php echo htmlspecialchars($item['name']); ?>" />
                         </a>
                     </div>
                     <div class="panel-footer" style="background-color: white; font-size:medium; height: 80px;"><a class="title" href="product.php?id=<?php echo $item['id']; ?>"><?php echo htmlspecialchars($item['name']); ?></a></div>
@@ -119,7 +174,7 @@ overflow: hidden;
                         <div class="col-md-6">
                             <p class="btn-more">
                                 <span class="glyphicon glyphicon-th-list more-list"></span>
-                                <a href="#" class="">View More</a>
+                                <a href="product.php?id=<?php echo $item['id']; ?>" class="">View Details</a>
                             </p>
                         </div>
                         <div class="clearfix"></div>
