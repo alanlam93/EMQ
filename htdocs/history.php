@@ -48,38 +48,55 @@ require("include/header.php");
                     }
                 </style>
                 <div class="container">
-                    <div class="col-sm-6 col-md-8 col-lg-8 col-sm-offset-3 col-md-offset-2 col-lg-offset-2">
+                    <div class="col-sm-12 col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2">
                         <h2>Order History</h2>
                         <?php foreach ($orders as $order): ?>    <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-lg-3 small">Order Placed</div>
-                                    <div class="col-lg-2 small">Total</div>
-                                    <div class="col-lg-2 small">Ship To</div>
-                                    <div class="col-lg-3 col-lg-offset-2 text-right small">Order Number</div>
+                                <div class="row hidden-sm hidden-md hidden-lg">
+                                    <div class="col-xs-6 small">Order Placed</div>
+                                    <div class="col-xs-6 small">Total</div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-3 small"><?php echo $order['date']; ?></div>
-                                    <div class="col-lg-2 small">$<?php echo $order['total']; ?></div>
-                                    <div class="col-lg-2 small">
+                                <div class="row hidden-sm hidden-md hidden-lg">
+                                    <div class="col-xs-6 small"><?php echo $order['date']; ?></div>
+                                    <div class="col-xs-6 small">$<?php echo $order['total']; ?></div>
+                                    <br /><br />
+                                </div>
+                                <div class="row hidden-sm hidden-md hidden-lg">
+                                    <div class="col-xs-6 small">Ship To</div>
+                                    <div class="col-xs-6 small">Order Number</div>
+                                </div>
+                                <div class="row hidden-sm hidden-md hidden-lg">
+                                    <div class="col-xs-6 small"><span data-toggle="tooltip" data-html="true" data-placement="bottom" title="<address><strong><?php echo $order['address_name']; ?></strong><br/><?php echo $order['address']; ?><br/><?php echo $order['address_pt2']; ?></address>"><?php echo $order['address_name']; ?><span class="caret"></span></span></div>
+                                    <div class="col-xs-6 small"><?php echo $order['orderId']; ?></div>
+                                </div>
+                                <div class="row hidden-xs">
+                                    <div class="col-xs-3 small">Order Placed</div>
+                                    <div class="col-xs-2 small">Total</div>
+                                    <div class="col-xs-2 small">Ship To</div>
+                                    <div class="col-xs-3 col-xs-offset-2 text-right small">Order Number</div>
+                                </div>
+                                <div class="row hidden-xs">
+                                    <div class="col-xs-3 small"><?php echo $order['date']; ?></div>
+                                    <div class="col-xs-2 small">$<?php echo $order['total']; ?></div>
+                                    <div class="col-xs-2 small">
                                         <span data-toggle="tooltip" data-html="true" data-placement="bottom" title="<address><strong><?php echo $order['address_name']; ?></strong><br/><?php echo $order['address']; ?><br/><?php echo $order['address_pt2']; ?></address>"><?php echo $order['address_name']; ?><span class="caret"></span></span>
                                     </div>
-                                    <div class="col-lg-3 col-lg-offset-2 text-right small"><?php echo $order['orderId']; ?></div>
+                                    <div class="col-xs-3 col-xs-offset-2 text-right small"><?php echo $order['orderId']; ?></div>
                                 </div>
                             </div>
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-lg-8">
+                                    <div class="col-sm-8">
                                         <?php foreach ($order['items'] as $item): ?>    <div class="row" style="margin-bottom: 20px;">
-                                            <div class="col-lg-3"><a href="product.php?id=<?php echo $item['itemId']; ?>"><img class="img-responsive" src="<?php echo $item['img_src']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>"></a></div>
-                                            <div class="col-lg-9">
+                                            <div class="col-xs-3 col-sm-3 hidden-xs"><a href="product.php?id=<?php echo $item['itemId']; ?>"><img class="img-responsive" src="<?php echo $item['img_src']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>"></a></div>
+                                            <div class="col-xs-12 col-sm-9">
                                                 <strong style="font-size:14px;"><a href="product.php?id=<?php echo $item['itemId']; ?>"><?php echo htmlspecialchars($item['name']); ?></a></strong><br/>
                                                 <strong style="font-size:12px;">Price: $<?php echo $item['price']; ?></strong><br/>
                                                 <strong style="font-size:12px;">Quantity: <?php echo $item['quantity']; ?></strong>
                                             </div>
                                         </div>
                                     <?php endforeach; ?></div>
-                                    <div class="col-lg-4">
+                                    <div class="col-sm-4">
                                         <a href="tracking.php?order=<?php echo $order['orderId']; ?>" class="btn btn-primary pull-right" role="button">Track Package</a>
                                     </div>
                                 </div>

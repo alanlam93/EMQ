@@ -2,7 +2,7 @@
 
 require_once("mysql-config.php");
 
-function getTotal($mysqli) {
+function getTotal($mysqli, $return_raw) {
     $total = 0;
     if (isset($_SESSION['cart']) && count($_SESSION['cart'])) {
         $result = $mysqli->query("SELECT itemId, price FROM cart WHERE accountId = {$_SESSION['userid']} AND itemId IN (" . implode(", ", array_keys($_SESSION['cart'])) . ")");
@@ -11,7 +11,7 @@ function getTotal($mysqli) {
         }
         $result->close();
     }
-    return number_format($total, 2, '.', ',');
+    return $return_raw ? $total : number_format($total, 2, '.', ',');
 }
 
 function deleteFromCart($mysqli, $itemId) {
@@ -81,7 +81,7 @@ function insertMainOrder($mysqli, $address, $closest_wh_id, $last4) {
     $orderId = -1;
     $address_statement = $mysqli->prepare("INSERT INTO `order` (`accountId`, `name`, `address_pt1`, `address_pt2`, `warehouseId`, `total`, `last4`, `status`) VALUES (?, ?, ?, ?, ?, ?, ?, 'SHIPPING')");
     if ($address_statement) {
-        $total = getTotal($mysqli);
+        $total = getTotal($mysqli, false);
         $addressPt2 = $address['city'] . ', ' . $address['state'] . ' ' . $address['zip'];
         $address_statement->bind_param('isssidi', $_SESSION['userid'], $address['name'], $address['address'], $addressPt2, $closest_wh_id, $total, $last4);
         $address_statement->execute();
@@ -195,7 +195,7 @@ if (isset($_GET['action'])) {
             if (isset($_GET['item-id']) && is_numeric($_GET['item-id'])) {
                 $success = deleteFromCart($mysqli, $_GET['item-id']);
                 if ($success) {
-                    echo json_encode(array("success" => "true", "count" => isset($_SESSION['cart']) ? array_sum(array_values($_SESSION['cart'])) : 0, "total" => getTotal($mysqli)));
+                    echo json_encode(array("success" => "true", "count" => isset($_SESSION['cart']) ? array_sum(array_values($_SESSION['cart'])) : 0, "total" => getTotal($mysqli, false)));
                 } else {
                     echo json_encode(array("success" => "false", "message" => "An error occured while deleting from your cart."));
                 }
@@ -222,9 +222,9 @@ if (isset($_GET['action'])) {
                 $count = array_sum(array_values($_SESSION['cart']));
             }
             if ($hasFailure) {
-                echo json_encode(array("success" => "false", "message" => "One or more item could not be updated due to available stock.", "count" => $count, "total" => getTotal($mysqli)));
+                echo json_encode(array("success" => "false", "message" => "One or more item could not be updated due to available stock.", "count" => $count, "total" => getTotal($mysqli, false)));
             } else {
-                echo json_encode(array("success" => "true", "count" => $count, "total" => getTotal($mysqli)));
+                echo json_encode(array("success" => "true", "count" => $count, "total" => getTotal($mysqli, false)));
             }
             break;
     }
