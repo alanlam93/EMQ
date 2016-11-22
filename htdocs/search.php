@@ -4,7 +4,8 @@
 	echo "An error occured while connecting to the database.";
 	return;
 	}
-
+	
+	$mysqli->set_charset("utf8");
 	$searchTerms = $_GET['srch-term'];
 
 	$parsedTerms = explode(" ",$searchTerms);
