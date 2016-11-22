@@ -14,6 +14,17 @@ $result = $mysqli->query("SELECT * FROM inventory WHERE id = $itemid");
 if ($result->num_rows > 0) {
     $row = mysqli_fetch_assoc($result);
 }
+
+$prodFeat = $row['product_features'];
+$productFeatures = array();
+$productFeatures = explode("\n", $prodFeat);
+
+$specs = $row['specifications'];
+$specifications = array();
+$specifications = explode("\n", $specs);
+
+$pCount = 0;
+
 $quantity_result = $mysqli->query("SELECT SUM(quantity) as quantity FROM inventory_quantity WHERE item_id = $itemid GROUP BY item_id");
 $quantity = max(mysqli_fetch_assoc($quantity_result)['quantity'], 0);
 
@@ -76,11 +87,15 @@ $mysqli->close();
                         </div>
                         <div class="tab-pane fade" id="service-two">
                             <h4>Features</h4>
-                            <p><? echo htmlspecialchars($row['product_features']) ?></p>
+                            <?php foreach ($productFeatures as $pf): ?>
+                            <p><? echo htmlspecialchars($pf); ?></p>
+                        <?php endforeach ?>
                         </div>
                         <div class="tab-pane fade" id="service-three">
                             <h4>Specifications</h4>
-                            <p><? echo htmlspecialchars($row['specifications']) ?></p>				
+                            <?php foreach ($specifications as $sp): ?>
+                            <p><? echo htmlspecialchars($sp); ?></p>
+                            <?php endforeach ?>				
                         </div>
                     </div>
                     <hr>
