@@ -1,4 +1,5 @@
 <?php
+set_time_limit(0);
 if (isset($_POST['id'], $_POST['duration'])) {
     require_once("mysql-config.php");
     $mysqli = new mysqli($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db']);
