@@ -66,7 +66,6 @@ if (!isset($_SESSION['userid']) || !isset($orderDetails) || isset($_SESSION['use
 
                     <div class="clock"></div>
                     <div class="description">
-                        <h3>Estimated Delivery Time: <br /><h4><?php echo $warehouseAddress; ?> <span style="color: #33B63B;"><b>to</b></span> <?php echo $customerAddress; ?></h4></h3>
                     </div>
 
                     <script type="text/javascript">
@@ -100,7 +99,7 @@ if (!isset($_SESSION['userid']) || !isset($orderDetails) || isset($_SESSION['use
                         var startLocation = [];
                         var endLocation = [];
                         var timerHandle = [];
-
+                        var finish = false;
 
                         var speed = 0.000005, wait = 1;
                         var infowindow = null;
@@ -123,6 +122,22 @@ if (!isset($_SESSION['userid']) || !isset($orderDetails) || isset($_SESSION['use
                         if ((deliveryTime - currentTime) < 1) {
                             someTime = 0;
                         }
+
+                        var clock = $('.clock').FlipClock((someTime / 1000), {
+                            countdown: true
+                        });
+
+               
+                        var addTime = setInterval(function() {
+                            if((clock.getTime().time <= 10) && (finish == false)){
+                                clock.setTime(10);
+                            } 
+                            if(finish) {
+                                clock.setTime(0);
+                                clock.stop();
+                            }
+                        }, 3000);
+                        
 
                         function initialize() {
                             infowindow = new google.maps.InfoWindow(
@@ -149,13 +164,18 @@ if (!isset($_SESSION['userid']) || !isset($orderDetails) || isset($_SESSION['use
                             var contentString = '<b>' + label + '</b><br>' + html;
 
                             var icon = {
-                                url: "./img/truck.png",
+                                url: "./img/turkey.png",
                                 scaledSize: new google.maps.Size(35, 35),
-                                origin: new google.maps.Point(0, 0),
+                                origin: new google.maps.Point(0, 0), 
                                 anchor: new google.maps.Point(5, 30)
                             };
 
-                            if (label === "Driver") {
+                            var icon2 = {
+                                url:"./img/pilgrim.png",
+                                scaledSize: new google.maps.Size(35, 35)
+                            };
+
+                            if (label === "Turkey") {
                                 var marker = new google.maps.Marker({
                                     position: latlng,
                                     map: map,
@@ -169,6 +189,7 @@ if (!isset($_SESSION['userid']) || !isset($orderDetails) || isset($_SESSION['use
                                     position: latlng,
                                     map: map,
                                     title: label,
+                                    icon: icon2,
                                     zIndex: Math.round(latlng.lat() * -100000) << 5
                                 });
                                 marker.myname = label;
@@ -206,8 +227,6 @@ if (!isset($_SESSION['userid']) || !isset($orderDetails) || isset($_SESSION['use
                                 }
                                 return function (response, status) {
                                     if (status === google.maps.DirectionsStatus.OK) {
-                                        //var bounds = new google.maps.LatLngBounds();
-                                        //var route = response.routes[0];
                                         startLocation[routeNum] = new Object();
                                         endLocation[routeNum] = new Object();
                                         polyline[routeNum] = new google.maps.Polyline({
@@ -221,8 +240,6 @@ if (!isset($_SESSION['userid']) || !isset($orderDetails) || isset($_SESSION['use
                                             strokeWeight: 3
                                         });
 
-                                        // For each route, display summary information.
-                                        // var path = response.routes[0].overview_path;
                                         var legs = response.routes[0].legs;
 
                                         disp = new google.maps.DirectionsRenderer(rendererOptions);
@@ -235,11 +252,11 @@ if (!isset($_SESSION['userid']) || !isset($orderDetails) || isset($_SESSION['use
                                                 startLocation[routeNum].latlng = legs[i].start_location;
                                                 startLocation[routeNum].address = legs[i].start_address;
                                                 //marker = google.maps.Marker({map:map,position: startLocation.latlng});
-                                                marker[routeNum] = createMarker(legs[i].start_location, "Driver", legs[i].start_address, "green");
+                                                marker[routeNum] = createMarker(legs[i].start_location, "Turkey", legs[i].start_address, "green");
                                             }
                                             endLocation[routeNum].latlng = legs[i].end_location;
                                             endLocation[routeNum].address = legs[i].end_address;
-                                            createMarker(legs[i].end_location, "Customer", legs[i].end_address, "red"); // End marker
+                                            createMarker(legs[i].end_location, "Pilgrim", legs[i].end_address, "red"); // End marker
                                             var steps = legs[i].steps;
                                             for (j = 0; j < steps.length; j++) {
                                                 var nextSegment = steps[j].path;
@@ -288,6 +305,7 @@ if (!isset($_SESSION['userid']) || !isset($orderDetails) || isset($_SESSION['use
                                 map.setCenter(endLocation[index].latlng);
                                 document.getElementsByClassName('progress-bar-3')[0].style.backgroundColor = "#33B63B";
                                 document.getElementsByClassName('progress-bar-4')[0].style.backgroundColor = "#33B63B";
+                                finish = true;
                                 return;
                             }
                             var p = polyline[index].GetPointAtDistance(d);
@@ -325,9 +343,7 @@ if (!isset($_SESSION['userid']) || !isset($orderDetails) || isset($_SESSION['use
 
                             return [distance, trafficDuration];
                         }
-                        var clock = $('.clock').FlipClock((someTime / 1000), {
-                            countdown: true
-                        });
+
                         $(document).ready(function () {
                             initialize();
                         });
