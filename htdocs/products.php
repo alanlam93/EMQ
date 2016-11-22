@@ -31,7 +31,6 @@ return;
     }
 
     $result->close();
-    $brandCount = 1;
     $rowCount = 0;
     $mysqli->close();
 require 'include/header.php';
@@ -74,7 +73,7 @@ require 'include/header.php';
     </nav>
 
 
-<h3 id="catTitle"><?php echo $categoryName; ?></h3><br>
+<h3 id="catTitle" style="margin-top: 2%;"><?php echo $categoryName; ?></h3><br>
 <div class="container-fluid">
     <div class="filter col-md-2 responsive hidden-xs hidden-sm">
     <!-- Main Filter Div -->

@@ -80,7 +80,7 @@ $mysqli->close();
                                     <div class="col-md-6">
                                         <p class="btn-more">
                                             <span class="glyphicon glyphicon-th-list more-list"></span>
-                                            <a href="#" class="">View More</a>
+                                            <a href="product.php?id=<?php echo $item['id']; ?>" class="">View Details</a>
                                         </p>
                                     </div>
                                 </div>

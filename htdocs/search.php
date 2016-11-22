@@ -25,6 +25,12 @@
 		$matchedProducts[] = $row;
 	}
 	
+    $result = $mysqli->query("SELECT distinct inventory.brand as name from inventory ORDER by inventory.brand asc");
+    $allBrands = array();
+    while($row = $result->fetch_array(MYSQLI_ASSOC)){
+        $allBrands[] = $row;
+    }
+
 
 	$result->close();
 	$mysqli->close();
@@ -66,16 +72,19 @@
                 </div>
     </nav>
 
-<h3 id="catTitle"><?php echo $categoryName; ?></h3><br>
+<h3 id="catTitle" style="margin-top: 2%;">You have searched for: <?php echo ($searchTerms) ?></h3><br>
 <div class="container-fluid">
     <div class="filter col-md-2 responsive hidden-xs hidden-sm">
-        <!-- Main Filter --> 
+    <!-- Main Filter Div -->
         <ul class="filterList">
-            <li><h4><b>Brand</b></h4></li>
-            <?php foreach ($allBrands as $brand): ?>
-                <li><label><input data-id="<?php echo $brand['name']; ?>" class="brands" type="checkbox" /> <?php echo $brand['name']; ?></label></li>
-            <?php  endforeach ?>
-            <li><h4><b>Price</b></h4></li>
+            <li style="background-color: #428bca; padding: 3px; "><h4><b>Brand</b></h4></li>
+                <?php foreach ($allBrands as $brand): ?>
+                    <li><label><input data-id="<?php echo $brand['name']; ?>" class="brands" type="checkbox" /> <?php echo $brand['name']; ?></label></li>
+                <?php  endforeach ?>
+                
+
+
+            <li style="background-color: #428bca; padding: 3px;"><h4><b>Price</b></h4></li>
             <li><label><input type="checkbox" price-id="0" class="prices"> Under $100</label></li>
             <li><label><input type="checkbox" price-id="100" class="prices"> $100-$200</label></li>
             <li><label><input type="checkbox" price-id="200" class="prices"> $200-$300</label></li>
@@ -88,9 +97,8 @@
             </li>
         </ul>
     </div>
-    
     <!-- Product Grid -->
-    <div class="container-fluid col-md-9">
+    <div class="container-fluid col-md-9 product_container">
         <div class="row">
             <?php foreach ($matchedProducts as $item): ?>
             <div class="container col-md-3" id="productPanel" brand="<?php echo htmlspecialchars($item['brand']); ?>"  data-price="<?php $priceVal = (float)$item['price']; 
@@ -129,7 +137,7 @@
         </div>
     </div>
 
-    <!-- Filter Function (Show/Hide divs)-->
+    <!-- Filter Show/Hide Divs -->
     <script type="text/javascript">
     $(function(){
         $('.prices, .brands').on('click', function(){
@@ -165,6 +173,7 @@
         }
         });
     });
+    
 
     function uncheckAll(){
         $("input[type='checkbox']:checked").prop("checked",false)

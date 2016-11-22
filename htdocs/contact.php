@@ -23,7 +23,7 @@ $mysqli->close();
 $label = 'A';
 $loc_index = 0;
 ?>
-                <h1 style="text-align: center">Store Locations</h1>
+                <h1  style="text-align: center; margin-top: 2%;">Store Locations</h1>
                 <div class="row">
                     <div class="col-sm-6 col-md-5 col-lg-7 col-sm-offset-1 col-md-offset-2 col-lg-offset-1" style="padding-right: 0px;">
                         <div id="map-container"></div>
@@ -42,6 +42,13 @@ $loc_index = 0;
                             </a>
                         </li>
                     <?php endforeach; ?></ol>
+                </div>
+
+                
+                <div class="col-md-10 holiday" style="margin-left: 8%;">
+                 <img src="img/turkey.png" class="hidden-xs hidden-sm" style="float: right; height: 350px; width: 300px; position: relative;"></img>
+                    <h2>*Thanksgiving Day: All of our locations will be closed. <br><br>&nbspBlack Friday Door Buster begins on Friday, 12:00AM!</h2>
+                    
                 </div>
                 <!-- Include all compiled plugins (below), or include individual files as needed -->
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNFssYGfC3PBwUPiG6NLWNloRKq5N-5FM"></script>
