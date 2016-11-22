@@ -14,9 +14,12 @@ if ($mysqli === null) {
 }
 
 $orderId = $mysqli->real_escape_string($_GET['order']);
-$orderResult = $mysqli->query("SELECT address_pt1, address_pt2, CURRENT_TIMESTAMP() - date AS time_elapsed, est_speed FROM `order` WHERE order.id = $orderId");
+$orderResult = $mysqli->query("SELECT address_pt1, address_pt2, date, CURRENT_TIMESTAMP() - date AS time_elapsed, est_speed FROM `order` WHERE order.id = $orderId");
 $orderDetails = $orderResult->fetch_array(MYSQLI_ASSOC);
 $customerAddress = $orderDetails['address_pt1'] . ' ' . $orderDetails['address_pt2'];
+$orderDate = $orderDetails['date'];
+$orderTimeStamp = array();
+$orderTimeStamp = explode(" ", $orderDate);
 
 $closestWarehouse = $mysqli->query("SELECT address, city, state, zip, lat, 'long' FROM `warehouse_address` INNER JOIN `order` ON order.warehouseId = warehouse_address.id WHERE order.id = $orderId");
 $warehouseResult = $closestWarehouse->fetch_array(MYSQLI_ASSOC);
@@ -80,6 +83,7 @@ $mysqli->close();
     }
   }
 
+
   var map;
   var directionDisplay;
   var directionsService;
@@ -108,6 +112,14 @@ $mysqli->close();
   var dist_and_traffic = calculateDistances();
   var dist = dist_and_traffic[0];
   var traffic = dist_and_traffic[1];
+
+  orderTime = '<?php echo $orderTimeStamp[0];?>' + ' ' + '<?php echo $orderTimeStamp[1];?>';
+  var orderTime = Date.parse(orderTime);  
+  var currentTime = Date.now();
+  var deliveryTime = orderTime + traffic * 60000;
+  var someTime = deliveryTime - currentTime;
+  if ((deliveryTime - currentTime) < 1) { someTime = 0 }; 
+  alert(someTime);
 
 function initialize() {  
 
@@ -336,10 +348,9 @@ function calculateDistances() {
  
   return [distance, trafficDuration];
 }
-
-var clock = $('.clock').FlipClock(60*traffic, {
+console.log(traffic);
+var clock = $('.clock').FlipClock((someTime/1000), {
     countdown: true
-    
 });
 
 
