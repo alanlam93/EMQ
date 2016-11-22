@@ -6,10 +6,13 @@
 	}
 	
 	$mysqli->set_charset("utf8");
-	$searchTerms = $_GET['srch-term'];
-
+	
+    //Get terms from search
+    $searchTerms = $_GET['srch-term'];
+    //Parse terms by ' '
 	$parsedTerms = explode(" ",$searchTerms);
 
+    //Queries products with term in name
 	$searchQuery = "SELECT id, name, price, brand, img_src FROM inventory WHERE name LIKE '%".$searchTerms."%'";
 	foreach($parsedTerms as $pT){
 		$searchQuery .= " OR name LIKE '%$pT%' ";
@@ -29,6 +32,7 @@
 
 <link rel="stylesheet" href="css/products.css">
 
+    <!-- Mobile Filter Nav Bar -->
     <nav class="navbar navbar-default navbar-static visible-xs" id="filterNav">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -65,14 +69,12 @@
 <h3 id="catTitle"><?php echo $categoryName; ?></h3><br>
 <div class="container-fluid">
     <div class="filter col-md-2 responsive hidden-xs hidden-sm">
+        <!-- Main Filter --> 
         <ul class="filterList">
             <li><h4><b>Brand</b></h4></li>
-                <?php foreach ($allBrands as $brand): ?>
-                    <li><label><input data-id="<?php echo $brand['name']; ?>" class="brands" type="checkbox" /> <?php echo $brand['name']; ?></label></li>
-                <?php  endforeach ?>
-                
-
-
+            <?php foreach ($allBrands as $brand): ?>
+                <li><label><input data-id="<?php echo $brand['name']; ?>" class="brands" type="checkbox" /> <?php echo $brand['name']; ?></label></li>
+            <?php  endforeach ?>
             <li><h4><b>Price</b></h4></li>
             <li><label><input type="checkbox" price-id="0" class="prices"> Under $100</label></li>
             <li><label><input type="checkbox" price-id="100" class="prices"> $100-$200</label></li>
@@ -86,7 +88,8 @@
             </li>
         </ul>
     </div>
-
+    
+    <!-- Product Grid -->
     <div class="container-fluid col-md-9">
         <div class="row">
             <?php foreach ($matchedProducts as $item): ?>
@@ -125,6 +128,8 @@
             <?php if ((++$rowCount % 4 == 0)) { echo '    <div class="clearfix"></div>' . "\n                        "; } endforeach; ?></div>
         </div>
     </div>
+
+    <!-- Filter Function (Show/Hide divs)-->
     <script type="text/javascript">
     $(function(){
         $('.prices, .brands').on('click', function(){

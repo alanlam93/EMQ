@@ -16,33 +16,29 @@
 text-align: center;
 }
 
-
-
 .product_container{
-height: 500px;
-margin-top: 5%;
-margin-right: 10%;
+margin-left: 5%;
 text-align: center;
 }
-.filter{
 
-border: 1px  solid #bfbfbf;
-border-radius: 5px;
-text-align: left;
-background-color: rgba(102, 51, 0, 0.5);
+.filterList h4, li{
+	padding-left: 10px;
+}
 
-background-image: url("http://65.media.tumblr.com/31b9ec20fa202369957cff1596c4fd61/tumblr_inline_nwzhillmc31t9ayal_500.png");
-background-repeat: no-repeat;
+
+.filter h4{
+	color: white !important;
 }
 
 #filterNav{
     background-color: white;
 }
+
 .filterList{
 list-style-type: none;
 }
-.label{
-font-weight: normal;
+label{
+	font-weight: normal;
 }
 .product_grid{
 margin-left: 100px;

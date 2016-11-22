@@ -1,5 +1,7 @@
 <?php
-	
+/* Creates googleapi distance matrix string
+   Grabs json and decodes it to get distance and traffic duration
+*/	
  header('Content-type: application/json');
 
  $key = "AIzaSyDmNrhRRBuvnxqNgPSluDN-PX59TbDWWBw";
