@@ -131,14 +131,13 @@ if (!isset($_SESSION['userid']) || !isset($orderDetails) || isset($_SESSION['use
                
                         var addTime = setInterval(function() {
                             if((clock.getTime().time <= 10) && (finish == false)){
-                                clock.setTime(10);
+                                clock.setTime(clock.getTime() + 10);
                             } 
                             if(finish) {
                                 clock.setTime(0);
                                 clock.stop();
                             }
                         }, 3000);
-                        
 
                         function initialize() {
                             infowindow = new google.maps.InfoWindow(
