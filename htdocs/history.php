@@ -18,7 +18,7 @@ if ($mysqli === null) {
 $accountId = $_SESSION['userid'];
 $orders = array();
 $mysqli->set_charset("utf8");
-$result = $mysqli->query("SELECT orderId, itemId, inventory.name, img_src, quantity, order_items.price, total, date, order.name AS address_name, address_pt1, address_pt2 FROM order_items INNER JOIN `order` ON `order`.id = order_items.orderId INNER JOIN inventory ON order_items.itemId = inventory.id WHERE order.accountId = $accountId ORDER BY date DESC, inventory.name");
+$result = $mysqli->query("SELECT orderId, itemId, inventory.name, img_src, quantity, order_items.price, total, date, status, order.name AS address_name, address_pt1, address_pt2 FROM order_items INNER JOIN `order` ON `order`.id = order_items.orderId INNER JOIN inventory ON order_items.itemId = inventory.id WHERE order.accountId = $accountId ORDER BY date DESC, inventory.name");
 $lastOrder = null;
 while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
     if (empty($lastOrder) && empty($lastOrder) || !empty($lastOrder) && $lastOrder['orderId'] != $row['orderId']) {
@@ -27,7 +27,7 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
         }
         $phpdate = strtotime($row['date']);
         $formattedDate = date('F j, Y', $phpdate);
-        $lastOrder = ["orderId" => $row['orderId'], "total" => number_format($row['total'], 2, '.', ','), "date" => $formattedDate, "address_name" => $row['address_name'], "address" => $row['address_pt1'], "address_pt2" => $row['address_pt2']];
+        $lastOrder = ["orderId" => $row['orderId'], "total" => number_format($row['total'], 2, '.', ','), "date" => $formattedDate, "status" => $row['status'], "address_name" => $row['address_name'], "address" => $row['address_pt1'], "address_pt2" => $row['address_pt2']];
         $lastOrder['items'][] = ["itemId" => $row['itemId'], "name" => $row['name'], "img_src" => $row['img_src'], "quantity" => $row['quantity'], "price" => $row['price']];
     } else {
         $lastOrder['items'][] = ["itemId" => $row['itemId'], "name" => $row['name'], "img_src" => $row['img_src'], "quantity" => $row['quantity'], "price" => $row['price']];
@@ -68,20 +68,29 @@ require("include/header.php");
                                 <div class="row hidden-sm hidden-md hidden-lg">
                                     <div class="col-xs-6 small"><span data-toggle="tooltip" data-html="true" data-placement="bottom" title="<address><strong><?php echo $order['address_name']; ?></strong><br/><?php echo $order['address']; ?><br/><?php echo $order['address_pt2']; ?></address>"><?php echo $order['address_name']; ?><span class="caret"></span></span></div>
                                     <div class="col-xs-6 small"><?php echo $order['orderId']; ?></div>
+                                    <br /><br />
+                                </div>
+                                <div class="row hidden-sm hidden-md hidden-lg">
+                                    <div class="col-xs-6 small">Status</div>
+                                </div>
+                                <div class="row hidden-sm hidden-md hidden-lg">
+                                    <div class="col-xs-6 small"><?php echo $order['status']; ?></div>
                                 </div>
                                 <div class="row hidden-xs">
                                     <div class="col-xs-3 small">Order Placed</div>
                                     <div class="col-xs-2 small">Total</div>
-                                    <div class="col-xs-2 small">Ship To</div>
-                                    <div class="col-xs-3 col-xs-offset-2 text-right small">Order Number</div>
+                                    <div class="col-xs-3 small">Ship To</div>
+                                    <div class="col-xs-2 small">Status</div>
+                                    <div class="col-xs-2 text-right small">Order Number</div>
                                 </div>
                                 <div class="row hidden-xs">
                                     <div class="col-xs-3 small"><?php echo $order['date']; ?></div>
                                     <div class="col-xs-2 small">$<?php echo $order['total']; ?></div>
-                                    <div class="col-xs-2 small">
+                                    <div class="col-xs-3 small">
                                         <span data-toggle="tooltip" data-html="true" data-placement="bottom" title="<address><strong><?php echo $order['address_name']; ?></strong><br/><?php echo $order['address']; ?><br/><?php echo $order['address_pt2']; ?></address>"><?php echo $order['address_name']; ?><span class="caret"></span></span>
                                     </div>
-                                    <div class="col-xs-3 col-xs-offset-2 text-right small"><?php echo $order['orderId']; ?></div>
+                                    <div class="col-xs-2 small"><?php echo $order['status']; ?></div>
+                                    <div class="col-xs-2 text-right small"><?php echo $order['orderId']; ?></div>
                                 </div>
                             </div>
                             <div class="panel-body">

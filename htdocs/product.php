@@ -72,7 +72,7 @@ $mysqli->close();
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade in active" id="service-one">
                             <h4>Description</h4>
-                            <p><? echo htmlspecialchars($row['description']) ?></p> 
+                            <p><? echo nl2br(htmlspecialchars($row['description'])) ?></p> 
                         </div>
                         <div class="tab-pane fade" id="service-two">
                             <h4>Features</h4>

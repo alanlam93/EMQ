@@ -77,13 +77,13 @@ function insertOrderItems($mysqli, $orderId, $closest_wh_id) {
     return $itemsResult && $deleteCartResult && $quantity_update_statement;
 }
 
-function insertMainOrder($mysqli, $address, $closest_wh_id, $last4) {
+function insertMainOrder($mysqli, $address, $closest_wh_id, $last4, $speed) {
     $orderId = -1;
-    $address_statement = $mysqli->prepare("INSERT INTO `order` (`accountId`, `name`, `address_pt1`, `address_pt2`, `warehouseId`, `total`, `last4`, `status`) VALUES (?, ?, ?, ?, ?, ?, ?, 'SHIPPING')");
+    $address_statement = $mysqli->prepare("INSERT INTO `order` (`accountId`, `name`, `address_pt1`, `address_pt2`, `warehouseId`, `total`, `last4`, `status`, `est_speed`) VALUES (?, ?, ?, ?, ?, ?, ?, 'SHIPPED', ?)");
     if ($address_statement) {
         $total = getTotal($mysqli, true);
         $addressPt2 = $address['city'] . ', ' . $address['state'] . ' ' . $address['zip'];
-        $address_statement->bind_param('isssidi', $_SESSION['userid'], $address['name'], $address['address'], $addressPt2, $closest_wh_id, $total, $last4);
+        $address_statement->bind_param('isssidid', $_SESSION['userid'], $address['name'], $address['address'], $addressPt2, $closest_wh_id, $total, $last4, $speed);
         $address_statement->execute();
         $address_statement->close();
         $orderId = $mysqli->insert_id;
@@ -93,9 +93,11 @@ function insertMainOrder($mysqli, $address, $closest_wh_id, $last4) {
 
 function placeOrder($mysqli, $addrId, $last4) {
     $address = getAddressFromId($mysqli, $addrId);
-    $closest_wh_id = getClosestWarehouseId($mysqli, $address);
+    $closest_wh = getClosestWarehouseId($mysqli, $address);
+    $closest_wh_id = $closest_wh['warehouse_id'];
+    $est_del_speed = $closest_wh['distance'] / $closest_wh['duration'];
     $mysqli->autocommit(false);
-    $orderId = insertMainOrder($mysqli, $address, $closest_wh_id, $last4);
+    $orderId = insertMainOrder($mysqli, $address, $closest_wh_id, $last4, $est_del_speed);
     if ($orderId != -1) {
         $insertResult = insertOrderItems($mysqli, $orderId, $closest_wh_id);
     }
@@ -103,8 +105,37 @@ function placeOrder($mysqli, $addrId, $last4) {
         return ["success" => "false", "message" => "An error occured while placing your order."];
     } else {
         unset($_SESSION['cart']);
+        $params['id'] = $orderId;
+        $params['duration'] = $closest_wh['duration'];
+        post_async('http://localhost/include/delayed-query.php', $params);
         return ["success" => "true", "order_id" => $orderId];
     }
+}
+
+function post_async($url, $params) {
+    foreach ($params as $key => &$val) {
+        if (is_array($val)) {
+            $val = implode(',', $val);
+        }
+        $post_params[] = $key . '=' . urlencode($val);
+    }
+    $post_string = implode('&', $post_params);
+
+    $parts = parse_url($url);
+
+    $fp = fsockopen($parts['host'], isset($parts['port']) ? $parts['port'] : 80, $errno, $errstr, 30);
+
+    $out = "POST " . $parts['path'] . " HTTP/1.1\r\n";
+    $out.= "Host: " . $parts['host'] . "\r\n";
+    $out.= "Content-Type: application/x-www-form-urlencoded\r\n";
+    $out.= "Content-Length: " . strlen($post_string) . "\r\n";
+    $out.= "Connection: Close\r\n\r\n";
+    if (isset($post_string)) {
+        $out.= $post_string;
+    }
+
+    fwrite($fp, $out);
+    fclose($fp);
 }
 
 function getWarehouseAddresses($mysqli) {
@@ -122,7 +153,7 @@ function getDrivingDistances($address, $locations) {
     $address_str = $address['address'] . '+' . $address['city'] . '+' . $address['state'];
     $address_google = str_replace(" ", "+", $address_str);
     $map_locs = implode('|', array_column($locations, 'latlng'));
-    $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" . $map_locs . "&destinations=" . $address_google . "&units=imperial&language=en&key=AIzaSyDmNrhRRBuvnxqNgPSluDN-PX59TbDWWBw";
+    $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" . $map_locs . "&destinations=" . $address_google . "&departure_time=now&units=imperial&language=en&key=AIzaSyDmNrhRRBuvnxqNgPSluDN-PX59TbDWWBw";
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -142,7 +173,8 @@ function getClosestWarehouseId($mysqli, $address) {
         $distance_vals[] = $distance['elements'][0]['distance']['value'];
     }
     $index = array_keys($distance_vals, min($distance_vals));
-    return $locations[$index[0]]['id'];
+    $origin_row = $distances[$index[0]]['elements'][0];
+    return ["warehouse_id" => $locations[$index[0]]['id'], "distance" => $origin_row['distance']['value'], "duration" => $origin_row['duration_in_traffic']['value']];
 }
 
 function updateCartItem($mysqli, $itemId, $new_quantity, $is_constant_quant) {
