@@ -17,11 +17,26 @@
     margin-bottom: 100px;
 }
 
+.description {
+    position: relative;
+    text-align: center;
+    margin-bottom: -55px;
+    padding: 1px 0 0 0;
+}
+
 @media screen and (min-device-width: 320px) and (max-device-width: 736px) and (orientation:portrait) {
     #map_canvas {
         min-width: 90%;
         min-height: 65%;
         left: -16%;
+    }
+
+    h2 {
+        font-size: 26px !important;
+    }
+
+    h3 {
+        font-size: 14px !important;
     }
 
     h4 {
@@ -37,6 +52,10 @@
         margin-bottom: 3cm;
     }
 
+    h3 {
+        font-size: 12px !important;
+    }
+
     h4 {
         font-size: 16px !important;
     }
@@ -46,13 +65,14 @@
     #map_canvas {
         min-width: 90%;
         min-height: 65%;
-        left: -16%;
+        left: -14%;
     }
 
     #container {
         position: relative;
         left: -2%;
     }
+
     h4 {
         font-size: 16px !important;
     }
