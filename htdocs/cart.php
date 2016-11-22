@@ -159,7 +159,7 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart'])) {
                                 $("#cart-notifications").html(getErrorMessage("Please enter a valid quantity."));
                                 return;
                             } else {
-                                arr[$(this).find('.rem-item').attr('id')] = $(this).find('input:text').val();
+                                arr[$(this).find('.rem-item').attr('id')] = $(this).find("input[type='number']").val();
                                 if (quantity === "0")
                                     $(this).remove();
                             }
