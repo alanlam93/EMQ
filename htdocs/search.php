@@ -26,40 +26,10 @@
 	$result->close();
 	$mysqli->close();
 ?>
-<style>
-#catTitle{
-text-align: center;
-}
-.product_container{
-height: 500px;
-margin-top: 5%;
-margin-right: 10%;
-text-align: center;
-}
-.filter{
-margin-right: 20px;
-border-right: 1px  solid #bfbfbf;
-text-align: left;
-}
-.filterList{
-list-style-type: none;
-}
-.label{
-font-weight: normal;
-}
-.product_grid{
-margin-left: 100px;
-}
-.product-row{
-margin-top: 20px;
-text-align: left;
-}
 
-.panel-footer{
-overflow: hidden;
-}
-</style>
-<nav class="navbar navbar-default navbar-static visible-xs" id="filterNav">
+<link rel="stylesheet" href="css/products.css">
+
+    <nav class="navbar navbar-default navbar-static visible-xs" id="filterNav">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#filterBar">
@@ -70,19 +40,19 @@ overflow: hidden;
                     </div>
                     <div class="collapse navbar-collapse" id="filterBar">
                         <ul class="nav navbar-nav col-xs-6" id="brandNav">
-                            <li><h4>Brand</h4></li>
+                            <li><h4><b>Brand</b></h4></li>
                             <?php foreach ($allBrands as $brand): ?>
-                                <li><input data-id="<?php echo $brand['name']; ?>" class="brands" type="checkbox" /> <?php echo $brand['name']; ?></li>
+                                <li><label><input data-id="<?php echo $brand['name']; ?>" class="brands" type="checkbox" /> <?php echo $brand['name']; ?></label></li>
                             <?php  endforeach ?>
                         </ul>
                         <ul class="nav navbar-nav col-xs-6" id="priceNav">
-                             <li><h4>Price</h4></li>
-                            <li><input type="checkbox" price-id="0" class="prices"> Under $100</li>
-                            <li><input type="checkbox" price-id="100" class="prices"> $100-$200</li>
-                            <li><input type="checkbox" price-id="200" class="prices"> $200-$300</li>
-                            <li><input type="checkbox" price-id="300" class="prices"> $300-$400</li>
-                            <li><input type="checkbox" price-id="400" class="prices"> $400-$500</li>
-                            <li><input type="checkbox" price-id="500" class="prices"> More than $500</li>
+                             <li><h4><b>Price</b></h4></li>
+                            <li><label><input type="checkbox" price-id="0" class="prices"> Under $100</label></li>
+                            <li><label><input type="checkbox" price-id="100" class="prices"> $100-$200</label></li>
+                            <li><label><input type="checkbox" price-id="200" class="prices"> $200-$300</label></li>
+                            <li><label><input type="checkbox" price-id="300" class="prices"> $300-$400</label></li>
+                            <li><label><input type="checkbox" price-id="400" class="prices"> $400-$500</label></li>
+                            <li><label><input type="checkbox" price-id="500" class="prices"> More than $500</label></li>
                              <li>
                                 <br>
                                 <button type="button" onclick='uncheckAll()' class="btn btn-primary btn-sm">Clear</button>
@@ -90,22 +60,26 @@ overflow: hidden;
                         </ul>
                     </div>
                 </div>
-</nav>
+    </nav>
+
 <h3 id="catTitle"><?php echo $categoryName; ?></h3><br>
 <div class="container-fluid">
     <div class="filter col-md-2 responsive hidden-xs hidden-sm">
         <ul class="filterList">
-            <li><h4>Brand</h4></li>
-            <?php foreach ($allBrands as $brand): ?>
-                <li><input data-id="<?php echo $brand['name']; ?>" class="brands" type="checkbox" /> <?php echo $brand['name']; ?></li>
-            <?php  endforeach ?>
-            <li><h4>Price</h4></li>
-            <li><input type="checkbox" price-id="0" class="prices"> Under $100</li>
-            <li><input type="checkbox" price-id="100" class="prices"> $100-$200</li>
-            <li><input type="checkbox" price-id="200" class="prices"> $200-$300</li>
-            <li><input type="checkbox" price-id="300" class="prices"> $300-$400</li>
-            <li><input type="checkbox" price-id="400" class="prices"> $400-$500</li>
-            <li><input type="checkbox" price-id="500" class="prices"> More than $500</li>
+            <li><h4><b>Brand</b></h4></li>
+                <?php foreach ($allBrands as $brand): ?>
+                    <li><label><input data-id="<?php echo $brand['name']; ?>" class="brands" type="checkbox" /> <?php echo $brand['name']; ?></label></li>
+                <?php  endforeach ?>
+                
+
+
+            <li><h4><b>Price</b></h4></li>
+            <li><label><input type="checkbox" price-id="0" class="prices"> Under $100</label></li>
+            <li><label><input type="checkbox" price-id="100" class="prices"> $100-$200</label></li>
+            <li><label><input type="checkbox" price-id="200" class="prices"> $200-$300</label></li>
+            <li><label><input type="checkbox" price-id="300" class="prices"> $300-$400</label></li>
+            <li><label><input type="checkbox" price-id="400" class="prices"> $400-$500</label></li>
+            <li><label><input type="checkbox" price-id="500" class="prices"> More than $500</label></li>
              <li>
                 <br>
                 <button type="button" onclick='uncheckAll()' class="btn btn-primary btn-sm">Clear</button>
@@ -120,11 +94,10 @@ overflow: hidden;
                     if($priceVal > 500) { $priceVal = 500; } 
                     else{$priceVal = $priceVal/100; $priceVal = floor($priceVal); $priceVal = $priceVal * 100;}
                     echo htmlspecialchars($priceVal); ?>">
-
                 <div class="panel panel-default"  style="max-width: 300px; float: left">
                     <div class="panel-body panel-image" style="max-height: 250px;">
                         <a href="product.php?id=<?php echo $item['id']; ?>">
-                            <img src="./<?php echo $item['img_src']; ?>" class="img-responsive center-block" style="max-height: 200px;" alt="<?php echo htmlspecialchars($item['name']); ?>" />
+                            <img src="./<?php echo $item['img_src']; ?>" class="img-responsive center-block" style="max-height: 230px;" alt="<?php echo htmlspecialchars($item['name']); ?>" />
                         </a>
                     </div>
                     <div class="panel-footer" style="background-color: white; font-size:medium; height: 80px;"><a class="title" href="product.php?id=<?php echo $item['id']; ?>"><?php echo htmlspecialchars($item['name']); ?></a></div>
