@@ -223,7 +223,7 @@ $mysqli->close();
 
         var lastVertex = 1;
         var stepnum = 0;
-        var step = <?php echo $orderDetails['time_elapsed']; ?> / 10; // Around 1.5 - 2 for realistic speed
+        var step = <?php echo $orderDetails['est_speed']; ?> / 10; // Around 1.5 - 2 for realistic speed
         var tick = 100; // milliseconds
         var eol = [];
 
