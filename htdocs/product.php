@@ -119,9 +119,11 @@ $mysqli->close();
     }
 
     function minMax(value, min, max) {
+		if (value.length === 0)
+			return value;
         if (parseInt(value) < min || isNaN(parseInt(value)))
             return 1;
-        else if(parseInt(value) > max)
+        else if (parseInt(value) > max)
             return max;
         return value;
     }

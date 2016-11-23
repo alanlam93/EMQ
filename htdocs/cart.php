@@ -109,9 +109,11 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart'])) {
                     }
 
                     function minMax(value, min, max) {
+						if (value.length === 0)
+							return value;
                         if (parseInt(value) < min || isNaN(parseInt(value)))
                             return 1;
-                        else if(parseInt(value) > max)
+                        else if (parseInt(value) > max)
                             return max;
                         return value;
                     }
@@ -154,7 +156,7 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart'])) {
                         var err = false;
                         cartItems.each(function () {
                             var quantity = $(this).find("input[type='number']").val();
-                            if (isNaN(quantity)) {
+                            if (isNaN(quantity) || quantity.length === 0) {
                                 err = true;
                                 $("#cart-notifications").html(getErrorMessage("Please enter a valid quantity."));
                                 return;

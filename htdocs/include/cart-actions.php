@@ -5,7 +5,12 @@ require_once("mysql-config.php");
 function getTotal($mysqli, $return_raw) {
     $total = 0;
     if (isset($_SESSION['cart']) && count($_SESSION['cart'])) {
-        $result = $mysqli->query("SELECT itemId, price FROM cart WHERE accountId = {$_SESSION['userid']} AND itemId IN (" . implode(", ", array_keys($_SESSION['cart'])) . ")");
+		if (isset($_SESSION['userid'])) {
+			$query = "SELECT itemId, price FROM cart WHERE accountId = {$_SESSION['userid']} AND itemId IN (" . implode(", ", array_keys($_SESSION['cart'])) . ")";
+		} else {
+			$query = "SELECT id as itemId, price FROM inventory WHERE id IN (" . implode(", ", array_keys($_SESSION['cart'])) . ")";
+		}
+        $result = $mysqli->query($query);
         while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
             $total += $row['price'] * $_SESSION['cart'][$row['itemId']];
         }
