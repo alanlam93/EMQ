@@ -13,6 +13,10 @@ $mysqli->set_charset("utf8");
 $result = $mysqli->query("SELECT * FROM inventory WHERE id = $itemid");
 if ($result->num_rows > 0) {
     $row = mysqli_fetch_assoc($result);
+} else {
+    $mysqli->close();
+    header('Location: index.php');
+    return;
 }
 
 $prodFeat = $row['product_features'];
