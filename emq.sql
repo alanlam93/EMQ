@@ -23,13 +23,11 @@ CREATE TABLE `account` (
   UNIQUE KEY `acc_idx` (`id`) USING BTREE,
   UNIQUE KEY `email_idx` (`email`) USING BTREE,
   KEY `addr_fk` (`default_addr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of account
 -- ----------------------------
-INSERT INTO `account` VALUES ('1', 'johnny@emq.com', 'ff539896f6a2eeeed34f674bfc33f06d9ef302d2cb230fe3f94e77bb0f185f3ccfc35eda80b72dd39bb0227aa48f02d17789111bd98e04e9f417c4758216ade6', '0133b29d4c192adc24cdbc3bf84f719f', 'Johnny', 'Lui', '2016-11-02 14:56:20', '1');
-INSERT INTO `account` VALUES ('2', 'david@emq.com', 'ff539896f6a2eeeed34f674bfc33f06d9ef302d2cb230fe3f94e77bb0f185f3ccfc35eda80b72dd39bb0227aa48f02d17789111bd98e04e9f417c4758216ade6', '0133b29d4c192adc24cdbc3bf84f719f', 'David', 'Ngo', '2016-11-07 15:25:50', '3');
 
 -- ----------------------------
 -- Table structure for address
@@ -47,18 +45,11 @@ CREATE TABLE `address` (
   UNIQUE KEY `address_id` (`id`) USING BTREE,
   KEY `acc_index` (`accountId`) USING BTREE,
   CONSTRAINT `address_fk_1` FOREIGN KEY (`accountId`) REFERENCES `account` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of address
 -- ----------------------------
-INSERT INTO `address` VALUES ('1', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy', 'CA', '95020');
-INSERT INTO `address` VALUES ('3', '2', 'Johnny Lui', '1 Washington Square', 'San Jose', 'CA', '95112');
-INSERT INTO `address` VALUES ('6', '1', 'Johnny Lui', '1233 Fake Street', 'San Jose', 'CA', '95112');
-INSERT INTO `address` VALUES ('7', '1', 'Johnny Lui', '2 Washington Square', 'San Jose', 'CA', '95113');
-INSERT INTO `address` VALUES ('8', '1', 'Xterminator', '31 Washington Square', 'San Jose', 'CA', '95112');
-INSERT INTO `address` VALUES ('9', '1', 'Johnny Lui', '262 Washington Sq.', 'San Jose', 'CA', '95113');
-INSERT INTO `address` VALUES ('10', '1', 'Johnny Lui', '311 Washington Square', 'San Jose', 'CA', '95112');
 
 -- ----------------------------
 -- Table structure for cart
@@ -80,8 +71,6 @@ CREATE TABLE `cart` (
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
-INSERT INTO `cart` VALUES ('1', '1', '599.99', '101', '2016-11-18 23:51:42');
-INSERT INTO `cart` VALUES ('1', '3', '99.99', '1', '2016-11-18 23:03:47');
 
 -- ----------------------------
 -- Table structure for category
@@ -242,9 +231,9 @@ INSERT INTO `inventory_quantity` VALUES ('5', '12', '100');
 INSERT INTO `inventory_quantity` VALUES ('5', '13', '100');
 INSERT INTO `inventory_quantity` VALUES ('5', '14', '100');
 INSERT INTO `inventory_quantity` VALUES ('5', '15', '100');
-INSERT INTO `inventory_quantity` VALUES ('6', '1', '80');
-INSERT INTO `inventory_quantity` VALUES ('6', '2', '0');
-INSERT INTO `inventory_quantity` VALUES ('6', '3', '80');
+INSERT INTO `inventory_quantity` VALUES ('6', '1', '100');
+INSERT INTO `inventory_quantity` VALUES ('6', '2', '100');
+INSERT INTO `inventory_quantity` VALUES ('6', '3', '100');
 INSERT INTO `inventory_quantity` VALUES ('6', '4', '100');
 INSERT INTO `inventory_quantity` VALUES ('6', '5', '100');
 INSERT INTO `inventory_quantity` VALUES ('6', '6', '100');
@@ -339,35 +328,11 @@ CREATE TABLE `order` (
   KEY `order_idx_2` (`warehouseId`) USING BTREE,
   CONSTRAINT `order_fk_1` FOREIGN KEY (`accountId`) REFERENCES `account` (`id`),
   CONSTRAINT `order_fk_2` FOREIGN KEY (`warehouseId`) REFERENCES `warehouse_address` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES ('1', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '599.99', '1111', '2016-11-10 18:41:37', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('2', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '1159.99', '1111', '2016-11-10 18:43:39', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('3', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '99.99', '1111', '2016-11-10 18:45:30', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('4', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '99.99', '1111', '2016-11-10 20:12:02', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('5', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '599.99', '1111', '2016-11-14 23:30:02', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('6', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '1759.98', '1111', '2016-11-16 14:47:33', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('7', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '1699.87', '1111', '2016-11-17 02:16:30', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('8', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '599.99', '4444', '2016-11-17 17:02:14', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('9', '1', 'Johnny Lui', '1 Washington Square', 'San Jose, CA 95112', '1', '1759.98', '1211', '2016-11-17 17:11:04', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('10', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '1', '599.99', '1111', '2016-11-17 23:09:47', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('11', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '1', '1159.99', '1111', '2016-11-17 23:11:32', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('12', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '1', '749.99', '1111', '2016-11-17 23:13:58', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('14', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '1', '99.99', '1111', '2016-11-18 19:39:26', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('16', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '1', '99.99', '1111', '2016-11-18 19:42:43', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('17', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '1', '99.99', '1111', '2016-11-18 19:47:12', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('18', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '1', '365.99', '1111', '2016-11-18 19:52:42', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('19', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '1', '449.99', '1111', '2016-11-18 20:07:07', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('20', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '1', '1159.99', '1111', '2016-11-18 20:09:27', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('21', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '1', '119.99', '1111', '2016-11-18 20:11:09', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('22', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '1', '349.99', '1111', '2016-11-18 20:13:08', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('23', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '1', '365.99', '1111', '2016-11-18 20:14:24', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('24', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '6', '599.99', '1111', '2016-11-18 20:51:10', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('25', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '6', '115999.00', '1111', '2016-11-18 21:15:30', 'Shipping', '20.0000000000');
-INSERT INTO `order` VALUES ('26', '1', 'Johnny Lui', '681 Leavesley Rd', 'Gilroy, CA 95020', '6', '13999.60', '1111', '2016-11-18 21:19:15', 'Shipping', '20.0000000000');
 
 -- ----------------------------
 -- Table structure for order_items
@@ -390,37 +355,6 @@ CREATE TABLE `order_items` (
 -- ----------------------------
 -- Records of order_items
 -- ----------------------------
-INSERT INTO `order_items` VALUES ('1', '1', '1', '1', '599.99');
-INSERT INTO `order_items` VALUES ('1', '2', '2', '1', '1159.99');
-INSERT INTO `order_items` VALUES ('1', '3', '3', '1', '99.99');
-INSERT INTO `order_items` VALUES ('1', '4', '3', '1', '99.99');
-INSERT INTO `order_items` VALUES ('1', '5', '1', '1', '599.99');
-INSERT INTO `order_items` VALUES ('1', '5', '3', '1', '100.00');
-INSERT INTO `order_items` VALUES ('1', '6', '1', '1', '599.99');
-INSERT INTO `order_items` VALUES ('1', '6', '2', '1', '1159.99');
-INSERT INTO `order_items` VALUES ('1', '7', '1', '1', '599.99');
-INSERT INTO `order_items` VALUES ('1', '7', '3', '1', '99.99');
-INSERT INTO `order_items` VALUES ('1', '7', '9', '1', '99.99');
-INSERT INTO `order_items` VALUES ('1', '7', '12', '10', '89.99');
-INSERT INTO `order_items` VALUES ('1', '8', '1', '1', '599.99');
-INSERT INTO `order_items` VALUES ('1', '9', '1', '1', '599.99');
-INSERT INTO `order_items` VALUES ('1', '9', '2', '1', '1159.99');
-INSERT INTO `order_items` VALUES ('1', '10', '1', '1', '599.99');
-INSERT INTO `order_items` VALUES ('1', '11', '2', '1', '1159.99');
-INSERT INTO `order_items` VALUES ('1', '12', '4', '1', '749.99');
-INSERT INTO `order_items` VALUES ('1', '14', '3', '1', '99.99');
-INSERT INTO `order_items` VALUES ('1', '16', '3', '1', '99.99');
-INSERT INTO `order_items` VALUES ('1', '17', '3', '1', '99.99');
-INSERT INTO `order_items` VALUES ('1', '18', '8', '1', '365.99');
-INSERT INTO `order_items` VALUES ('1', '19', '11', '1', '449.99');
-INSERT INTO `order_items` VALUES ('1', '20', '2', '1', '1159.99');
-INSERT INTO `order_items` VALUES ('1', '21', '14', '1', '119.99');
-INSERT INTO `order_items` VALUES ('1', '22', '10', '1', '349.99');
-INSERT INTO `order_items` VALUES ('1', '23', '8', '1', '365.99');
-INSERT INTO `order_items` VALUES ('1', '24', '1', '1', '599.99');
-INSERT INTO `order_items` VALUES ('1', '25', '2', '100', '1159.99');
-INSERT INTO `order_items` VALUES ('1', '26', '1', '20', '599.99');
-INSERT INTO `order_items` VALUES ('1', '26', '3', '20', '99.99');
 
 -- ----------------------------
 -- Table structure for warehouse_address
