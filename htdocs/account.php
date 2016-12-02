@@ -474,7 +474,7 @@ require 'include/header.php';
                             $.ajax({
                                 type: "POST",
                                 url: "include/account-actions.php",
-                                data: $('#add-address-form').serialize(),
+                                data: $('#changePassForm').serialize(),
                                 success: function (msg) {
                                     if (msg) {
                                         $("#pass-change-notifications").html(getErrorMessage(msg));
