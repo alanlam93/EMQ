@@ -8,12 +8,15 @@
 	$mysqli->set_charset("utf8");
 	
     //Get terms from search
-    $searchTerms = $_GET['srch-term'];
+    $searchTerms = ($_GET['srch-term']);
+
+    $searchT = mysqli_escape_string($mysqli, $searchTerms);
+
     //Parse terms by ' '
-	$parsedTerms = explode(" ",$searchTerms);
+	$parsedTerms = explode(" ",$searchT);
 
     //Queries products with term in name
-	$searchQuery = "SELECT id, name, price, brand, img_src FROM inventory WHERE name LIKE '%".$searchTerms."%'";
+	$searchQuery = "SELECT id, name, price, brand, img_src FROM inventory WHERE name LIKE '%".$searchT."%'";
 	foreach($parsedTerms as $pT){
 		$searchQuery .= " OR name LIKE '%$pT%' ";
 	}
@@ -31,7 +34,7 @@
         $allBrands[] = $row;
     }
 
-
+    $rowCount = 0;
 	$result->close();
 	$mysqli->close();
 ?>
@@ -72,7 +75,7 @@
                 </div>
     </nav>
 
-<h3 id="catTitle" style="margin-top: 2%;">You have searched for: <?php echo ($searchTerms) ?></h3><br>
+<h3 id="catTitle" style="margin-top: 2%;">You have searched for: <?php echo htmlspecialchars($searchTerms) ?></h3><br>
 <div class="container-fluid">
     <div class="filter col-md-2 responsive hidden-xs hidden-sm">
     <!-- Main Filter Div -->
