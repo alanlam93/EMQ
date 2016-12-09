@@ -128,17 +128,7 @@ if (!isset($_SESSION['userid']) || !isset($orderDetails) || isset($_SESSION['use
                             countdown: true
                         });
 
-               
-                        var addTime = setInterval(function() {
-                            if((clock.getTime().time <= 10) && (finish == false)){
-                                clock.setTime(clock.getTime() + 10);
-                            } 
-                            if(finish) {
-                                clock.setTime(0);
-                                clock.stop();
-                            }
-                        }, 3000);
-
+        
                         function initialize() {
                             infowindow = new google.maps.InfoWindow(
                                     {
